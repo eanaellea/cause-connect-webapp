@@ -1,0 +1,9 @@
+@import "../../designSystem/mixins.scss";
+
+.globalContainer {
+  height: 100%;
+  height: 100%;
+  @include flex-column;
+  align-items: center;
+  justify-content: center;
+}

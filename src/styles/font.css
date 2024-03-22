@@ -1,0 +1,9 @@
+@font-face {
+    font-family: Inter;
+    src: local("Inter"), url("/Inter.ttf") format("truetype");
+}
+
+body * {
+    font-family: Inter, sans-serif;
+    font-variant-numeric: lining-nums tabular-nums;
+}

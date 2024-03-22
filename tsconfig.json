@@ -1,0 +1,66 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "allowJs": true,                   // Allow JavaScript files to be imported inside your TypeScript modules.
+
+    /* Bundler mode */
+    "moduleResolution": "Node",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,         // Report error when not all code paths in function return a value.
+
+    "declaration": true,               // Generates corresponding .d.ts file for each output file.
+    "outDir": "./dist",                // Output directory for compiled files.
+    "types": ["vite/client"],
+
+    /* Strict Type-Checking Options */
+    "noImplicitAny": true,             // Raise error on expressions and declarations with an implied 'any' type.
+    "strictNullChecks": true,          // Enable strict null checks.
+    "strictFunctionTypes": true,       // Enable strict checking of function types.
+    "strictBindCallApply": true,       // Enable strict checking of bind, call, and apply methods on functions.
+    "strictPropertyInitialization": true, // Enable strict checking of property initialization in classes.
+    "noImplicitThis": true,            // Raise error on 'this' expressions with an implied 'any' type.
+    "alwaysStrict": true,              // Ensure 'use strict' directive is in all compiled output.
+    
+
+    /* Module Resolution Options */
+    "baseUrl": ".",                   // Base URL for relative module names.
+    "paths": {
+      "@/*": ["src/*"]
+    },                                 // Map specific module names to specific paths.
+    "esModuleInterop": true,           // Enables default interop for non-ECMAScript module imports (CommonJS, AMD).
+    
+    /* Source Map Options */
+    "sourceMap": true,                 // Generate corresponding .map file for each output file.
+
+    /* Experimental Options */
+    "experimentalDecorators": true,    // Enables experimental support for ES7 decorators.
+
+    /* Other Options */
+
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+  },
+  "include": [
+    "src",
+    "vite.config.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

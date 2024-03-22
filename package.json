@@ -1,0 +1,45 @@
+{
+  "name": "new-kanban",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "ts-standard",
+    "lint:fix": "ts-standard --fix",
+    "stylelint": "stylelint \"**/*.scss\"",
+    "stylelint:fix": "stylelint \"**/*.scss\" --fix",
+    "test": "vitest",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "antd": "^5.12.4",
+    "classnames": "^2.3.2",
+    "i18next": "^23.7.15",
+    "ky": "^1.1.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^14.0.0",
+    "react-router-dom": "^6.20.0",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.1",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react": "^4.2.0",
+    "jsdom": "^23.0.1",
+    "sass": "^1.69.5",
+    "stylelint": "^15.11.0",
+    "stylelint-config-css-modules": "^4.4.0",
+    "stylelint-config-recess-order": "^4.4.0",
+    "stylelint-config-standard-scss": "^11.1.0",
+    "ts-standard": "^12.0.2",
+    "typescript": "^5.1.6",
+    "vite": "^5.0.0",
+    "vitest": "^0.34.6"
+  }
+}
