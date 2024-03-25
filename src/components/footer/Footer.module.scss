@@ -1,0 +1,36 @@
+@import "../../designSystem/mixins.scss";
+
+footer {
+  width: 100%;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 32px;
+
+  .links {
+    @include flex-row;
+    align-items: center;
+    padding: 0 16px;
+
+    .socialMedia {
+      @include flex-row;
+      gap: 16px;
+
+      .socialMediaIcon {
+        font-size: 24px;
+        color: #141414;
+      }
+    }
+
+    .legal {
+      justify-content: end;
+      flex: 1 0 auto;
+    }
+  }
+      
+  .subfooter {
+    @include flex-row;
+    justify-content: center;
+    width: 100%;
+    background-color: #141414;
+    color: #ffffff;
+  }
+}
