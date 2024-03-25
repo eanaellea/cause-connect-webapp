@@ -1,3 +1,19 @@
-.title {
-  color: green;
+@import "../../designSystem/mixins.scss";
+
+.background {
+  position: absolute;
+  bottom: 40vh;
+  width: 100%;
+	height: 80vh;
+  z-index: -1;
+  transform: skewY(-8deg);
+  background-color: #91caff;
+}
+
+section {
+  @include flex-column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
 }

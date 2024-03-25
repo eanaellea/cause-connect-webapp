@@ -1,16 +1,16 @@
 import { FC } from 'react'
-import styles from './Home.module.scss'
-import { useGlobalStore } from '@/store/store'
-import { setTokenAction } from '@/store/authSlice/actions'
+import { Button } from 'antd'
 
+import styles from './Home.module.scss'
 
 export const Home: FC = () => {
-  const token = useGlobalStore((state) => state.token)
-
   return (
-    <div>
-      <h1 className={styles.title}>Home</h1>
-      <input type="text" value={token ?? ""} onChange={(e) => setTokenAction(e.target.value)} />
-    </div>
+    <>
+      <span className={styles.background}></span>
+      <section className={styles.gettingStarted}>
+        <h2>La gestion de votre association, simplifiée</h2>
+        <Button type="primary">Démarrage</Button>
+      </section>
+    </>
   )
 }
