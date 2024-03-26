@@ -1,19 +1,63 @@
 @import "../../designSystem/mixins.scss";
 
-.background {
-  position: absolute;
-  bottom: 40vh;
+.main {
+  flex-grow: 1;
   width: 100%;
-	height: 80vh;
-  z-index: -1;
-  transform: skewY(-8deg);
-  background-color: var(--ant-blue-3);
-}
+  overflow-y: scroll;
+  position: relative;
 
-section {
-  @include flex-column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 100vh;
+  & > :last-child {
+    margin-bottom: 32px;
+  }
+
+  .background {
+    position: absolute;
+    bottom: 40vh;
+    width: 100%;
+    height: 80vh;
+    z-index: -1;
+    transform: skewY(-8deg);
+    background-color: var(--ant-blue-3);
+  }
+
+  section {
+    @include flex-column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 70%;
+
+    &.gettingStarted > button {
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    &.features > .featuresList {
+      @include flex-row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      width: 100%;
+      max-width: 95vw;
+      gap: 16px;
+
+      .feature {
+        width: 256px;
+        background-color: var(--ant-color-bg-base);
+        border: var(--ant-line-width) var(--ant-line-type) var(--ant-color-split);
+
+        &:hover {
+          box-shadow: var(--ant-box-shadow);
+
+          .featureIcon {
+            color: var(--ant-blue);
+          }
+        }
+
+        .featureIcon {
+          font-size: 32px;
+          margin-top: 16px;
+        }
+      }
+    }
+  }
 }
