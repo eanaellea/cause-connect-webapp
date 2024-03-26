@@ -2,9 +2,11 @@ import { Menu } from 'antd'
 import { Link } from 'react-router-dom';
 import { useGlobalStore } from '@/store/store';
 import { setActivePage } from '@/store/layoutSlice/actions';
-import styles from './Header.module.scss'
 
-const items = [
+import styles from './Header.module.scss'
+import { MenuItem } from '@/types.d.tsx';
+
+const items: MenuItem[] = [
   {
     label: (
       <a href="/" target='_self'>
@@ -33,14 +35,20 @@ const items = [
 
 export const Header = () => {
   const currentPage = useGlobalStore(state => state.activePage);
-  const onClick = (e: any) => {
+  const onClick = (e: MenuItem) => {
     setActivePage(e.key);
   }
 
   return (
     <header className={styles.header}>
       <img src="/logo.svg" alt="logo" className={styles.logo}/>
-      <Menu onClick={onClick} className={styles.menu} selectedKeys={[currentPage]} mode="horizontal" items={items} />
+      <Menu className={styles.menu} selectedKeys={[currentPage]} mode="horizontal">
+        {items.map(item => (
+          <Menu.Item key={item.key} onClick={() => onClick(item)}>
+            {item.label}
+          </Menu.Item>
+        ))}
+      </Menu>
     </header>
   )
 }

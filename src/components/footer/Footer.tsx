@@ -3,7 +3,9 @@ import { LinkedinOutlined, FacebookOutlined, InstagramOutlined } from '@ant-desi
 import { Link } from 'react-router-dom';
 import { useGlobalStore } from '@/store/store';
 import { setActivePage } from '@/store/layoutSlice/actions';
+
 import styles from './Footer.module.scss'
+import { MenuItem } from '@/types.d.tsx';
 
 const socialMediaItems = [
 	{
@@ -49,7 +51,7 @@ const items = [
 
 export const Footer = () => {
   const currentPage = useGlobalStore(state => state.activePage);
-  const onClick = (e: any) => {
+  const onClick = (e: MenuItem) => {
     setActivePage(e.key);
   }
 
@@ -64,7 +66,13 @@ export const Footer = () => {
 							</a>
 						))}
 					</div>
-					<Menu onClick={onClick} className={styles.legal} selectedKeys={[currentPage]} mode="horizontal" items={items}/>
+					<Menu className={styles.legal} selectedKeys={[currentPage]} mode="horizontal">
+						{items.map(item => (
+							<Menu.Item key={item.key} onClick={() => onClick(item)}>
+								{item.label}
+							</Menu.Item>
+						))}
+					</Menu>
 				</div>
 				<div className={styles.subfooter}>
 					2024 © PAT
