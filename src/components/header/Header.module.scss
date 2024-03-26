@@ -6,8 +6,8 @@
   align-items: center;
   position: sticky;
   top: 0;
-  background-color: white;
-  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);
+  background-color: var(--ant-color-bg-base);
+  box-shadow: var(--ant-box-shadow);
   z-index: 100;
 
   .logo {
