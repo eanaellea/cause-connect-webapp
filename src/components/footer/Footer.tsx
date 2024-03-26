@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Menu } from 'antd';
 import { LinkedinOutlined, FacebookOutlined, InstagramOutlined } from '@ant-design/icons'
 import styles from './Footer.module.scss'
@@ -20,40 +19,50 @@ const socialMediaItems = [
 
 const items = [
 	{
-		label: 'Politique de confidentialité',
+    label: (
+      <a href="/privacy" target='_self'>
+        Politique de confidentialité
+      </a>
+    ),
 		key: 'privacy',
 	},
 	{
-		label: 'Conditions générales de vente',
+    label: (
+      <a href="/cgv" target='_self'>
+        Conditions générales de vente
+      </a>
+    ),
 		key: 'cgv',
 	},
 	{
-		label: 'Conditions générales d\'utilisation',
+    label: (
+      <a href="/cgu" target='_self'>
+        Conditions générales d'utilisation
+      </a>
+    ),
 		key: 'cgu',
 	},
 ]
 
 export const Footer = () => {
-  const [current, setCurrent] = useState('home');
-  const onClick = (e) => {
-      setCurrent(e.key);
-  };
 
   return (
-		<footer className={styles.footer}>
-			<div className={styles.links}>
-				<div className={styles.socialMedia}>
-					{socialMediaItems.map((item) => (
-						<a href={item.link} key={item.link}>
-							{item.icon}
-						</a>
-					))}
+		<>
+			<footer className={styles.footer}>
+				<div className={styles.links}>
+					<div className={styles.socialMedia}>
+						{socialMediaItems.map((item) => (
+							<a href={item.link} key={item.link}>
+								{item.icon}
+							</a>
+						))}
+					</div>
+					<Menu className={styles.legal} mode="horizontal" items={items}/>
 				</div>
-				<Menu onClick={onClick} mode="horizontal" items={items} className={styles.legal}/>
-			</div>
-			<div className={styles.subfooter}>
-				2024 © PAT
-			</div>
-		</footer>
+				<div className={styles.subfooter}>
+					2024 © PAT
+				</div>
+			</footer>
+		</>
   )
 }
