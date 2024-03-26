@@ -1,5 +1,8 @@
 import { Menu } from 'antd';
 import { LinkedinOutlined, FacebookOutlined, InstagramOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom';
+import { useGlobalStore } from '@/store/store';
+import { setActivePage } from '@/store/layoutSlice/actions';
 import styles from './Footer.module.scss'
 
 const socialMediaItems = [
@@ -28,9 +31,9 @@ const items = [
 	},
 	{
     label: (
-      <a href="/cgv" target='_self'>
+      <Link to="/cgv">
         Conditions générales de vente
-      </a>
+      </Link>
     ),
 		key: 'cgv',
 	},
@@ -45,6 +48,10 @@ const items = [
 ]
 
 export const Footer = () => {
+  const currentPage = useGlobalStore(state => state.activePage);
+  const onClick = (e: any) => {
+    setActivePage(e.key);
+  }
 
   return (
 		<>
@@ -57,7 +64,7 @@ export const Footer = () => {
 							</a>
 						))}
 					</div>
-					<Menu className={styles.legal} mode="horizontal" items={items}/>
+					<Menu onClick={onClick} className={styles.legal} selectedKeys={[currentPage]} mode="horizontal" items={items}/>
 				</div>
 				<div className={styles.subfooter}>
 					2024 © PAT

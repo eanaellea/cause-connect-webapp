@@ -1,15 +1,21 @@
-import { useState } from 'react'
 import { Menu } from 'antd'
+import { Link } from 'react-router-dom';
+import { useGlobalStore } from '@/store/store';
+import { setActivePage } from '@/store/layoutSlice/actions';
 import styles from './Header.module.scss'
 
 const items = [
   {
-    label: 'Accueil',
+    label: (
+      <a href="/" target='_self'>
+        Accueil
+      </a>
+    ),
     key: 'home',
   },
   {
     label: (
-      <a href="#features" target='_self'>
+      <a href="/#features" target='_self'>
         Features
       </a>
     ),
@@ -17,24 +23,24 @@ const items = [
   },
   {
     label: (
-      <a href="/login" target='_self'>
+      <Link to="/login">
         Se connecter
-      </a>
+      </Link>
     ),
     key: 'login',
   },
 ];
 
 export const Header = () => {
-  const [current, setCurrent] = useState('home');
-  const onClick = (e) => {
-    setCurrent(e.key);
-  };
+  const currentPage = useGlobalStore(state => state.activePage);
+  const onClick = (e: any) => {
+    setActivePage(e.key);
+  }
 
   return (
-      <header className={styles.header}>
-        <img src="/logo.svg" alt="logo" className={styles.logo}/>
-        <Menu onClick={onClick} className={styles.menu} selectedKeys={['home']} mode="horizontal" items={items} />
-      </header>
+    <header className={styles.header}>
+      <img src="/logo.svg" alt="logo" className={styles.logo}/>
+      <Menu onClick={onClick} className={styles.menu} selectedKeys={[currentPage]} mode="horizontal" items={items} />
+    </header>
   )
 }
