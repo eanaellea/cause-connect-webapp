@@ -1,14 +1,15 @@
 import { Outlet } from "react-router-dom"
 
 import styles from './GlobalLayout.module.scss'
-import { useGlobalStore } from "@/store/store"
+import { Header } from '@/components/header/Header'
+import { Footer } from '@/components/footer/Footer'
 
 export const GlobalLayout = () => {
-  const token = useGlobalStore((state) => state.token)
   return (
     <div className={styles.globalContainer}>
-      <p>{token}</p>
+      <Header />
       {<Outlet />}
+      <Footer />
     </div>
   )
 }

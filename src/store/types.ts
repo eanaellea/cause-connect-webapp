@@ -6,6 +6,7 @@ export interface AuthSlice {
 
 export interface LayoutSlice {
   isDrawerOpen: boolean;
+  activePage: string;
 }
 
 export interface GlobalStore extends AuthSlice, LayoutSlice {}

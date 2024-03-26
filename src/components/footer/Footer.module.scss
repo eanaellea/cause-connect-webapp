@@ -1,0 +1,38 @@
+@import "../../designSystem/mixins.scss";
+
+.footer {
+  width: 100%;
+  @include flex-column;
+  border-top: var(--ant-line-width) var(--ant-line-type) var(--ant-color-split);
+
+  .links {
+    @include flex-row;
+    align-items: center;
+
+    .socialMedia {
+      @include flex-row;
+      gap: 16px;
+      margin-left: 16px;
+
+      .socialMediaIcon {
+        font-size: 24px;
+        color: var(--ant-color-text);
+      }
+    }
+
+    .legal {
+      justify-content: end;
+      flex: 1 0 auto;
+      min-width: 0;
+    }
+  }
+      
+  .subfooter {
+    @include flex-row;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--ant-color-bg-spotlight);
+    color: var(--ant-color-white);
+  }
+  
+}

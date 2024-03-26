@@ -4,6 +4,7 @@ import { GlobalStore, LayoutSlice } from "../types";
 
 export const initialState: LayoutSlice = {
   isDrawerOpen: false,
+  activePage: 'home',
 };
 
 export const createLayoutSlice: StateCreator<
