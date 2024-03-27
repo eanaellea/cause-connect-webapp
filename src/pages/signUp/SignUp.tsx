@@ -1,4 +1,5 @@
-import { Input, Button } from 'antd';
+import { Input, Divider, Button, Checkbox } from 'antd';
+import { Link } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +15,9 @@ const signUpSchema = z.object({
     logo: z.string().optional(),
     description: z.string(),
   }),
+  terms: z.boolean().refine(val => val === true, {
+    message: "Ce champ est obligatoire",
+  }),
 });
 
 export const SignUp = () => {
@@ -27,7 +31,6 @@ export const SignUp = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <h2>Admin infos</h2>
         <div>
           <label>Admin email</label>
           <Controller
@@ -73,7 +76,6 @@ export const SignUp = () => {
         </div>
       </div>
       <div>
-        <h2>Association infos</h2>
         <div>
           <label>Association name</label>
           <Controller
@@ -101,6 +103,24 @@ export const SignUp = () => {
             )}
           />
           {errors.association?.description && <span>{errors.association.description.message}</span>}
+        </div>
+        <div>
+          <Divider type="horizontal" />
+          <div>
+            <Controller
+              name="terms"
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  {...field}
+                  checked={field.value}
+                >
+                  J'accepte les <Link to="/cgu">Conditions Générales d'Utilisation</Link>
+                </Checkbox>
+              )}
+            />
+            {errors.terms && <span>{errors.terms.message}</span>}
+          </div>
         </div>
       </div>
 
