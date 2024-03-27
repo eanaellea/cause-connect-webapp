@@ -1,5 +1,5 @@
 @import "../../designSystem/mixins.scss";
-
+@import "../../designSystem/variables.scss";
 
 .main {
   @include flex-column;
@@ -17,7 +17,7 @@
     .formContent {
       @include flex-row;
       padding: 16px;
-      border: var(--ant-line-width) var(--ant-line-type) var(--ant-color-split);
+      border: $border;
       border-radius: var(--ant-border-radius);
 
       .horizontalDivider {
