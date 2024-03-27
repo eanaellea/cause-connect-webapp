@@ -3,7 +3,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const createAssociationSchema = z.object({
+const signUpSchema = z.object({
   admin: z.object({
     email: z.string().email(),
     fullName: z.string(),
@@ -15,11 +15,11 @@ const createAssociationSchema = z.object({
   }),
 });
 
-export const CreateAssociation = () => {
-  const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof createAssociationSchema>>({
-    resolver: zodResolver(createAssociationSchema),
+export const SignUp = () => {
+  const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
   })
-  const onSubmit: SubmitHandler<z.infer<typeof createAssociationSchema>> = (data) => {
+  const onSubmit: SubmitHandler<z.infer<typeof signUpSchema>> = (data) => {
     console.log('Submitting', data)
   }
 

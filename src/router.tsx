@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import { GlobalLayout } from '@/pages/globalLayout/GlobalLayout'
 import { Home } from './pages/home/Home'
-import { CreateAssociation } from './pages/createAssociation/CreateAssociation'
+import { SignUp } from './pages/signUp/SignUp'
 
 export const router = createBrowserRouter(
   [
@@ -15,8 +15,8 @@ export const router = createBrowserRouter(
           element: <Home />
         },
         {
-          path: '/create-association',
-          element: <CreateAssociation />
+          path: '/sign-up',
+          element: <SignUp />
         }
       ]
     }
