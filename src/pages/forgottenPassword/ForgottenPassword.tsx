@@ -26,7 +26,7 @@ export const ForgottenPassword = () => {
       <h1>Mot de passe oublié</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.forgottenPasswordForm}>
-        <div className={styles.formControl}>
+        <div>
           <label>Adresse e-mail</label>
           <Controller
             name="email"
