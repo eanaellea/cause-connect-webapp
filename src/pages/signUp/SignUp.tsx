@@ -1,4 +1,4 @@
-import { Input } from 'antd';
+import { Input, Button } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -103,7 +103,10 @@ export const SignUp = () => {
           {errors.association?.description && <span>{errors.association.description.message}</span>}
         </div>
       </div>
-      <input type="submit" />
+
+      <Button type="primary" htmlType="submit">
+        Submit
+      </Button>
     </form>
   )
 }
