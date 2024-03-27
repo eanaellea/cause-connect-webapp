@@ -205,7 +205,7 @@ export const SignUp = () => {
         </div>
 
         <Button type="primary" htmlType="submit">
-          Submit
+          S'inscrire
         </Button>
       </form>
     </main>
