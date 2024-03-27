@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const signUpSchema = z.object({
   admin: z.object({
     email: z.string().email(),
-    fullName: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
   }),
   association: z.object({
     name: z.string(),
@@ -43,18 +44,32 @@ export const SignUp = () => {
           {errors.admin?.email && <span>{errors.admin.email.message}</span>}
         </div>
         <div>
-          <label>Admin full name</label>
+          <label>Prénom de l'administrateur</label>
           <Controller
-            name="admin.fullName"
+            name="admin.firstName"
             control={control}
             render={({ field }) => (
               <Input
                 {...field}
-                placeholder='John Doe'
+                placeholder='John'
               />
             )}
           />
-          {errors.admin?.fullName && <span>{errors.admin.fullName.message}</span>}
+          {errors.admin?.firstName && <span>{errors.admin.firstName.message}</span>}
+        </div>
+        <div>
+          <label>Nom de l'administrateur</label>
+          <Controller
+            name="admin.lastName"
+            control={control}
+            render={({ field }) => (
+              <Input
+                {...field}
+                placeholder='Doe'
+              />
+            )}
+          />
+          {errors.admin?.lastName && <span>{errors.admin.lastName.message}</span>}
         </div>
       </div>
       <div>
