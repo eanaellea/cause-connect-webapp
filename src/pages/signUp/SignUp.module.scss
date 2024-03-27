@@ -1,0 +1,67 @@
+@import "../../designSystem/mixins.scss";
+
+
+.main {
+  @include flex-column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow-y: scroll;
+
+  .signUpForm{
+    @include flex-column;
+    gap: 16px;
+    margin: 16px;
+
+    .formContent {
+      @include flex-row;
+      padding: 16px;
+      border: var(--ant-line-width) var(--ant-line-type) var(--ant-color-split);
+      border-radius: var(--ant-border-radius);
+
+      .horizontalDivider {
+        width: auto;
+        height: 1px;
+        margin: 16px 0;
+      }
+      
+      .verticalDivider {
+        width: 1px;
+        height: auto;
+        margin: 0 16px;
+      }
+
+      .formColumn, .formControlsContainer {
+        @include flex-column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+
+        .formControl {
+          width: 100%;
+
+          &:has(.logoUpload), > .logoUpload {
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+
+            label {
+              justify-self: unset;
+            }
+          }
+        }
+
+        .terms {
+          width: 100%;
+          align-self: start;
+        }
+      }
+    }
+    
+    button {
+      width: fit-content;
+      margin: 0 auto;
+    }
+  }
+}
