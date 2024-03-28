@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
-    "antd": "^5.12.4",
+    "antd": "^5.15.4",
     "classnames": "^2.3.2",
     "i18next": "^23.7.15",
     "ky": "^1.1.3",

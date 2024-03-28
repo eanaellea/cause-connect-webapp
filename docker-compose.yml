@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  react-app:
+    container_name: cause-connect-webapp
+    build: .
+    ports:
+      - "80:80"

@@ -5,5 +5,5 @@ export const toggleDrawer = async (): Promise<void> => {
 };
 
 export const setActivePage = async (newPage: string): Promise<void> => {
-  useGlobalStore.setState((state) => ({ activePage: newPage }));
+  useGlobalStore.setState(() => ({ activePage: newPage }));
 };
