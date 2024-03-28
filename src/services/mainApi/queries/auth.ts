@@ -16,7 +16,7 @@ export const loginQuery = async (
   }
 }
 
-interface SignUpBody {
+interface RegisterBody {
   admin: {
     email: string
     firstName: string
@@ -34,19 +34,19 @@ interface AssociationResponse {
   description: string
 }
 
-export const signUpQuery = async (
-  signUpBody: SignUpBody,
+export const registerQuery = async (
+  registerBody: RegisterBody,
   associationLogo: File | null
 ): Promise<AssociationResponse | null> => {
   try {
     const result = await query.post('associations', {
       json: {
-        ...signUpBody,
+        ...registerBody,
         admin: {
-          ...signUpBody.admin,
+          ...registerBody.admin,
           firstName: undefined,
           lastName: undefined,
-          fullName: `${signUpBody.admin.firstName.slice(0, 1).toUpperCase() + signUpBody.admin.firstName.slice(1)} ${signUpBody.admin.lastName.toUpperCase()}`
+          fullName: `${registerBody.admin.firstName.slice(0, 1).toUpperCase() + registerBody.admin.firstName.slice(1)} ${registerBody.admin.lastName.toUpperCase()}`
         }
       }
     })

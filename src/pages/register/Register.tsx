@@ -5,11 +5,11 @@ import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from 'react'
 
-import styles from './SignUp.module.scss'
+import styles from './Register.module.scss'
 import { ImageUpload } from '@/designSystem/ImageUpload';
-import { signUpQuery } from '@/services/mainApi/queries/auth';
+import { registerQuery } from '@/services/mainApi/queries/auth';
 
-const signUpSchema = z.object({
+const registerSchema = z.object({
   admin: z.object({
     email: z.string().email(),
     firstName: z.string(),
@@ -24,14 +24,14 @@ const signUpSchema = z.object({
   }),
 });
 
-export const SignUp = () => {
+export const Register = () => {
   const [logo, setLogo] = useState<File | null>(null);
 
-  const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof signUpSchema>>({
-    resolver: zodResolver(signUpSchema),
+  const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
   })
-  const onSubmit: SubmitHandler<z.infer<typeof signUpSchema>> = (data) => {
-    signUpQuery(data, logo)
+  const onSubmit: SubmitHandler<z.infer<typeof registerSchema>> = (data) => {
+    registerQuery(data, logo)
     // TODO: Handle the response
   }
 
@@ -39,7 +39,7 @@ export const SignUp = () => {
     <main className={styles.main} >
       <h1>Inscription</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.signUpForm}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.registerForm}>
         <div className={styles.formContent}>
           <div className={styles.formColumn}>
             <div className={`${styles.formControl} ${styles.logoUpload}`}>
