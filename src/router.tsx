@@ -4,6 +4,7 @@ import { GlobalLayout } from '@/pages/globalLayout/GlobalLayout'
 import { Home } from './pages/home/Home'
 import { SignUp } from './pages/signUp/SignUp'
 import { ForgottenPassword } from './pages/forgottenPassword/ForgottenPassword'
+import { LogIn } from './pages/logIn/LogIn'
 
 export const router = createBrowserRouter(
   [
@@ -14,6 +15,10 @@ export const router = createBrowserRouter(
         {
           path: '/',
           element: <Home />
+        },
+        {
+          path: '/login',
+          element: <LogIn />
         },
         {
           path: '/sign-up',
