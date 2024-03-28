@@ -41,7 +41,7 @@
         .formControl {
           width: 100%;
 
-          &:has(.logoUpload), > .logoUpload {
+          &.logoUpload {
             display: flex;
             flex-direction: row;
             gap: 16px;

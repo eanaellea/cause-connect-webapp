@@ -1,13 +1,13 @@
-import { Input, Modal, Upload, Divider, Button, Checkbox } from 'antd';
+import { Input, Divider, Button, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from 'react'
-import type { GetProp, UploadFile, UploadProps } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 
 import styles from './SignUp.module.scss'
+import { ImageUpload } from '@/designSystem/ImageUpload';
+import { signUpQuery } from '@/services/mainApi/queries/auth';
 
 const signUpSchema = z.object({
   admin: z.object({
@@ -17,7 +17,6 @@ const signUpSchema = z.object({
   }),
   association: z.object({
     name: z.string(),
-    logo: z.string().optional(),
     description: z.string(),
   }),
   terms: z.boolean().refine(val => val === true, {
@@ -25,43 +24,8 @@ const signUpSchema = z.object({
   }),
 });
 
-type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
-
-const getBase64 = (file: FileType): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
-
 export const SignUp = () => {
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
-
-  const handleCancel = () => setPreviewOpen(false);
-
-  const handlePreview = async (file: UploadFile) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj as FileType);
-    }
-
-    setPreviewImage(file.url || (file.preview as string));
-    setPreviewOpen(true);
-    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
-  };
-
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
-
-  const uploadButton = (
-    <button style={{ border: 0, background: 'none' }} type="button">
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Importer</div>
-    </button>
-  );
+  const [logo, setLogo] = useState<File | null>(null);
 
   const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -78,31 +42,11 @@ export const SignUp = () => {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.signUpForm}>
         <div className={styles.formContent}>
           <div className={styles.formColumn}>
-            <div className={styles.formControl}>
+            <div className={`${styles.formControl} ${styles.logoUpload}`}>
               <label>Logo de l'association</label>
-              <Controller
-                name="association.logo"
-                control={control}
-                render={({ field }) => (
-                  <>
-                    <Upload
-                      {...field}
-                      // TODO: add action={}
-                      listType="picture-circle"
-                      fileList={fileList}
-                      onPreview={handlePreview}
-                      onChange={handleChange}
-                      className={styles.logoUpload}
-                    >
-                      {fileList.length >= 1 ? null : uploadButton}
-                    </Upload>
-                    <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
-                      <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                    </Modal>
-                  </>
-                )}
+              <ImageUpload
+                onChange={(file) => setLogo(file)}
               />
-              {errors.association?.logo && <span>{errors.association.logo.message}</span>}
             </div>
             <div className={styles.formControl}>
               <label>Nom de l'association</label>
