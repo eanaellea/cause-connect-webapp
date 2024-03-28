@@ -1,4 +1,5 @@
 @import "../../designSystem/mixins.scss";
+@import "../../designSystem/variables.scss";
 
 .main {
   flex-grow: 1;
@@ -43,7 +44,7 @@
       .feature {
         width: 256px;
         background-color: var(--ant-color-bg-base);
-        border: var(--ant-line-width) var(--ant-line-type) var(--ant-color-split);
+        border: $border;
 
         &:hover {
           box-shadow: var(--ant-box-shadow);
