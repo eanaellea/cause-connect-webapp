@@ -1,12 +1,22 @@
 import { query } from '../setup'
 import { handleError } from '../setup/helpers'
 
+interface LoginBody {
+  email: string
+  password: string
+  associationId: string
+}
+
+interface LoginResponse {
+  token: string
+}
+
 export const loginQuery = async (
-  body: any
-): Promise<any | null> => {
+  loginBody: LoginBody
+): Promise<LoginResponse | null> => {
   try {
     const result = await query.post('auth/login', {
-      json: body
+      json: loginBody
     })
     const json = await result.json<any>()
     return json
