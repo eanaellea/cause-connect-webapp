@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Card } from 'antd'
 import { UserOutlined, CalendarOutlined, CreditCardOutlined, FileOutlined } from '@ant-design/icons'
 
@@ -35,7 +36,10 @@ export const Home: FC = () => {
       <span className={styles.background}></span>
       <section className={styles.gettingStarted}>
         <h2>La gestion de votre association, simplifiée</h2>
-        <Button type="primary">Démarrage</Button>
+        <p>Autant manger la grenouille maintenant</p>
+        <Button type="primary">
+          <Link to="/sign-up">Démarrer</Link>
+        </Button>
       </section>
       <section className={styles.features} id="features">
         <h2>Features</h2>

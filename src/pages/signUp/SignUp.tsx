@@ -31,8 +31,8 @@ export const SignUp = () => {
     resolver: zodResolver(signUpSchema),
   })
   const onSubmit: SubmitHandler<z.infer<typeof signUpSchema>> = (data) => {
-    console.log('Submitting', data)
-    console.log('errors', errors)
+    signUpQuery(data, logo)
+    // TODO: Handle the response
   }
 
   return (
