@@ -1,25 +1,45 @@
-import { loginQuery } from "@/services/mainApi/queries/auth";
-import { useGlobalStore } from "../store";
-import { GlobalStore } from "../types";
+import { loginQuery, registerQuery, ResetPasswordBody, resetPasswordQuery } from '@/services/mainApi/queries/auth'
+import { useGlobalStore } from '../store'
+import { GlobalStore } from '../types'
+import { router } from '@/router'
 
 export const loginAction = async (body: any): Promise<void> => {
-  const setState = useGlobalStore.setState;
-  const response = await loginQuery(body);
+  const setState = useGlobalStore.setState
+  const response = await loginQuery(body)
 
   if (response === null) {
-    return;
+    return
   }
 
-  setState({ token: response.token });
+  setState({ token: response.token })
+  await router.navigate('/app')
+}
 
-  // fetchMyInfoAction();
+export const logoutAction = async (): Promise<void> => {
+  useGlobalStore.setState({ token: null, email: null, id: null })
+  await router.navigate('/login')
+}
 
-  /*
-  router.push("/");
-  Toast.show({ type: "success", text1: "You are connected !" });
-  */
-};
+export const registerAction = async (signUpBody: any, associationLogo: File | null): Promise<void> => {
+  const response = await registerQuery(signUpBody, associationLogo)
 
-export const setTokenAction = (newToken: string) => {
-  useGlobalStore.setState((state: GlobalStore) => ({...state, token: newToken}));
+  if (response === null) {
+    return
+  }
+
+  useGlobalStore.setState(() => ({ id: response.id, email: signUpBody.admin.email }))
+
+  await router.navigate('/reset-password')
+}
+
+export const resetPasswordAction = async (resetPasswordBody: ResetPasswordBody): Promise<void> => {
+  const response = await resetPasswordQuery(resetPasswordBody)
+
+  if (response === null) {
+    return
+  }
+
+  useGlobalStore.setState((state: GlobalStore) => ({ ...state, token: response.token }))
+
+  await router.navigate('/app')
 }

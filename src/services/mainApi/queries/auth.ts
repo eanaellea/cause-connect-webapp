@@ -81,3 +81,27 @@ export const registerQuery = async (
     return null
   }
 }
+
+export interface ResetPasswordBody {
+  passwordResetCode: string
+  newPassword: string
+}
+
+export interface ResetPasswordResponse {
+  token: string
+}
+
+export const resetPasswordQuery = async (
+  resetPasswordBody: ResetPasswordBody
+): Promise<ResetPasswordResponse | null> => {
+  try {
+    const response = await query.post('auth/reset-password', {
+      json: resetPasswordBody
+    })
+
+    return await response.json<ResetPasswordResponse>()
+  } catch (e) {
+    handleError(e as Error)
+    return null
+  }
+}
