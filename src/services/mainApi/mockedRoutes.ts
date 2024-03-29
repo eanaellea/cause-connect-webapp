@@ -1,6 +1,6 @@
-import { MockRouter } from "@/services/mocking/MockRouter";
+import { MockRouter } from '@/services/mocking/MockRouter'
 
-export const mockRouter = new MockRouter();
+export const mockRouter = new MockRouter()
 
 /*
 mockRouter.addRoute(
@@ -13,7 +13,6 @@ mockRouter.addRoute(
   },
 );
 */
-
 
 /*
 mockRouter.addRoute(

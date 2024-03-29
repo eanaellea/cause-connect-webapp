@@ -1,45 +1,44 @@
-import { Input, Divider, Button, Checkbox } from 'antd';
-import { Link } from 'react-router-dom';
+import { Input, Divider, Button, Checkbox } from 'antd'
+import { Link } from 'react-router-dom'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FC, useState } from 'react'
 
 import styles from './Register.module.scss'
-import { ImageUpload } from '@/designSystem/ImageUpload';
-import { registerQuery } from '@/services/mainApi/queries/auth';
+import { ImageUpload } from '@/designSystem/ImageUpload'
+import { registerAction } from '@/store/authSlice/actions'
 
 const registerSchema = z.object({
   admin: z.object({
     email: z.string().email(),
     firstName: z.string(),
-    lastName: z.string(),
+    lastName: z.string()
   }),
   association: z.object({
     name: z.string(),
-    description: z.string(),
+    description: z.string()
   }),
-  terms: z.boolean().refine(val => val === true, {
-    message: "Ce champ est obligatoire",
-  }),
-});
+  terms: z.boolean().refine(val => val, {
+    message: 'Ce champ est obligatoire'
+  })
+})
 
-export const Register = () => {
-  const [logo, setLogo] = useState<File | null>(null);
+export const Register: FC = () => {
+  const [logo, setLogo] = useState<File | null>(null)
 
   const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof registerSchema>>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(registerSchema)
   })
   const onSubmit: SubmitHandler<z.infer<typeof registerSchema>> = (data) => {
-    registerQuery(data, logo)
-    // TODO: Handle the response
+    void registerAction(data, logo)
   }
 
   return (
-    <main className={styles.main} >
+    <main className={styles.main}>
       <h1>Inscription</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.registerForm}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.registerForm}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
         <div className={styles.formContent}>
           <div className={styles.formColumn}>
             <div className={`${styles.formControl} ${styles.logoUpload}`}>
@@ -51,7 +50,7 @@ export const Register = () => {
             <div className={styles.formControl}>
               <label>Nom de l'association</label>
               <Controller
-                name="association.name"
+                name='association.name'
                 control={control}
                 render={({ field }) => (
                   <Input
@@ -60,33 +59,33 @@ export const Register = () => {
                   />
                 )}
               />
-              {errors.association?.name && <span>{errors.association.name.message}</span>}
+              {((errors.association?.name) != null) && <span>{errors.association.name.message}</span>}
             </div>
             <div className={styles.formControl}>
               <label>Description de l'association</label>
               <Controller
-                name="association.description"
+                name='association.description'
                 control={control}
                 render={({ field }) => (
                   <Input.TextArea
                     {...field}
-                    status={errors.association?.description ? 'error' : ''}
+                    status={((errors.association?.description) != null) ? 'error' : ''}
                     placeholder='Description of my association'
                   />
                 )}
               />
-              {errors.association?.description && <span>{errors.association.description.message}</span>}
+              {((errors.association?.description) != null) && <span>{errors.association.description.message}</span>}
             </div>
           </div>
 
-          <Divider type="vertical" className={styles.verticalDivider} />
+          <Divider type='vertical' className={styles.verticalDivider} />
 
           <div className={styles.formColumn}>
             <div className={styles.formControlsContainer}>
               <div className={styles.formControl}>
                 <label>Prénom de l'administrateur</label>
                 <Controller
-                  name="admin.firstName"
+                  name='admin.firstName'
                   control={control}
                   render={({ field }) => (
                     <Input
@@ -95,12 +94,12 @@ export const Register = () => {
                     />
                   )}
                 />
-                {errors.admin?.firstName && <span>{errors.admin.firstName.message}</span>}
+                {((errors.admin?.firstName) != null) && <span>{errors.admin.firstName.message}</span>}
               </div>
               <div className={styles.formControl}>
                 <label>Nom de l'administrateur</label>
                 <Controller
-                  name="admin.lastName"
+                  name='admin.lastName'
                   control={control}
                   render={({ field }) => (
                     <Input
@@ -109,46 +108,46 @@ export const Register = () => {
                     />
                   )}
                 />
-                {errors.admin?.lastName && <span>{errors.admin.lastName.message}</span>}
+                {((errors.admin?.lastName) != null) && <span>{errors.admin.lastName.message}</span>}
               </div>
               <div className={styles.formControl}>
                 <label>Adresse e-mail de l'administrateur</label>
                 <Controller
-                  name="admin.email"
+                  name='admin.email'
                   control={control}
                   render={({ field }) => (
                     <Input
                       {...field}
-                      type="email"
+                      type='email'
                       placeholder='admin@email.com'
                     />
                   )}
                 />
-                {errors.admin?.email && <span>{errors.admin.email.message}</span>}
+                {((errors.admin?.email) != null) && <span>{errors.admin.email.message}</span>}
               </div>
             </div>
             <div className={styles.terms}>
-              <Divider type="horizontal" className={styles.horizontalDivider} />
+              <Divider type='horizontal' className={styles.horizontalDivider} />
               <div className={styles.formControl}>
                 <Controller
-                  name="terms"
+                  name='terms'
                   control={control}
                   render={({ field }) => (
                     <Checkbox
                       {...field}
                       checked={field.value}
                     >
-                      J'accepte les <Link to="/cgu">Conditions Générales d'Utilisation</Link>
+                      J'accepte les <Link to='/cgu'>Conditions Générales d'Utilisation</Link>
                     </Checkbox>
                   )}
                 />
-                {errors.terms && <span>{errors.terms.message}</span>}
+                {(errors.terms != null) && <span>{errors.terms.message}</span>}
               </div>
             </div>
           </div>
         </div>
 
-        <Button type="primary" htmlType="submit">
+        <Button type='primary' htmlType='submit'>
           S'inscrire
         </Button>
       </form>
