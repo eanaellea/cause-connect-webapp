@@ -29,13 +29,18 @@ const features = [
   },
 ]
 
+const createToken = () => {
+  localStorage.setItem('token', 'token')
+  console.log(localStorage.getItem('token'))
+}
+
 export const Home: FC = () => {
   return (
     <main className={styles.main} >
       <span className={styles.background}></span>
       <section className={styles.gettingStarted}>
         <h2>La gestion de votre association, simplifiée</h2>
-        <Button type="primary">Démarrage</Button>
+        <Button type="primary" onClick={createToken}>Démarrage</Button>
       </section>
       <section className={styles.features} id="features">
         <h2>Features</h2>
