@@ -2,7 +2,7 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 
 import { GlobalLayout } from '@/pages/globalLayout/GlobalLayout'
 import { Home } from './pages/home/Home'
-import { SignUp } from './pages/signUp/SignUp'
+import { Register } from './pages/register/Register'
 import { ForgottenPassword } from './pages/forgottenPassword/ForgottenPassword'
 import { LogIn } from './pages/logIn/LogIn'
 import { PublicLayout } from './pages/publicLayout/PublicLayout'
@@ -39,8 +39,8 @@ export const router = createBrowserRouter(
           element: <LogIn />
         },
         {
-          path: '/sign-up',
-          element: <SignUp />
+          path: '/register',
+          element: <Register />
         },
         {
           path: '/forgotten-password',

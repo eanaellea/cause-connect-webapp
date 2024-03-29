@@ -4,7 +4,8 @@ import ky from "ky";
 import { authInterceptor } from "./setup/authInterceptor";
 
 export const query = ky.create({
-  prefixUrl: "http://localhost:3000",
+  prefixUrl: "https://api.causeconnect.fr",
+  // prefixUrl: "http://localhost:3000",
   headers: {},
   hooks: {
     beforeRequest: [authInterceptor, mockBeforeRequestInterceptor],

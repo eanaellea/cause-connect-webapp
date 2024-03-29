@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Card } from 'antd'
 import { UserOutlined, CalendarOutlined, CreditCardOutlined, FileOutlined } from '@ant-design/icons'
 
@@ -29,18 +30,16 @@ const features = [
   },
 ]
 
-const createToken = () => {
-  localStorage.setItem('token', 'token')
-  console.log(localStorage.getItem('token'))
-}
-
 export const Home: FC = () => {
   return (
     <main className={styles.main} >
       <span className={styles.background}></span>
       <section className={styles.gettingStarted}>
         <h2>La gestion de votre association, simplifiée</h2>
-        <Button type="primary" onClick={createToken}>Démarrage</Button>
+        <p>Autant manger la grenouille maintenant</p>
+        <Button type="primary">
+          <Link to="/register">Démarrer</Link>
+        </Button>
       </section>
       <section className={styles.features} id="features">
         <h2>Features</h2>
