@@ -5,13 +5,13 @@ import {
   FileTextOutlined,
   LogoutOutlined
 } from '@ant-design/icons'
-import { createElement, FC, MouseEventHandler, useState } from 'react'
-import Sider from 'antd/es/layout/Sider'
+import { createElement, FC } from 'react'
 import { Layout, Menu, MenuProps } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 import styles from './appLayout.module.scss'
 import { router } from '@/router'
 import { logoutAction } from '@/store/authSlice/actions'
+import { SideBar } from '@/components/sider/SideBar'
 
 interface MenuItem {
   key: string
@@ -27,7 +27,6 @@ const menuItems: MenuItem[] = [
     icon: HomeOutlined,
     label: 'Home',
     url: '/app',
-    action: () => alert('clicked home')
   },
   {
     key: 'documents',
@@ -49,16 +48,6 @@ const items: MenuProps['items'] = menuItems.map((item) => ({
 }))
 
 export const AppLayout: FC = () => {
-  const [isSliderOpen, setIsSliderOpen] = useState(false)
-
-  const handleMouseEnter: MouseEventHandler = () => {
-    setIsSliderOpen(true)
-  }
-
-  const handleMouseLeave: MouseEventHandler = () => {
-    setIsSliderOpen(false)
-  }
-
   const handleMenuItemClick: MenuProps['onClick'] = ({ key }) => {
     const item = menuItems.find((item) => item?.key === key)
     if (item === null || item === undefined) {
@@ -75,23 +64,12 @@ export const AppLayout: FC = () => {
     }
   }
 
-  const OPEN_SLIDER_WIDTH = 200
-  const CLOSE_SLIDER_WIDTH = 70
-
   return (
     <Layout hasSider className={styles.appContainer}>
-      <Sider
-        className={styles.sider}
-        theme='light'
-        width={
-          isSliderOpen ? OPEN_SLIDER_WIDTH : CLOSE_SLIDER_WIDTH
-        }
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      <SideBar>
         <div className='demo-logo-vertical' />
         <Menu mode='inline' defaultSelectedKeys={['home']} items={items} onClick={handleMenuItemClick} />
-      </Sider>
+      </SideBar>
       <Layout>
         <Content className={styles.content}>
           <Outlet />

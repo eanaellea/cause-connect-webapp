@@ -10,6 +10,7 @@ import { Dashboard } from './pages/dashboard/Dashboard'
 import { ResetPassword } from './pages/resetPassword/ResetPassword'
 import { PublicLayout } from './pages/layouts/publicLayout/PublicLayout'
 import { AppLayout } from './pages/layouts/appLayout/AppLayout'
+import { Documents } from './pages/documents/Documents'
 
 export const router = createBrowserRouter(
   [
@@ -56,6 +57,10 @@ export const router = createBrowserRouter(
             {
               path: '',
               element: <Dashboard />
+            },
+            {
+              path: 'documents',
+              element: <Documents />
             }
           ]
         }
