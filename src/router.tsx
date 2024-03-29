@@ -1,6 +1,6 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 
-import { GlobalLayout } from '@/pages/globalLayout/GlobalLayout'
+import { GlobalLayout } from '@/pages/layouts/globalLayout/GlobalLayout'
 import { Home } from './pages/home/Home'
 import { Register } from './pages/register/Register'
 import { ForgottenPassword } from './pages/forgottenPassword/ForgottenPassword'
@@ -8,7 +8,8 @@ import { LogIn } from './pages/logIn/LogIn'
 import { useGlobalStore } from './store/store'
 import { Dashboard } from './pages/dashboard/Dashboard'
 import { ResetPassword } from './pages/resetPassword/ResetPassword'
-import { PublicLayout } from './pages/publicLayout/PublicLayout'
+import { PublicLayout } from './pages/layouts/publicLayout/PublicLayout'
+import { AppLayout } from './pages/layouts/appLayout/AppLayout'
 
 export const router = createBrowserRouter(
   [
@@ -50,7 +51,13 @@ export const router = createBrowserRouter(
             }
             return null
           },
-          element: <Dashboard />
+          element: <AppLayout />,
+          children: [
+            {
+              path: '',
+              element: <Dashboard />
+            }
+          ]
         }
       ]
     }

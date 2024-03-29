@@ -12,10 +12,12 @@ export const loginAction = async (body: any): Promise<void> => {
   }
 
   setState({ token: response.token })
+  await router.navigate('/app')
 }
 
-export const setTokenAction = (newToken: string): void => {
-  useGlobalStore.setState((state: GlobalStore) => ({ ...state, token: newToken }))
+export const logoutAction = async (): Promise<void> => {
+  useGlobalStore.setState({ token: null, email: null, id: null })
+  await router.navigate('/login')
 }
 
 export const registerAction = async (signUpBody: any, associationLogo: File | null): Promise<void> => {
@@ -39,5 +41,5 @@ export const resetPasswordAction = async (resetPasswordBody: ResetPasswordBody):
 
   useGlobalStore.setState((state: GlobalStore) => ({ ...state, token: response.token }))
 
-  await router.navigate('/')
+  await router.navigate('/app')
 }
