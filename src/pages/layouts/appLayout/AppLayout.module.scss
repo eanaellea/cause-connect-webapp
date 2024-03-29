@@ -1,0 +1,19 @@
+@import "../../../designSystem/mixins.scss";
+
+.sider {
+  overflow: 'auto';
+  height: 100%;
+  position: 'fixed';
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.content {
+  margin: 24px 16px 0;
+  overflow: initial;
+}
+
+.appContainer {
+  height: 100%;
+}
