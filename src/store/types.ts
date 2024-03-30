@@ -15,13 +15,11 @@ export interface DocumentsSlice {
 
 export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice {}
 
-
-
 // useful types for the slices
-interface Document {
-  id: string;
-  title: string;
-  fileUrl: string;
-  visibility: 'PUBLIC' | 'PRIVATE';
-  permissions: string[];
+export interface Document {
+  id: string
+  title: string
+  fileUrl: string
+  visibility: 'PUBLIC' | 'PRIVATE'
+  permissions: string[]
 }
