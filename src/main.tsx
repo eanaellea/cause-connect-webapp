@@ -6,6 +6,7 @@ import { router } from '@/router'
 import '@/localization/i18n'
 
 import './styles/global.css'
+import { Toaster } from 'react-hot-toast'
 
 function init (): void {
   const root = document.getElementById('root')
@@ -18,6 +19,7 @@ function init (): void {
         }}
       >
         <RouterProvider router={router} />
+        <Toaster />
       </ConfigProvider>
     )
   }

@@ -10,6 +10,8 @@ import { Dashboard } from './pages/dashboard/Dashboard'
 import { ResetPassword } from './pages/resetPassword/ResetPassword'
 import { PublicLayout } from './pages/layouts/publicLayout/PublicLayout'
 import { AppLayout } from './pages/layouts/appLayout/AppLayout'
+import { Documents } from './pages/documents/Documents'
+import { useShareCodeAction } from './store/documentsSlice/actions'
 
 export const router = createBrowserRouter(
   [
@@ -56,6 +58,22 @@ export const router = createBrowserRouter(
             {
               path: '',
               element: <Dashboard />
+            },
+            {
+              path: 'documents',
+              element: <Documents />,
+              children: [
+                {
+                  path: 'use-share-code/:shareCode',
+                  loader: async ({ params }) => {
+                    if (params.shareCode === undefined) {
+                      return redirect('/app/documents')
+                    }
+                    await useShareCodeAction(params.shareCode)
+                    return redirect('/app/documents')
+                  }
+                }
+              ]
             }
           ]
         }

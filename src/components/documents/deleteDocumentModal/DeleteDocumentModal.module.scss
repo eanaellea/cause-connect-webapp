@@ -1,0 +1,9 @@
+:global {
+  .ant-input-group-addon {
+    padding: 0!important;
+  }
+}
+
+.inputIcon {
+  padding: 0 var(--ant-input-padding-inline);
+}
