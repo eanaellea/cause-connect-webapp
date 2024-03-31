@@ -30,6 +30,10 @@ export const router = createBrowserRouter(
               element: <LogIn />
             },
             {
+              path: 'first-login',
+              element: <ResetPassword title='Première connexion' buttonContent='Connexion'/>
+            },
+            {
               path: 'register',
               element: <Register />
             },
@@ -39,7 +43,7 @@ export const router = createBrowserRouter(
             },
             {
               path: 'reset-password',
-              element: <ResetPassword />
+              element: <ResetPassword title='Réinitialiser le mot de passe' buttonContent='Réinitialiser le mot de passe'/>
             }
           ]
         },

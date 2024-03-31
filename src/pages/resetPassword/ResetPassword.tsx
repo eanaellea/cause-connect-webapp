@@ -2,10 +2,10 @@ import { Input, Button } from 'antd'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-import styles from './ResetPassword.module.scss'
 import { FC } from 'react'
 import { useGlobalStore } from '@/store/store'
+
+import styles from './ResetPassword.module.scss'
 import { resetPasswordAction } from '@/store/authSlice/actions'
 
 const forgottenPasswordSchema = z.object({
@@ -13,7 +13,13 @@ const forgottenPasswordSchema = z.object({
   newPassword: z.string().min(8)
 })
 
-export const ResetPassword: FC = () => {
+interface ResetPasswordProps {
+  title: string,
+  buttonContent: string
+}
+
+
+export const ResetPassword: FC<ResetPasswordProps> = ({title, buttonContent}) => {
   const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof forgottenPasswordSchema>>({
     resolver: zodResolver(forgottenPasswordSchema)
   })
@@ -25,11 +31,11 @@ export const ResetPassword: FC = () => {
 
   return (
     <main className={styles.main}>
-      <h1>Réinitialiser le mot de passe</h1>
+      <h1>{title}</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.forgottenPasswordForm}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
         <div>
-          <label>Code de réinitialisation (envoyé par email à {email})</label>
+          <label>Code de réinitialisation (envoyé par email{email ? ` à ${email}` : ''})</label>
           <Controller
             name='passwordResetCode'
             control={control}
@@ -60,7 +66,7 @@ export const ResetPassword: FC = () => {
         </div>
 
         <Button type='primary' htmlType='submit'>
-          Réinitialiser le mot de passe
+          {buttonContent}
         </Button>
       </form>
     </main>

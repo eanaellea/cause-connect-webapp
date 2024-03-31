@@ -9,6 +9,7 @@ import { SearchableSelect } from '@/designSystem/SearchableSelect'
 import { Association } from '@/models/Association'
 import { getAssociationsQuery } from '@/services/mainApi/queries/associations'
 import { loginAction } from '@/store/authSlice/actions'
+import { Link } from 'react-router-dom'
 
 const logInSchema = z.object({
   associationId: z.string(),
@@ -38,6 +39,8 @@ export const LogIn: FC = () => {
   return (
     <main className={styles.main}>
       <h1>Connexion</h1>
+
+      <p>Si vous vous connectez pour la première fois, cliquez <Link to="/first-login">ici</Link>.</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.logInForm}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
         <div className={styles.formControl}>
