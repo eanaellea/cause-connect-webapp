@@ -29,7 +29,7 @@ export const registerAction = async (signUpBody: any, associationLogo: File | nu
 
   useGlobalStore.setState(() => ({ id: response.id, email: signUpBody.admin.email }))
 
-  await router.navigate('/first-login')
+  await router.navigate('/welcome')
 }
 
 export const resetPasswordAction = async (resetPasswordBody: ResetPasswordBody): Promise<void> => {

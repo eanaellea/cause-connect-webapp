@@ -1,0 +1,10 @@
+@import "../../designSystem/mixins.scss";
+
+.main {
+  @include flex-column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow-y: scroll;
+}
