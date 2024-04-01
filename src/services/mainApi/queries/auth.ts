@@ -42,18 +42,16 @@ export interface User {
 }
 
 export interface fetchMeResponse {
-  user: {
+  id: string
+  email: string
+  role: UserRole
+  fullName: string
+  association: {
     id: string
-    email: string
-    role: UserRole
-    fullName: string
-    association: {
-      id: string
-      name: string
-      description: string
-      logo: string
-    }
-  },
+    name: string
+    description: string
+    logo: string
+  }
 }
 
 export const fetchMe = async (): Promise<fetchMeResponse> => {

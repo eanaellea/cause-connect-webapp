@@ -1,3 +1,4 @@
+import { Association } from '@/models/Association'
 import { User } from '@/services/mainApi/queries/auth'
 import { QuestionAnswersCount, Vote } from '@/services/mainApi/queries/votes'
 
@@ -15,6 +16,10 @@ export interface DocumentsSlice {
   documents: Document[]
 }
 
+export interface AssociationSlice {
+  association: Association | null
+}
+
 export interface VotesSlice {
   publicVotes: Vote[]
   currentDisplayedVote: Vote | null
@@ -22,7 +27,8 @@ export interface VotesSlice {
   currentVoteWinningOption: string | null
 }
 
-export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice {}
+export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice {
+}
 
 // useful types for the slices
 export interface Document {

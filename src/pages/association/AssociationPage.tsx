@@ -7,13 +7,12 @@ import styles from './AssociationPage.module.scss'
 
 export const AssociationPage: FC = () => {
 
-  const association = useGlobalStore(state => state.user?.association)
+  const association = useGlobalStore(state => state.association!)
 
   return (
-    association === undefined ? null :
     <div className={styles.profile}>
       <h1>Informations de l'association</h1>
-      <Alert message="Le changement du logo est irreversible." type="warning" />
+      <Alert message="Le changement du logo ne demande aucune confirmation." type="info" showIcon/>
       <AssociationCard association={association} />
     </div>
   )

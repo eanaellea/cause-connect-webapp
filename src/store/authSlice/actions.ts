@@ -15,12 +15,12 @@ export const loginAction = async (body: any): Promise<void> => {
 
   const myInfo = await fetchMe()
 
-  setState((state: GlobalStore) => ({ ...state, association: myInfo.user.association }))
+  setState((state: GlobalStore) => ({ ...state, association: myInfo.association }))
   setState((state: GlobalStore) => ({ ...state, user: {
-    id: myInfo.user.id,
-    email: myInfo.user.email,
-    role: myInfo.user.role,
-    fullName: myInfo.user.fullName
+    id: myInfo.id,
+    email: myInfo.email,
+    role: myInfo.role,
+    fullName: myInfo.fullName
   } }))
 
   await router.navigate('/app')
@@ -70,12 +70,12 @@ export const resetPasswordAction = async (resetPasswordBody: ResetPasswordBody):
 
   const myInfo = await fetchMe()
 
-  setState((state: GlobalStore) => ({ ...state, association: myInfo.user.association }))
+  setState((state: GlobalStore) => ({ ...state, association: myInfo.association }))
   setState((state: GlobalStore) => ({ ...state, user: {
-    id: myInfo.user.id,
-    email: myInfo.user.email,
-    role: myInfo.user.role,
-    fullName: myInfo.user.fullName
+    id: myInfo.id,
+    email: myInfo.email,
+    role: myInfo.role,
+    fullName: myInfo.fullName
   } }))
 
   await router.navigate('/app')

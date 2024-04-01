@@ -7,6 +7,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 import { ImageUpload } from '@/designSystem/ImageUpload'
 import styles from './AssociationCard.module.scss'
+import { updateAssociationAction, updateAssociationLogoAction } from "@/store/associationSlice/actions"
 
 const updateAssocitaionSchema = z.object({
   name: z.string(),
@@ -18,7 +19,8 @@ interface AssociationProfileProps {
 }
 
 export const AssociationCard: FC<AssociationProfileProps> = ({association}) => {
-  const [newLogo, setLogo] = useState<UploadFile>({
+
+  const [logo, setLogo] = useState<UploadFile>({
     uid: '-1',
     name: 'image.png',
     status: 'done',
@@ -33,7 +35,10 @@ export const AssociationCard: FC<AssociationProfileProps> = ({association}) => {
     }
   })
   const onSubmit: SubmitHandler<z.infer<typeof updateAssocitaionSchema>> = (data) => {
-    console.log('Submitting', data, newLogo)
+    void updateAssociationAction(association.id, data)
+  }
+  const onLogoChange = (file: File) => {
+    void updateAssociationLogoAction(association.id, file)
   }
 
   return (
@@ -42,8 +47,11 @@ export const AssociationCard: FC<AssociationProfileProps> = ({association}) => {
       <div className={`${styles.formControl} ${styles.logoUpload}`}>
         <label>Logo de l'association</label>
         <ImageUpload
-          initialImage={newLogo.url}
-          onChange={(file) => setLogo({ ...file, uid: '-1' })}
+          initialImage={logo.url}
+          onChange={(file) => {
+            onLogoChange(file)
+            setLogo({ ...file, uid: '-1' })
+          }}
         />
       </div>
       <div className={styles.formControl}>
