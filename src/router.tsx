@@ -10,6 +10,7 @@ import { Dashboard } from './pages/dashboard/Dashboard'
 import { ResetPassword } from './pages/resetPassword/ResetPassword'
 import { PublicLayout } from './pages/layouts/publicLayout/PublicLayout'
 import { AppLayout } from './pages/layouts/appLayout/AppLayout'
+import { Welcome } from './pages/welcome/Welcome'
 import { Documents } from './pages/documents/Documents'
 import { useShareCodeAction } from './store/documentsSlice/actions'
 import { Votes } from './pages/votes/Votes'
@@ -33,6 +34,14 @@ export const router = createBrowserRouter(
               element: <LogIn />
             },
             {
+              path: 'first-login',
+              element: <ResetPassword title='Première connexion' buttonContent='Connexion'/>
+            },
+            {
+              path: 'welcome',
+              element: <Welcome/>
+            },
+            {
               path: 'register',
               element: <Register />
             },
@@ -42,7 +51,7 @@ export const router = createBrowserRouter(
             },
             {
               path: 'reset-password',
-              element: <ResetPassword />
+              element: <ResetPassword title='Réinitialiser le mot de passe' buttonContent='Réinitialiser le mot de passe'/>
             }
           ]
         },

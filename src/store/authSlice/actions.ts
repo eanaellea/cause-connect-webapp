@@ -43,7 +43,7 @@ export const registerAction = async (signUpBody: any, associationLogo: File | nu
       }
     }))
 
-  await router.navigate('/reset-password')
+  await router.navigate('/welcome')
 }
 
 export const resetPasswordAction = async (resetPasswordBody: ResetPasswordBody): Promise<void> => {
