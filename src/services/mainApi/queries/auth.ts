@@ -1,3 +1,4 @@
+import { Association } from '@/models/Association'
 import { query } from '../setup'
 import { handleError } from '../setup/helpers'
 
@@ -38,6 +39,7 @@ export interface User {
   email: string
   fullName: string
   role: UserRole
+  association: Association
 }
 
 export const fetchMe = async (): Promise<User> => {

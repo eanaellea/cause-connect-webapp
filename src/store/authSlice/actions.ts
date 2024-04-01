@@ -36,10 +36,16 @@ export const registerAction = async (signUpBody: any, associationLogo: File | nu
     {
       ...state,
       user: {
-        id: response.id,
+        id: "",
         email: signUpBody.admin.email,
         role: UserRole.ADMIN,
-        fullName: signUpBody.admin.fullName
+        fullName: signUpBody.admin.fullName,
+        association: {
+          id: response.id,
+          name: response.name,
+          description: response.description,
+          logo: response.logo
+        }
       }
     }))
 
@@ -47,13 +53,18 @@ export const registerAction = async (signUpBody: any, associationLogo: File | nu
 }
 
 export const resetPasswordAction = async (resetPasswordBody: ResetPasswordBody): Promise<void> => {
+  const setState = useGlobalStore.setState
   const response = await resetPasswordQuery(resetPasswordBody)
 
   if (response === null) {
     return
   }
 
-  useGlobalStore.setState((state: GlobalStore) => ({ ...state, token: response.token }))
+  setState((state: GlobalStore) => ({ ...state, token: response.token }))
+
+  const myInfo = await fetchMe()
+
+  setState({ user: myInfo })
 
   await router.navigate('/app')
 }
