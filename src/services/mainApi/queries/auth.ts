@@ -39,12 +39,26 @@ export interface User {
   email: string
   fullName: string
   role: UserRole
-  association: Association
 }
 
-export const fetchMe = async (): Promise<User> => {
+export interface fetchMeResponse {
+  user: {
+    id: string
+    email: string
+    role: UserRole
+    fullName: string
+    association: {
+      id: string
+      name: string
+      description: string
+      logo: string
+    }
+  },
+}
+
+export const fetchMe = async (): Promise<fetchMeResponse> => {
   const result = await query.get('users/me')
-  const connectedUser = await result.json<User>()
+  const connectedUser = await result.json<fetchMeResponse>()
   return connectedUser
 }
 
