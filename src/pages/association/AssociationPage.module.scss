@@ -1,0 +1,8 @@
+@import "../../designSystem/mixins.scss";
+
+.profile {
+  @include flex-column;
+  gap: 16px;
+  width: 50%;
+  max-width: 700px;
+}

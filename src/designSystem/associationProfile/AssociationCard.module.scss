@@ -5,8 +5,6 @@
   @include flex-column;
   gap: 16px;
   justify-content: center;
-  width: 80%;
-  max-width: 700px;
 
   .formContent {
     @include flex-column;
