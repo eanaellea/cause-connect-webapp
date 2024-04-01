@@ -26,6 +26,26 @@ export const loginQuery = async (
   }
 }
 
+export enum UserRole {
+  SUPER_ADMIN = 'super_admin',
+  ADMIN = 'admin',
+  INTERNAL = 'internal',
+  EXTERNAL = 'external',
+}
+
+export interface User {
+  id: string
+  email: string
+  fullName: string
+  role: UserRole
+}
+
+export const fetchMe = async (): Promise<User> => {
+  const result = await query.get('users/me')
+  const connectedUser = await result.json<User>()
+  return connectedUser
+}
+
 interface RegisterBody {
   admin: {
     email: string
@@ -37,6 +57,7 @@ interface RegisterBody {
     description: string
   }
 }
+
 interface AssociationResponse {
   id: string
   name: string

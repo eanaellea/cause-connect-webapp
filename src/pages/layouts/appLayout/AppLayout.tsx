@@ -1,9 +1,10 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 import {
   HomeOutlined,
   FileTextOutlined,
-  LogoutOutlined
+  LogoutOutlined,
+  SignatureOutlined
 } from '@ant-design/icons'
 import { createElement, FC } from 'react'
 import { Layout, Menu, MenuProps } from 'antd'
@@ -26,13 +27,19 @@ const menuItems: MenuItem[] = [
     key: 'home',
     icon: HomeOutlined,
     label: 'Home',
-    url: '/app',
+    url: '/app'
   },
   {
     key: 'documents',
     icon: FileTextOutlined,
     label: 'Documents',
     url: '/app/documents'
+  },
+  {
+    key: 'votes',
+    icon: SignatureOutlined,
+    label: 'Votes',
+    url: '/app/votes'
   },
   {
     key: 'logout',
@@ -43,11 +50,16 @@ const menuItems: MenuItem[] = [
 ]
 
 const items: MenuProps['items'] = menuItems.map((item) => ({
-  ...item,
+  key: item.key,
+  label: item.label,
   icon: createElement(item.icon)
 }))
 
 export const AppLayout: FC = () => {
+  const { pathname } = useLocation()
+
+  const selectedMenuKey = menuItems.find((item) => item.url === pathname)?.key
+
   const handleMenuItemClick: MenuProps['onClick'] = ({ key }) => {
     const item = menuItems.find((item) => item?.key === key)
     if (item === null || item === undefined) {
@@ -68,7 +80,7 @@ export const AppLayout: FC = () => {
     <Layout hasSider className={styles.appContainer}>
       <SideBar>
         <div className='demo-logo-vertical' />
-        <Menu mode='inline' defaultSelectedKeys={['home']} items={items} onClick={handleMenuItemClick} />
+        <Menu mode='inline' defaultSelectedKeys={[selectedMenuKey ?? '']} items={items} onClick={handleMenuItemClick} />
       </SideBar>
       <Layout>
         <Content className={styles.content}>

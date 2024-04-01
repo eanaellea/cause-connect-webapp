@@ -1,5 +1,5 @@
-import Sider from "antd/es/layout/Sider"
-import { FC, MouseEventHandler, ReactNode, useState } from "react"
+import Sider from 'antd/es/layout/Sider'
+import { FC, MouseEventHandler, ReactNode, useState } from 'react'
 import styles from './SideBar.module.scss'
 
 interface Props {
@@ -19,16 +19,17 @@ export const SideBar: FC<Props> = ({ children }) => {
   const handleMouseLeave: MouseEventHandler = () => {
     setIsSliderOpen(false)
   }
-  
+
   return (
     <Sider
-        className={styles.sider}
-        theme='light'
-        width={
+      className={styles.sider}
+      theme='light'
+      width={
           isSliderOpen ? OPEN_SLIDER_WIDTH : CLOSE_SLIDER_WIDTH
         }
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >{children}</Sider>
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >{children}
+    </Sider>
   )
 }

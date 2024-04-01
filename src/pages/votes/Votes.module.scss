@@ -1,0 +1,16 @@
+.votesContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.votesHeader {
+  display: flex;
+  gap: 16px;
+}
+
+.votesList {
+  display: flex;
+  padding: 16px 0;
+  gap: 16px;
+  flex-wrap: wrap;
+}

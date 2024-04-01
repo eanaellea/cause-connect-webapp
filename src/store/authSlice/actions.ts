@@ -1,4 +1,4 @@
-import { loginQuery, registerQuery, ResetPasswordBody, resetPasswordQuery } from '@/services/mainApi/queries/auth'
+import { fetchMe, loginQuery, registerQuery, ResetPasswordBody, resetPasswordQuery, UserRole } from '@/services/mainApi/queries/auth'
 import { useGlobalStore } from '../store'
 import { GlobalStore } from '../types'
 import { router } from '@/router'
@@ -11,12 +11,14 @@ export const loginAction = async (body: any): Promise<void> => {
     return
   }
 
-  setState({ token: response.token })
+  const myInfo = await fetchMe()
+
+  setState({ token: response.token, user: myInfo })
   await router.navigate('/app')
 }
 
 export const logoutAction = async (): Promise<void> => {
-  useGlobalStore.setState({ token: null, email: null, id: null })
+  useGlobalStore.setState({ token: null, user: null })
   await router.navigate('/login')
 }
 
@@ -27,7 +29,16 @@ export const registerAction = async (signUpBody: any, associationLogo: File | nu
     return
   }
 
-  useGlobalStore.setState(() => ({ id: response.id, email: signUpBody.admin.email }))
+  useGlobalStore.setState((state) => (
+    {
+      ...state,
+      user: {
+        id: response.id,
+        email: signUpBody.admin.email,
+        role: UserRole.ADMIN,
+        fullName: signUpBody.admin.fullName
+      }
+    }))
 
   await router.navigate('/reset-password')
 }
