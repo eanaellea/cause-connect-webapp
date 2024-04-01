@@ -12,6 +12,7 @@ import { PublicLayout } from './pages/layouts/publicLayout/PublicLayout'
 import { AppLayout } from './pages/layouts/appLayout/AppLayout'
 import { Documents } from './pages/documents/Documents'
 import { useShareCodeAction } from './store/documentsSlice/actions'
+import { Votes } from './pages/votes/Votes'
 
 export const router = createBrowserRouter(
   [
@@ -74,6 +75,10 @@ export const router = createBrowserRouter(
                   }
                 }
               ]
+            },
+            {
+              path: 'votes',
+              element: <Votes />
             }
           ]
         }

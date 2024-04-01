@@ -1,7 +1,9 @@
+import { User } from '@/services/mainApi/queries/auth'
+import { QuestionAnswersCount, Vote } from '@/services/mainApi/queries/votes'
+
 export interface AuthSlice {
   token: string | null
-  id: string | null
-  email: string | null
+  user: User | null
 }
 
 export interface LayoutSlice {
@@ -13,13 +15,20 @@ export interface DocumentsSlice {
   documents: Document[]
 }
 
-export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice {}
+export interface VotesSlice {
+  publicVotes: Vote[]
+  currentDisplayedVote: Vote | null
+  currentVoteAnswers: QuestionAnswersCount | null
+  currentVoteWinningOption: string | null
+}
+
+export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice {}
 
 // useful types for the slices
 export interface Document {
   id: string
   title: string
   fileUrl: string
-  visibility: 'PUBLIC' | 'PRIVATE'
+  visibility: 'public' | 'private'
   permissions: string[]
 }
