@@ -4,7 +4,8 @@ import {
   HomeOutlined,
   FileTextOutlined,
   LogoutOutlined,
-  SignatureOutlined
+  SignatureOutlined,
+  ScheduleOutlined
 } from '@ant-design/icons'
 import { createElement, FC } from 'react'
 import { Layout, Menu, MenuProps } from 'antd'
@@ -40,6 +41,12 @@ const menuItems: MenuItem[] = [
     icon: SignatureOutlined,
     label: 'Votes',
     url: '/app/votes'
+  },
+  {
+    key: 'association-profile',
+    icon: ScheduleOutlined,
+    label: 'Association',
+    url: '/app/association'
   },
   {
     key: 'logout',

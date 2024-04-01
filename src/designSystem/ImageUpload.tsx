@@ -4,6 +4,7 @@ import type { GetProp, UploadFile, UploadProps } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
 interface ImageUploadProps {
+  initialImage?: string;
   onChange: (file: File) => void;
 }
 
@@ -17,11 +18,16 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-export const ImageUpload : FC<ImageUploadProps> = ({onChange}) => {
+export const ImageUpload : FC<ImageUploadProps> = ({initialImage, onChange}) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>([{
+    uid: '-1',
+    name: 'image.png',
+    status: 'done',
+    url: initialImage
+  }]);
 
   const handleCancel = () => setPreviewOpen(false);
 

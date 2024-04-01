@@ -14,6 +14,7 @@ import { Welcome } from './pages/welcome/Welcome'
 import { Documents } from './pages/documents/Documents'
 import { useShareCodeAction } from './store/documentsSlice/actions'
 import { Votes } from './pages/votes/Votes'
+import { AssociationPage } from './pages/association/AssociationPage'
 
 export const router = createBrowserRouter(
   [
@@ -88,7 +89,11 @@ export const router = createBrowserRouter(
             {
               path: 'votes',
               element: <Votes />
-            }
+            },
+            {
+              path: 'association',
+              element: <AssociationPage  />
+            },
           ]
         }
       ]
