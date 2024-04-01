@@ -90,7 +90,7 @@ export const registerQuery = async (
     }
 
     const formData = new FormData()
-    formData.append('file', associationLogo as Blob)
+    formData.append('logo', associationLogo as Blob)
     const logoUrl = await query.post(`associations/${association.id}/logo`, {
       body: formData,
       headers: {}
