@@ -11,9 +11,12 @@ export const loginAction = async (body: any): Promise<void> => {
     return
   }
 
+  setState({ token: response.token })
+
   const myInfo = await fetchMe()
 
-  setState({ token: response.token, user: myInfo })
+  setState({ user: myInfo })
+
   await router.navigate('/app')
 }
 
