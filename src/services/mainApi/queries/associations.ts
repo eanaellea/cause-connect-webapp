@@ -1,5 +1,4 @@
 import { query } from '../setup'
-import { handleError } from '../setup/helpers'
 
 interface AssociationResponse {
   id: string
@@ -14,7 +13,6 @@ export const getAssociationsQuery = async (): Promise<AssociationResponse[] | nu
     const json = await result.json<AssociationResponse[]>()
     return json
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }
@@ -36,7 +34,6 @@ export const updateAssociationQuery = async (
 
     return association
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }
@@ -56,7 +53,6 @@ export const updateAssociationLogoQuery = async (
 
     return response.logoUrl
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }

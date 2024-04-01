@@ -1,7 +1,6 @@
 // Assuming the same structure for the imports and store manipulation as in the previous examples.
 
 import { query } from '../setup'
-import { handleError } from '../setup/helpers'
 
 // Define interfaces for Vote operations
 export interface Vote {
@@ -77,7 +76,6 @@ export const fetchPublicVotes = async (): Promise<Vote[] | null> => {
     const response = await query.get('votes')
     return await response.json<Vote[]>()
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }
@@ -90,7 +88,6 @@ export const createVote = async (body: CreateVoteBody): Promise<Vote | null> => 
     })
     return await response.json<Vote>()
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }
@@ -101,7 +98,6 @@ export const fetchVoteDetails = async (voteId: string): Promise<FullVoteResponse
     const response = await query.get(`votes/${voteId}`)
     return await response.json<FullVoteResponse>()
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }
@@ -114,7 +110,6 @@ export const updateVote = async (voteId: string, body: UpdateVoteBody): Promise<
     })
     return await response.json<Vote>()
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }
@@ -126,7 +121,6 @@ export const openNewBallot = async (voteId: string, newQuestion: NewVoteQuestion
       json: newQuestion
     })
   } catch (e) {
-    handleError(e as Error)
   }
 }
 
@@ -136,7 +130,6 @@ export const fetchCurrentBallotResults = async (voteId: string): Promise<Questio
     const response = await query.get(`votes/${voteId}/results`)
     return await response.json<QuestionAnswersCount>()
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }
@@ -147,7 +140,6 @@ export const fetchWinningOption = async (voteId: string): Promise<VoteWinningOpt
     const response = await query.get(`votes/${voteId}/winning-option`)
     return await response.json<VoteWinningOption>()
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }

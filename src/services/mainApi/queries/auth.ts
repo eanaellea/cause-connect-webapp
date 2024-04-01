@@ -1,6 +1,4 @@
-import { Association } from '@/models/Association'
 import { query } from '../setup'
-import { handleError } from '../setup/helpers'
 
 interface LoginBody {
   email: string
@@ -22,7 +20,6 @@ export const loginQuery = async (
     const json = await result.json<any>()
     return json
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }
@@ -112,7 +109,6 @@ export const registerQuery = async (
     association.logo = changeLogoResponse.logoUrl
     return association
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }
@@ -136,7 +132,6 @@ export const resetPasswordQuery = async (
 
     return await response.json<ResetPasswordResponse>()
   } catch (e) {
-    handleError(e as Error)
     return null
   }
 }

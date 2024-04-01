@@ -1,19 +1,17 @@
-import { query } from "../setup";
-import { handleError } from "../setup/helpers";
+import { query } from '../setup'
 
 export const searchUsersQuery = async (
-  search: string,
+  search: string
 ): Promise<any[] | null> => {
   try {
-    const result = await query.get("users/search", {
+    const result = await query.get('users/search', {
       searchParams: {
-        "search-string": search,
-      },
-    });
-    const json = await result.json<any[]>();
-    return json;
+        'search-string': search
+      }
+    })
+    const json = await result.json<any[]>()
+    return json
   } catch (e) {
-    handleError(e as Error);
-    return null;
+    return null
   }
-};
+}
