@@ -16,12 +16,15 @@ export const loginAction = async (body: any): Promise<void> => {
   const myInfo = await fetchMe()
 
   setState((state: GlobalStore) => ({ ...state, association: myInfo.association }))
-  setState((state: GlobalStore) => ({ ...state, user: {
-    id: myInfo.id,
-    email: myInfo.email,
-    role: myInfo.role,
-    fullName: myInfo.fullName
-  } }))
+  setState((state: GlobalStore) => ({
+    ...state,
+    user: {
+      id: myInfo.id,
+      email: myInfo.email,
+      role: myInfo.role,
+      fullName: myInfo.fullName
+    }
+  }))
 
   await router.navigate('/app')
 }
@@ -42,10 +45,10 @@ export const registerAction = async (signUpBody: any, associationLogo: File | nu
     {
       ...state,
       user: {
-        id: "",
+        id: '',
         email: signUpBody.admin.email,
         role: UserRole.ADMIN,
-        fullName: signUpBody.admin.fullName,
+        fullName: signUpBody.admin.fullName
       },
       association: {
         id: response.id,
@@ -71,12 +74,15 @@ export const resetPasswordAction = async (resetPasswordBody: ResetPasswordBody):
   const myInfo = await fetchMe()
 
   setState((state: GlobalStore) => ({ ...state, association: myInfo.association }))
-  setState((state: GlobalStore) => ({ ...state, user: {
-    id: myInfo.id,
-    email: myInfo.email,
-    role: myInfo.role,
-    fullName: myInfo.fullName
-  } }))
+  setState((state: GlobalStore) => ({
+    ...state,
+    user: {
+      id: myInfo.id,
+      email: myInfo.email,
+      role: myInfo.role,
+      fullName: myInfo.fullName
+    }
+  }))
 
   await router.navigate('/app')
 }
