@@ -15,8 +15,7 @@ export const DocumentCard: FC<Props> = ({ document }) => {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
-  const handleShareClick = (e: any): void => {
-    console.log(e)
+  const handleShareClick = (): void => {
     setIsShareModalOpen(true)
   }
   const handleDeleteClick = (): void => {

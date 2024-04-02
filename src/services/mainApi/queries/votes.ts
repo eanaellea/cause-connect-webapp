@@ -19,6 +19,13 @@ export enum VoteAcceptanceCriteria {
   UNANIMITY = 'unanimity',
 }
 
+interface PollQuestionResponse {
+  id: string
+  prompt: string
+  type: string
+  options: Array<{ id: string, content: string }>
+}
+
 // Define interfaces for Vote operations
 export interface Vote {
   id: string
@@ -132,12 +139,17 @@ export const updateVote = async (voteId: string, body: UpdateVoteBody): Promise<
 }
 
 // Open a new ballot for a vote
-export const openNewBallot = async (voteId: string, newQuestion: NewVoteQuestion): Promise<void> => {
+export const openNewBallot = async (voteId: string, newQuestion: NewVoteQuestion): Promise<PollQuestionResponse | null> => {
   try {
-    await query.post(`votes/${voteId}/ballots`, {
+    const response = await query.post(`votes/${voteId}/ballots`, {
       json: newQuestion
     })
+
+    const question = await response.json<PollQuestionResponse>()
+
+    return question
   } catch (e) {
+    return null
   }
 }
 

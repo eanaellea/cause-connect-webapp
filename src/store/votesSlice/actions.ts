@@ -29,18 +29,22 @@ export const updateCurrentDisplayedVoteAction = async (voteId: string): Promise<
 }
 
 // Update a vote and refresh the displayed vote details
-export const updateAndRefreshVote = async (voteId: string, body: UpdateVoteBody): Promise<void> => {
+export const updateAndRefreshVoteAction = async (voteId: string, body: UpdateVoteBody): Promise<void> => {
   const updatedVote = await updateVote(voteId, body)
   if (updatedVote !== null) {
     // do these two things in one setState
     useGlobalStore.setState((state) => ({ ...state, publicVotes: [...(state.publicVotes?.filter((vote) => vote.id !== voteId)), updatedVote] }))
+    useGlobalStore.setState({ currentDisplayedVote: updatedVote })
   }
 }
 
 // Open a new ballot for a vote and refresh the current vote details
-export const openBallotAndRefreshVote = async (voteId: string, newQuestion: NewVoteQuestion): Promise<void> => {
-  await openNewBallot(voteId, newQuestion)
-  await updateCurrentDisplayedVoteAction(voteId)
+export const openBallotAndRefreshVoteAction = async (voteId: string, newQuestion: NewVoteQuestion): Promise<void> => {
+  const ballotQuestion = await openNewBallot(voteId, newQuestion)
+  if (ballotQuestion === null) {
+    return
+  }
+  useGlobalStore.setState((state) => ({ ...state, currentDisplayedVote: { ...state.currentDisplayedVote!, question: ballotQuestion } })) // eslint-disable-line @typescript-eslint/no-non-null-assertion
 }
 
 // Fetch and store current ballot results by vote ID

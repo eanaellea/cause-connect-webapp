@@ -7,30 +7,12 @@ import { Controller, FieldError, SubmitHandler, useFieldArray, useForm } from 'r
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DeleteOutlined } from '@ant-design/icons'
 import { createVoteAction } from '@/store/votesSlice/actions'
+import { CreateVoteBodySchema } from '../types'
 
 interface Props {
   open: boolean
   onClose: () => void
 }
-
-const PollQuestionTypeSchema = z.enum([PollQuestionType.SINGLE_CHOICE, PollQuestionType.MULTIPLE_CHOICE])
-
-const NewPollQuestionSchema = z.object({
-  prompt: z.string(),
-  type: PollQuestionTypeSchema,
-  options: z.array(z.object({
-    content: z.string()
-  }))
-})
-
-export const CreateVoteBodySchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  visibility: z.enum([VoteVisibility.PUBLIC, VoteVisibility.PRIVATE]),
-  minPercentAnswers: z.number().min(0).max(100),
-  acceptanceCriteria: z.enum([VoteAcceptanceCriteria.MAJORITY, VoteAcceptanceCriteria.TWO_THIRDS, VoteAcceptanceCriteria.UNANIMITY]),
-  question: NewPollQuestionSchema
-})
 
 export const CreateVoteModal: FC<Props> = ({ open, onClose }) => {
   const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof CreateVoteBodySchema>>({
