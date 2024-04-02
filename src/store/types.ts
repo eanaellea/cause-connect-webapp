@@ -20,6 +20,10 @@ export interface AssociationSlice {
   association: Association | null
 }
 
+export interface UsersSlice {
+  users: User[]
+}
+
 export interface VotesSlice {
   publicVotes: Vote[]
   currentDisplayedVote: Vote | null
@@ -27,7 +31,7 @@ export interface VotesSlice {
   currentVoteWinningOption: string | null
 }
 
-export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice {
+export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice {
 }
 
 // useful types for the slices

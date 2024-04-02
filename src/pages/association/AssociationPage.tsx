@@ -1,13 +1,34 @@
 import { useGlobalStore } from '@/store/store'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Alert } from 'antd'
 
-import { AssociationCard } from '@/designSystem/associationProfile/AssociationCard'
 import styles from './AssociationPage.module.scss'
+import { AssociationCard } from '@/designSystem/associationProfile/AssociationCard'
 import { UserInfo } from '@/components/userInfo/UserInfo'
+import { AssociationMembers } from '@/designSystem/associationMembers'
+import { getAssociationMembersAction } from '@/store/usersSlice/actions'
 
 export const AssociationPage: FC = () => {
+  const REFETCH_DOCUMENTS_INTERVAL = 10000
   const association = useGlobalStore(state => state.association!)
+
+  const members = useGlobalStore((state) => state.users).map((user, index) => ({
+    key: index,
+    id: user.id,
+    fullName: user.fullName,
+    email: user.email,
+    role: user.role
+  }))
+
+  useEffect(() => {
+    void getAssociationMembersAction()
+
+    const interval = setInterval(() => {
+      void getAssociationMembersAction()
+    }, REFETCH_DOCUMENTS_INTERVAL)
+
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <>
@@ -23,6 +44,8 @@ export const AssociationPage: FC = () => {
           <UserInfo />
         </div>
       </span>
+      <h2>Membres de l'association</h2>
+      <AssociationMembers members={members} />
     </>
   )
 }

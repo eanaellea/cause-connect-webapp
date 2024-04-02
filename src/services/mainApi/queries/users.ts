@@ -1,16 +1,17 @@
 import { query } from '../setup'
+import { UserRole } from './auth'
 
-export const searchUsersQuery = async (
-  search: string
-): Promise<any[] | null> => {
+interface UserResponse {
+  id: string
+  fullName: string
+  email: string
+  role: UserRole
+}
+
+export const getUsersFromMyAssociation = async (): Promise<UserResponse[] | null> => {
   try {
-    const result = await query.get('users/search', {
-      searchParams: {
-        'search-string': search
-      }
-    })
-    const json = await result.json<any[]>()
-    return json
+    const response = await query.get('users')
+    return await response.json<UserResponse[]>()
   } catch (e) {
     return null
   }

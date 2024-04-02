@@ -7,6 +7,7 @@ import { GlobalStore } from './types'
 import { createDocumentsSlice } from './documentsSlice/documentsSlice'
 import { createVotesSlice } from './votesSlice/votesSlice'
 import { createAssociationSlice } from './associationSlice/associationSlice'
+import { createUsersSlice } from './usersSlice/usersSlice'
 
 export const useGlobalStore = create<GlobalStore>()(
   devtools((...a) => ({
@@ -14,6 +15,7 @@ export const useGlobalStore = create<GlobalStore>()(
     ...createLayoutSlice(...a),
     ...createDocumentsSlice(...a),
     ...createVotesSlice(...a),
-    ...createAssociationSlice(...a)
+    ...createAssociationSlice(...a),
+    ...createUsersSlice(...a)
   }))
 )
