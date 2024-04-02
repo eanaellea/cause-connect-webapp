@@ -2,15 +2,32 @@
 
 import { query } from '../setup'
 
+export enum VoteStatus {
+  NOT_STARTED = 'not_started',
+  OPEN = 'open',
+  DONE = 'done',
+}
+
+export enum VoteVisibility {
+  PUBLIC = 'public',
+  PRIVATE = 'private',
+}
+
+export enum VoteAcceptanceCriteria {
+  MAJORITY = 'majority',
+  TWO_THIRDS = 'two_thirds',
+  UNANIMITY = 'unanimity',
+}
+
 // Define interfaces for Vote operations
 export interface Vote {
   id: string
   title: string
   description: string
-  status: string
-  visibility: string
+  status: VoteStatus
+  visibility: VoteVisibility
   minPercentAnswers: number
-  acceptanceCriteria: string
+  acceptanceCriteria: VoteAcceptanceCriteria
 }
 
 export interface FullVoteResponse extends Vote {
@@ -71,7 +88,7 @@ export interface VoteWinningOption {
 }
 
 // Fetch public votes for the user's association
-export const fetchPublicVotes = async (): Promise<Vote[] | null> => {
+export const fetchVotes = async (): Promise<Vote[] | null> => {
   try {
     const response = await query.get('votes')
     return await response.json<Vote[]>()

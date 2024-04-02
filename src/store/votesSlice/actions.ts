@@ -1,9 +1,9 @@
-import { createVote, CreateVoteBody, fetchCurrentBallotResults, fetchPublicVotes, fetchVoteDetails, fetchWinningOption, NewVoteQuestion, openNewBallot, updateVote, UpdateVoteBody } from '@/services/mainApi/queries/votes'
+import { createVote, CreateVoteBody, fetchCurrentBallotResults, fetchVotes, fetchVoteDetails, fetchWinningOption, NewVoteQuestion, openNewBallot, updateVote, UpdateVoteBody } from '@/services/mainApi/queries/votes'
 import { useGlobalStore } from '@/store/store'
 
 // Fetch and store public votes
-export const fetchPublicVotesAction = async (): Promise<void> => {
-  const publicVotes = await fetchPublicVotes()
+export const fetchVotesAction = async (): Promise<void> => {
+  const publicVotes = await fetchVotes()
   if (publicVotes != null) {
     useGlobalStore.setState({ publicVotes })
   }
@@ -16,7 +16,7 @@ export const createVoteAction = async (body: CreateVoteBody): Promise<void> => {
     // while we wait, we just add the new vote to the list of public votes
     useGlobalStore.setState((state) => ({ publicVotes: [...state.publicVotes, newVoteResponse] }))
     // then, we refetch the actual list of public votes
-    await fetchPublicVotesAction()
+    await fetchVotesAction()
   }
 }
 

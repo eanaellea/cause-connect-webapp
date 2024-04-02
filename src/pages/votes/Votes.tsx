@@ -5,7 +5,7 @@ import styles from './Votes.module.scss'
 import { VoteCard } from '@/components/votes/voteCard/VoteCard'
 import { useGlobalStore } from '@/store/store'
 import { CreateVoteModal } from '@/components/votes/createVoteModal/CreateVoteModal'
-import { fetchPublicVotesAction } from '@/store/votesSlice/actions'
+import { fetchVotesAction } from '@/store/votesSlice/actions'
 
 export const Votes: FC = () => {
   const REFETCH_VOTES_INTERVAL = 10000
@@ -14,10 +14,10 @@ export const Votes: FC = () => {
   const [isCreateVoteModalOpen, setIsCreateVoteModalOpen] = useState(false)
 
   useEffect(() => {
-    void fetchPublicVotesAction()
+    void fetchVotesAction()
 
     const interval = setInterval(() => {
-      void fetchPublicVotesAction()
+      void fetchVotesAction()
     }, REFETCH_VOTES_INTERVAL)
 
     return () => clearInterval(interval)

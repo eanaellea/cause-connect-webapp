@@ -27,7 +27,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({title, buttonContent}) =>
     void resetPasswordAction(data)
   }
 
-  const email = useGlobalStore((state) => state.email)
+  const email = useGlobalStore((state) => state.user?.email ?? '')
 
   return (
     <main className={styles.main}>
