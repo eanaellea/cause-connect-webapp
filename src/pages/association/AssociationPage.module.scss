@@ -1,8 +1,22 @@
 @import "../../designSystem/mixins.scss";
 
-.profile {
-  @include flex-column;
+.container {
+  @include flex-row;
+  justify-content: space-evenly;
   gap: 16px;
-  width: 50%;
-  max-width: 700px;
+  margin-top: 16px;
+  
+  .profile {
+    @include flex-column;
+    gap: 16px;
+    width: 50%;
+    max-width: 700px;
+  }
+
+  .invite {
+    @include flex-column;
+    gap: 16px;
+    width: 50%;
+    max-width: 700px;
+  }
 }
