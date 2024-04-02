@@ -172,3 +172,21 @@ export const fetchWinningOption = async (voteId: string): Promise<VoteWinningOpt
     return null
   }
 }
+
+// Open a vote
+export const openVote = async (voteId: string): Promise<void> => {
+  try {
+    const response = await query.patch(`votes/${voteId}/open`)
+    await response.json<VoteWinningOption>()
+  } catch (e) {
+  }
+}
+
+// Close a vote
+export const closeVote = async (voteId: string): Promise<void> => {
+  try {
+    const response = await query.patch(`votes/${voteId}/close`)
+    await response.json<VoteWinningOption>()
+  } catch (e) {
+  }
+}

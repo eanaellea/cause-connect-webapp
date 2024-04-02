@@ -1,6 +1,6 @@
-import { PollQuestionType, Vote, VoteAcceptanceCriteria, VoteVisibility } from '@/services/mainApi/queries/votes'
+import { PollQuestionType, Vote, VoteAcceptanceCriteria, VoteStatus, VoteVisibility } from '@/services/mainApi/queries/votes'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Checkbox, Divider, Input, Modal, Select } from 'antd'
+import { Alert, Button, Checkbox, Divider, Input, Modal, Select } from 'antd'
 import { FC, useState } from 'react'
 import { Controller, FieldError, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -30,6 +30,14 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
     name: 'question.options'
   })
 
+  const notEditableStatuses = [VoteStatus.OPEN, VoteStatus.DONE]
+
+  if (currentDisplayedVote == null) {
+    return null
+  }
+
+  const isNotEditable = notEditableStatuses.includes(currentDisplayedVote.status)
+
   const onSubmit: SubmitHandler<z.infer<typeof CreateVoteBodySchema>> = async (data) => {
     const { question, ...voteInfo } = data
 
@@ -55,11 +63,15 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
       ]}
     >
       <form className={styles.formContent} onSubmit={handleSubmit(onSubmit)}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
+        {isNotEditable && (
+          <Alert type='warning' message='This vote is not editable because it is open or done.' />
+        )}
         <div>
           <label>Titre</label>
           <Controller
             name='title'
             control={control}
+            disabled={isNotEditable}
             render={({ field }) => (
               <Input
                 {...field}
@@ -75,6 +87,7 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
           <Controller
             name='description'
             control={control}
+            disabled={isNotEditable}
             render={({ field }) => (
               <Input.TextArea {...field} placeholder='Description' />
             )}
@@ -88,6 +101,7 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
             <Controller
               name='visibility'
               control={control}
+              disabled={isNotEditable}
               render={({ field }) => (
                 <Select {...field} defaultValue='' className={styles.selectInput}>
                   <Select.Option value=''>Pick a visibility</Select.Option>
@@ -105,6 +119,7 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
           <Controller
             name='minPercentAnswers'
             control={control}
+            disabled={isNotEditable}
             render={({ field }) => (
               <Input
                 {...field}
@@ -123,6 +138,7 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
             <Controller
               name='acceptanceCriteria'
               control={control}
+              disabled={isNotEditable}
               render={({ field }) => (
                 <Select {...field} defaultValue='' className={styles.selectInput}>
                   <Select.Option value=''>Pick a criteria</Select.Option>
@@ -141,6 +157,9 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
           <label>Créer un nouveau tour</label>
           <Checkbox className={styles.checkbox} checked={isCreatingNewBallot} onChange={(event) => setIsCreatingNewBallot(event.target.checked)} />
         </div>
+        {!isCreatingNewBallot && (
+          <Alert type='warning' message='To modify the question, you must create a new ballot.' />
+        )}
         <div>
           <label>Prompt</label>
           <Controller

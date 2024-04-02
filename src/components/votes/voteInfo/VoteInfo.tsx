@@ -1,26 +1,27 @@
-import { Vote } from '@/services/mainApi/queries/votes'
+import { Vote, VoteStatus } from '@/services/mainApi/queries/votes'
 import { FC } from 'react'
 import styles from './VoteInfo.module.scss'
-import { Tag } from 'antd'
+import { Tag, TagProps } from 'antd'
 
 interface Props {
   vote: Vote
 }
 
+const colorPerStatus: Record<VoteStatus, TagProps['color']> = {
+  [VoteStatus.NOT_STARTED]: 'blue',
+  [VoteStatus.OPEN]: 'orange',
+  [VoteStatus.DONE]: 'default'
+}
+
 export const VoteInfo: FC<Props> = ({ vote }) => {
   return (
-    <div className={styles.userInfo}>
-      <div>
-        <h2>
-          {vote.title}
-        </h2>
-        <p>
-          {vote.description}
-        </p>
-      </div>
+    <div className={styles.voteInfo}>
+      <p>
+        {vote.description}
+      </p>
       <p>
         <span className={styles.infoProp}>Status:</span>
-        <Tag color='blue'>{vote.status}</Tag>
+        <Tag color={colorPerStatus[vote.status]}>{vote.status}</Tag>
       </p>
       <p>
         <span className={styles.infoProp}>Visibility:</span>

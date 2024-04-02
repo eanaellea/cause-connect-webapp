@@ -1,4 +1,4 @@
-import { createVote, CreateVoteBody, fetchCurrentBallotResults, fetchVotes, fetchVoteDetails, fetchWinningOption, NewVoteQuestion, openNewBallot, updateVote, UpdateVoteBody } from '@/services/mainApi/queries/votes'
+import { createVote, CreateVoteBody, fetchCurrentBallotResults, fetchVotes, fetchVoteDetails, fetchWinningOption, NewVoteQuestion, openNewBallot, updateVote, UpdateVoteBody, openVote, VoteStatus, closeVote } from '@/services/mainApi/queries/votes'
 import { useGlobalStore } from '@/store/store'
 
 // Fetch and store public votes
@@ -61,4 +61,34 @@ export const fetchWinningOptionAction = async (voteId: string): Promise<void> =>
   if (winningOption !== null) {
     useGlobalStore.setState(() => ({ currentVoteWinningOption: winningOption.optionId }))
   }
+}
+
+// Open current vote
+export const openCurrentVoteAction = async (): Promise<void> => {
+  const voteId = useGlobalStore.getState().currentDisplayedVote?.id
+  if (voteId == null) {
+    return
+  }
+
+  await openVote(voteId)
+  useGlobalStore.setState((state) => (
+    {
+      publicVotes: state.publicVotes?.map((vote) => (vote.id === voteId ? { ...vote, status: VoteStatus.OPEN } : vote)),
+      currentDisplayedVote: (state.currentDisplayedVote != null) ? { ...state.currentDisplayedVote, status: VoteStatus.OPEN } : null
+    }))
+}
+
+// Close current vote
+export const closeCurrentVoteAction = async (): Promise<void> => {
+  const voteId = useGlobalStore.getState().currentDisplayedVote?.id
+  if (voteId == null) {
+    return
+  }
+
+  await closeVote(voteId)
+  useGlobalStore.setState((state) => (
+    {
+      publicVotes: state.publicVotes?.map((vote) => (vote.id === voteId ? { ...vote, status: VoteStatus.DONE } : vote)),
+      currentDisplayedVote: (state.currentDisplayedVote != null) ? { ...state.currentDisplayedVote, status: VoteStatus.DONE } : null
+    }))
 }
