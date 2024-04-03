@@ -4,13 +4,13 @@ import { Alert } from 'antd'
 
 import styles from './AssociationPage.module.scss'
 import { AssociationCard } from '@/designSystem/associationProfile/AssociationCard'
-import { UserInfo } from '@/components/userInfo/UserInfo'
+import { InviteUserForm } from '@/designSystem/inviteUserForm/InviteUserForm'
 import { AssociationMembers } from '@/designSystem/associationMembers'
 import { getAssociationMembersAction } from '@/store/usersSlice/actions'
 
 export const AssociationPage: FC = () => {
   const REFETCH_DOCUMENTS_INTERVAL = 10000
-  const association = useGlobalStore(state => state.association!)
+  const association = useGlobalStore(state => state.association!) /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
 
   const members = useGlobalStore((state) => state.users).map((user, index) => ({
     key: index,
@@ -41,7 +41,7 @@ export const AssociationPage: FC = () => {
         </div>
         <div className={styles.invite}>
           <h2>Invitation</h2>
-          <UserInfo />
+          <InviteUserForm />
         </div>
       </span>
       <h2>Membres de l'association</h2>

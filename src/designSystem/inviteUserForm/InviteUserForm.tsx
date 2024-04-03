@@ -4,15 +4,17 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
-import styles from './UserInfo.module.scss'
+import styles from './InviteUserForm.module.scss'
+import { RoleSelect } from '@/components/roleSelect/RoleSelect'
 
 const inviteUserSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
-  email: z.string().email()
+  email: z.string().email(),
+  role: z.string()
 })
 
-export const UserInfo: FC = () => {
+export const InviteUserForm: FC = () => {
   const { control, handleSubmit, formState: { errors, isValid } } = useForm<z.infer<typeof inviteUserSchema>>({
     resolver: zodResolver(inviteUserSchema)
   })
@@ -64,6 +66,20 @@ export const UserInfo: FC = () => {
             )}
           />
           {(errors.email != null) && <span>{errors.email.message}</span>}
+        </div>
+        <div className={styles.formControl}>
+          <label>Rôle de l'utilisateur</label>
+          <Controller
+            name='role'
+            control={control}
+            render={({ field }) => (
+              <RoleSelect onChange={(value) => {
+                field.onChange(value)
+              }}
+              />
+            )}
+          />
+          {(errors.firstName != null) && <span>{errors.firstName.message}</span>}
         </div>
       </div>
 
