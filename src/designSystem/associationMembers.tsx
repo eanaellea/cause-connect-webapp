@@ -22,7 +22,7 @@ export const AssociationMembers: FC<AssociationMembersProps> = ({ members }) => 
       dataIndex: 'fullName',
       filters: [...new Set(members.map((member) => ({ text: member.fullName, value: member.fullName })))],
       filterSearch: true,
-      onFilter: (value: string, record) => record.fullName.startsWith(value),
+      onFilter: (value: boolean | Key, record) => record.fullName.startsWith(String(value)),
       sorter: (a, b) => a.fullName.length - b.fullName.length,
       sortDirections: ['descend']
     },
@@ -34,7 +34,7 @@ export const AssociationMembers: FC<AssociationMembersProps> = ({ members }) => 
       title: 'Rôle',
       dataIndex: 'role',
       filters: [...new Set(members.map((member) => ({ text: member.role, value: member.role })))],
-      onFilter: (value: string, record) => record.role.indexOf(value) === 0
+      onFilter: (value: boolean | Key, record) => record.role.indexOf(String(value)) === 0
     }
   ]
 
