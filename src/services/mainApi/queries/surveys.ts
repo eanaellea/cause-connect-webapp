@@ -39,7 +39,7 @@ export interface AnswerSurveyBody {
 }
 
 // Fetch all public surveys for the user's association
-export const fetchPublicSurveys = async (): Promise<Survey[] | null> => {
+export const fetchSurveys = async (): Promise<Survey[] | null> => {
   try {
     const response = await query.get('surveys')
     return await response.json<Survey[]>()

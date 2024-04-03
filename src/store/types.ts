@@ -32,7 +32,13 @@ export interface VotesSlice {
   isCurrentVoteWinningOptionValid: boolean | null
 }
 
-export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice {
+export interface SurveysSlice {
+  surveys: Survey[]
+  currentDisplayedSurvey: Survey | null
+  currentSurveyResults: SurveyResults | null
+}
+
+export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice, SurveysSlice {
 }
 
 // useful types for the slices
@@ -42,4 +48,32 @@ export interface Document {
   fileUrl: string
   visibility: 'public' | 'private'
   permissions: string[]
+}
+
+interface Survey {
+  id: string
+  title: string
+  description: string
+  status: string
+  visibility: string
+  questions?: SurveyQuestion[]
+}
+
+interface SurveyQuestion {
+  id: string
+  prompt: string
+  type: string
+  options: Array<{ id: string, content: string }>
+}
+
+interface SurveyResults {
+  // Assuming a structure for survey results; adjust as necessary based on actual data structure
+  surveyId: string
+  questionsResults: Array<{
+    questionId: string
+    optionCounts: Array<{
+      optionId: string
+      count: number
+    }>
+  }>
 }
