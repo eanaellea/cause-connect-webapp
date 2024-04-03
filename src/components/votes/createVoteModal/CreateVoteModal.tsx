@@ -2,12 +2,13 @@ import { Button, Divider, Input, Modal, Select } from 'antd'
 import { FC } from 'react'
 import styles from './CreateVoteModal.module.scss'
 import { z } from 'zod'
-import { PollQuestionType, VoteAcceptanceCriteria, VoteVisibility } from '@/services/mainApi/queries/votes'
+import { VoteAcceptanceCriteria, VoteVisibility } from '@/services/mainApi/queries/votes'
 import { Controller, FieldError, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DeleteOutlined } from '@ant-design/icons'
 import { createVoteAction } from '@/store/votesSlice/actions'
 import { CreateVoteBodySchema } from '../types'
+import { PollQuestionType } from '@/services/mainApi/types'
 
 interface Props {
   open: boolean

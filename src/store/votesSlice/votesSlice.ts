@@ -6,7 +6,8 @@ export const initialState: VotesSlice = {
   publicVotes: [],
   currentDisplayedVote: null,
   currentVoteAnswers: null,
-  currentVoteWinningOption: null
+  currentVoteWinningOption: null,
+  isCurrentVoteWinningOptionValid: null
 }
 
 export const createVotesSlice: StateCreator<

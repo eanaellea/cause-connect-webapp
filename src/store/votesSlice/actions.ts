@@ -1,4 +1,5 @@
-import { createVote, CreateVoteBody, fetchCurrentBallotResults, fetchVotes, fetchVoteDetails, fetchWinningOption, NewVoteQuestion, openNewBallot, updateVote, UpdateVoteBody, openVote, VoteStatus, closeVote } from '@/services/mainApi/queries/votes'
+import { createVote, CreateVoteBody, fetchCurrentBallotResults, fetchVotes, fetchVoteDetails, fetchWinningOption, openNewBallot, updateVote, UpdateVoteBody, openVote, VoteStatus, closeVote } from '@/services/mainApi/queries/votes'
+import { NewPollQuestion } from '@/services/mainApi/types'
 import { useGlobalStore } from '@/store/store'
 
 // Fetch and store public votes
@@ -42,7 +43,7 @@ export const updateAndRefreshVoteAction = async (voteId: string, body: UpdateVot
 }
 
 // Open a new ballot for a vote and refresh the current vote details
-export const openBallotAndRefreshVoteAction = async (voteId: string, newQuestion: NewVoteQuestion): Promise<void> => {
+export const openBallotAndRefreshVoteAction = async (voteId: string, newQuestion: NewPollQuestion): Promise<void> => {
   const ballotQuestion = await openNewBallot(voteId, newQuestion)
   if (ballotQuestion === null) {
     return

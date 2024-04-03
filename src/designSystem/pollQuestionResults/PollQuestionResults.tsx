@@ -1,7 +1,8 @@
 import { FC } from 'react'
 import { Progress, Tooltip } from 'antd'
-import { PollQuestionResponse, QuestionAnswersCount } from '@/services/mainApi/queries/votes'
+import { QuestionAnswersCount } from '@/services/mainApi/queries/votes'
 import styles from './PollQuestionResults.module.scss'
+import { PollQuestionResponse } from '@/services/mainApi/types'
 
 interface Props {
   questionAnswersCount: QuestionAnswersCount

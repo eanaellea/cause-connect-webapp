@@ -1,15 +1,6 @@
-import { PollQuestionType, VoteAcceptanceCriteria, VoteVisibility } from '@/services/mainApi/queries/votes'
+import { VoteAcceptanceCriteria, VoteVisibility } from '@/services/mainApi/queries/votes'
+import { NewPollQuestionSchema } from '@/services/mainApi/types'
 import { z } from 'zod'
-
-export const PollQuestionTypeSchema = z.enum([PollQuestionType.SINGLE_CHOICE, PollQuestionType.MULTIPLE_CHOICE])
-
-export const NewPollQuestionSchema = z.object({
-  prompt: z.string(),
-  type: PollQuestionTypeSchema,
-  options: z.array(z.object({
-    content: z.string()
-  }))
-})
 
 export const UpdateVoteBodySchema = z.object({
   title: z.string().optional(),

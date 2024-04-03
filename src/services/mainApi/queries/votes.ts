@@ -1,6 +1,5 @@
-// Assuming the same structure for the imports and store manipulation as in the previous examples.
-
 import { query } from '../setup'
+import { NewPollQuestion, PollQuestionResponse, PollQuestionType } from '../types'
 
 export enum VoteStatus {
   NOT_STARTED = 'not_started',
@@ -17,13 +16,6 @@ export enum VoteAcceptanceCriteria {
   MAJORITY = 'majority',
   TWO_THIRDS = 'two_thirds',
   UNANIMITY = 'unanimity',
-}
-
-export interface PollQuestionResponse {
-  id: string
-  prompt: string
-  type: PollQuestionType
-  options: Array<{ id: string, content: string }>
 }
 
 // Define interfaces for Vote operations
@@ -46,24 +38,13 @@ export interface FullVoteResponse extends Vote {
   }
 }
 
-export enum PollQuestionType {
-  SINGLE_CHOICE = 'single_choice',
-  MULTIPLE_CHOICE = 'mutliple_choice',
-}
-
-export interface NewVoteQuestion {
-  prompt: string
-  type: PollQuestionType
-  options: Array<{ content: string }>
-}
-
 export interface CreateVoteBody {
   title: string
   description: string
   visibility: string
   minPercentAnswers: number
   acceptanceCriteria: string
-  question: NewVoteQuestion
+  question: NewPollQuestion
 }
 
 export interface UpdateVoteBody {
@@ -139,7 +120,7 @@ export const updateVote = async (voteId: string, body: UpdateVoteBody): Promise<
 }
 
 // Open a new ballot for a vote
-export const openNewBallot = async (voteId: string, newQuestion: NewVoteQuestion): Promise<PollQuestionResponse | null> => {
+export const openNewBallot = async (voteId: string, newQuestion: NewPollQuestion): Promise<PollQuestionResponse | null> => {
   try {
     const response = await query.post(`votes/${voteId}/ballots`, {
       json: newQuestion

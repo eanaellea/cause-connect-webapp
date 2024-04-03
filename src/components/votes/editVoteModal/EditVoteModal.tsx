@@ -1,4 +1,4 @@
-import { PollQuestionType, Vote, VoteAcceptanceCriteria, VoteStatus, VoteVisibility } from '@/services/mainApi/queries/votes'
+import { Vote, VoteAcceptanceCriteria, VoteStatus, VoteVisibility } from '@/services/mainApi/queries/votes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Alert, Button, Checkbox, Divider, Input, Modal, Select } from 'antd'
 import { FC, useState } from 'react'
@@ -9,6 +9,7 @@ import { CreateVoteBodySchema } from '../types'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useGlobalStore } from '@/store/store'
 import { openBallotAndRefreshVoteAction, updateAndRefreshVoteAction } from '@/store/votesSlice/actions'
+import { PollQuestionType } from '@/services/mainApi/types'
 
 interface Props {
   vote: Vote
