@@ -29,6 +29,7 @@ export interface VotesSlice {
   currentDisplayedVote: FullVoteResponse | null
   currentVoteAnswers: QuestionAnswersCount | null
   currentVoteWinningOption: string | null
+  isCurrentVoteWinningOptionValid: boolean | null
 }
 
 export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice {

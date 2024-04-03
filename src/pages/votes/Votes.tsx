@@ -5,13 +5,15 @@ import styles from './Votes.module.scss'
 import { VoteCard } from '@/components/votes/voteCard/VoteCard'
 import { useGlobalStore } from '@/store/store'
 import { CreateVoteModal } from '@/components/votes/createVoteModal/CreateVoteModal'
-import { fetchVotesAction } from '@/store/votesSlice/actions'
+import { fetchCurrentBallotResultsAction, fetchVotesAction, fetchWinningOptionAction } from '@/store/votesSlice/actions'
 
 export const Votes: FC = () => {
   const REFETCH_VOTES_INTERVAL = 10000
+  const REFETCH_BALLOT_RESULTS_INTERVAL = 5000
   const [searchValue, setSearchValue] = useState('')
   const votes = useGlobalStore((state) => state.publicVotes).filter((vote) => vote.title.includes(searchValue))
   const [isCreateVoteModalOpen, setIsCreateVoteModalOpen] = useState(false)
+  const currentVote = useGlobalStore((state) => state.currentDisplayedVote)
 
   useEffect(() => {
     void fetchVotesAction()
@@ -22,6 +24,18 @@ export const Votes: FC = () => {
 
     return () => clearInterval(interval)
   }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      void fetchCurrentBallotResultsAction()
+    }, REFETCH_BALLOT_RESULTS_INTERVAL)
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    void fetchWinningOptionAction()
+    void fetchCurrentBallotResultsAction()
+  }, [currentVote?.id, currentVote?.status])
 
   return (
     <div>

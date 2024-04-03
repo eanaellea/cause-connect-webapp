@@ -51,18 +51,28 @@ export const openBallotAndRefreshVoteAction = async (voteId: string, newQuestion
 }
 
 // Fetch and store current ballot results by vote ID
-export const fetchCurrentBallotResultsAction = async (voteId: string): Promise<void> => {
-  const currentBallotResults = await fetchCurrentBallotResults(voteId)
+export const fetchCurrentBallotResultsAction = async (): Promise<void> => {
+  const currentDisplayedVote = useGlobalStore.getState().currentDisplayedVote
+  if (currentDisplayedVote == null) {
+    return
+  }
+
+  const currentBallotResults = await fetchCurrentBallotResults(currentDisplayedVote.id)
   if (currentBallotResults != null) {
     useGlobalStore.setState(() => ({ currentVoteAnswers: currentBallotResults }))
   }
 }
 
 // Fetch and store winning option by vote ID
-export const fetchWinningOptionAction = async (voteId: string): Promise<void> => {
-  const winningOption = await fetchWinningOption(voteId)
+export const fetchWinningOptionAction = async (): Promise<void> => {
+  const currentDisplayedVote = useGlobalStore.getState().currentDisplayedVote
+  if (currentDisplayedVote === null) {
+    return
+  }
+
+  const winningOption = await fetchWinningOption(currentDisplayedVote.id)
   if (winningOption !== null) {
-    useGlobalStore.setState(() => ({ currentVoteWinningOption: winningOption.optionId }))
+    useGlobalStore.setState(() => ({ currentVoteWinningOption: winningOption.optionId, isCurrentVoteWinningOptionValid: winningOption.isValid }))
   }
 }
 
