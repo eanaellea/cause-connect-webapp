@@ -19,10 +19,10 @@ export enum VoteAcceptanceCriteria {
   UNANIMITY = 'unanimity',
 }
 
-interface PollQuestionResponse {
+export interface PollQuestionResponse {
   id: string
   prompt: string
-  type: string
+  type: PollQuestionType
   options: Array<{ id: string, content: string }>
 }
 
@@ -41,7 +41,7 @@ export interface FullVoteResponse extends Vote {
   question: {
     id: string
     prompt: string
-    type: string
+    type: PollQuestionType
     options: Array<{ id: string, content: string }>
   }
 }

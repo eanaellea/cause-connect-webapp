@@ -32,9 +32,12 @@ export const updateCurrentDisplayedVoteAction = async (voteId: string): Promise<
 export const updateAndRefreshVoteAction = async (voteId: string, body: UpdateVoteBody): Promise<void> => {
   const updatedVote = await updateVote(voteId, body)
   if (updatedVote !== null) {
-    // do these two things in one setState
-    useGlobalStore.setState((state) => ({ ...state, publicVotes: [...(state.publicVotes?.filter((vote) => vote.id !== voteId)), updatedVote] }))
-    useGlobalStore.setState({ currentDisplayedVote: updatedVote })
+    useGlobalStore.setState((state) => (
+      {
+        ...state,
+        publicVotes: [...(state.publicVotes?.filter((vote) => vote.id !== voteId)), updatedVote],
+        currentDisplayedVote: (state.currentDisplayedVote !== null) ? { ...state.currentDisplayedVote, updatedVote } : null
+      }))
   }
 }
 

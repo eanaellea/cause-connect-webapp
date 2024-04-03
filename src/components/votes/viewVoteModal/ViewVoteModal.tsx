@@ -1,10 +1,10 @@
 import { useGlobalStore } from '@/store/store'
-import { closeCurrentVoteAction, openCurrentVoteAction, updateCurrentDisplayedVoteAction } from '@/store/votesSlice/actions'
 import { FC, useEffect } from 'react'
+import { Modal, Button } from 'antd'
+import { VoteInfo } from '../voteInfo/VoteInfo'
+import { closeCurrentVoteAction, openCurrentVoteAction, updateCurrentDisplayedVoteAction } from '@/store/votesSlice/actions'
 import { VoteStatus } from '@/services/mainApi/queries/votes'
-import { ViewNotStartedVoteModal } from '../viewNotStartedVoteModal/ViewNotStartedVoteModal'
-import { ViewOpenVoteModal } from '../viewOpenVoteModal/ViewOpenVoteModal'
-import { ViewDoneVoteModal } from '../viewDoneVoteModal/ViewDoneVoteModal'
+import { PollQuestionResults } from '@/designSystem/pollQuestionResults/PollQuestionResults'
 
 interface Props {
   voteId: string
@@ -14,29 +14,47 @@ interface Props {
 
 export const ViewVoteModal: FC<Props> = ({ voteId, open, onClose }) => {
   const currentDisplayedVote = useGlobalStore((state) => state.currentDisplayedVote)
+  const currentDisplayedVoteAnswers = useGlobalStore((state) => state.currentVoteAnswers)
 
   useEffect(() => {
     void updateCurrentDisplayedVoteAction(voteId)
-  }, [])
+  }, [voteId])
 
   if (currentDisplayedVote == null) {
     return null
   }
 
-  switch (currentDisplayedVote.status) {
-    case VoteStatus.NOT_STARTED:
-      return (
-        <ViewNotStartedVoteModal open={open} onClose={onClose} openVote={() => { void openCurrentVoteAction() }} />
-      )
-    case VoteStatus.OPEN:
-      return (
-        <ViewOpenVoteModal open={open} onClose={onClose} closeVote={() => { void closeCurrentVoteAction() }} />
-      )
-    case VoteStatus.DONE:
-      return (
-        <ViewDoneVoteModal open={open} onClose={onClose} />
-      )
-    default:
-      return null
-  }
+  const isNotStarted = currentDisplayedVote.status === VoteStatus.NOT_STARTED
+  const isOpen = currentDisplayedVote.status === VoteStatus.OPEN
+  // const isDone = currentDisplayedVote.status === VoteStatus.DONE
+
+  return (
+    <Modal
+      title={currentDisplayedVote.title}
+      open={open}
+      onCancel={onClose}
+      onOk={onClose}
+      footer={[
+        <Button key='back' onClick={onClose}>Annuler</Button>,
+        isNotStarted && (
+          <Button key='start' type='primary' onClick={() => { void openCurrentVoteAction() }}>
+            Commencer le vote
+          </Button>
+        ),
+        isOpen && (
+          <Button key='close' danger type='primary' onClick={() => { void closeCurrentVoteAction() }}>
+            Fermer le vote
+          </Button>
+        )
+      ].filter(Boolean)} // remove null / false from the array
+    >
+      <VoteInfo vote={currentDisplayedVote} />
+      {!isNotStarted && currentDisplayedVoteAnswers !== null && (
+        <PollQuestionResults
+          question={currentDisplayedVote.question}
+          questionAnswersCount={currentDisplayedVoteAnswers}
+        />
+      )}
+    </Modal>
+  )
 }

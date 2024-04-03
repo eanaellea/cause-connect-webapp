@@ -1,6 +1,6 @@
 import { Association } from '@/models/Association'
 import { User } from '@/services/mainApi/queries/auth'
-import { QuestionAnswersCount, Vote } from '@/services/mainApi/queries/votes'
+import { FullVoteResponse, QuestionAnswersCount, Vote } from '@/services/mainApi/queries/votes'
 
 export interface AuthSlice {
   token: string | null
@@ -26,7 +26,7 @@ export interface UsersSlice {
 
 export interface VotesSlice {
   publicVotes: Vote[]
-  currentDisplayedVote: Vote | null
+  currentDisplayedVote: FullVoteResponse | null
   currentVoteAnswers: QuestionAnswersCount | null
   currentVoteWinningOption: string | null
 }
