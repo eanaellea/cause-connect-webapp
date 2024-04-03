@@ -6,6 +6,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 import styles from './InviteUserForm.module.scss'
 import { RoleSelect } from '@/components/roleSelect/RoleSelect'
+import { createUserAction } from '@/store/usersSlice/actions'
 
 const inviteUserSchema = z.object({
   firstName: z.string(),
@@ -19,7 +20,7 @@ export const InviteUserForm: FC = () => {
     resolver: zodResolver(inviteUserSchema)
   })
   const onSubmit: SubmitHandler<z.infer<typeof inviteUserSchema>> = (data) => {
-    console.log('Sumitting', data)
+    void createUserAction(data)
   }
 
   return (
