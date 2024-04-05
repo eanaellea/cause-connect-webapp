@@ -10,7 +10,6 @@ export interface Survey {
   id: string
   title: string
   description: string
-  status: string
   visibility: SurveyVisibility
 }
 
@@ -23,12 +22,6 @@ export interface CreateSurveyBody {
   description: string
   visibility: SurveyVisibility
   questions: NewPollQuestion[]
-}
-
-export interface UpdateSurveyBody {
-  title?: string
-  description?: string
-  visibility?: SurveyVisibility
 }
 
 export interface AnswerSurveyBody {
@@ -79,13 +72,13 @@ export const deleteSurvey = async (surveyId: string): Promise<void> => {
   }
 }
 
-// Update a survey
-export const updateSurvey = async (surveyId: string, body: UpdateSurveyBody): Promise<Survey | null> => {
+// Replace a survey
+export const replaceSurvey = async (surveyId: string, body: CreateSurveyBody): Promise<FullSurveyResponse | null> => {
   try {
-    const response = await query.patch(`surveys/${surveyId}`, {
+    const response = await query.put(`surveys/${surveyId}`, {
       json: body
     })
-    return await response.json<Survey>()
+    return await response.json<FullSurveyResponse>()
   } catch (e) {
     return null
   }

@@ -15,6 +15,7 @@ import { Documents } from './pages/documents/Documents'
 import { useShareCodeAction } from './store/documentsSlice/actions'
 import { Votes } from './pages/votes/Votes'
 import { AssociationPage } from './pages/association/AssociationPage'
+import { Surveys } from './pages/surveys/Surveys'
 
 export const router = createBrowserRouter(
   [
@@ -36,11 +37,11 @@ export const router = createBrowserRouter(
             },
             {
               path: 'first-login',
-              element: <ResetPassword title='Première connexion' buttonContent='Connexion'/>
+              element: <ResetPassword title='Première connexion' buttonContent='Connexion' />
             },
             {
               path: 'welcome',
-              element: <Welcome/>
+              element: <Welcome />
             },
             {
               path: 'register',
@@ -52,7 +53,7 @@ export const router = createBrowserRouter(
             },
             {
               path: 'reset-password',
-              element: <ResetPassword title='Réinitialiser le mot de passe' buttonContent='Réinitialiser le mot de passe'/>
+              element: <ResetPassword title='Réinitialiser le mot de passe' buttonContent='Réinitialiser le mot de passe' />
             }
           ]
         },
@@ -91,9 +92,13 @@ export const router = createBrowserRouter(
               element: <Votes />
             },
             {
-              path: 'association',
-              element: <AssociationPage  />
+              path: 'surveys',
+              element: <Surveys />
             },
+            {
+              path: 'association',
+              element: <AssociationPage />
+            }
           ]
         }
       ]

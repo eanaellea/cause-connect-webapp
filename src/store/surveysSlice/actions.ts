@@ -1,5 +1,16 @@
-import { AnswerSurveyBody, createSurvey, CreateSurveyBody, deleteSurvey, fetchSurveys, fetchSurveyDetails, fetchSurveyResults, submitSurveyAnswers, updateSurvey, UpdateSurveyBody } from '@/services/mainApi/queries/surveys'
+import { AnswerSurveyBody, createSurvey, CreateSurveyBody, deleteSurvey, fetchSurveys, fetchSurveyDetails, fetchSurveyResults, submitSurveyAnswers, replaceSurvey } from '@/services/mainApi/queries/surveys'
 import { useGlobalStore } from '../store'
+
+export const setCurrentDisplayedSurveyAction = async (surveyId: string | null): Promise<void> => {
+  if (surveyId === null) {
+    useGlobalStore.setState({ currentDisplayedSurvey: null })
+    return
+  }
+
+  const fullSurvey = await fetchSurveyDetails(surveyId)
+  const results = await fetchSurveyResults(surveyId)
+  useGlobalStore.setState({ currentDisplayedSurvey: fullSurvey, currentSurveyResults: results })
+}
 
 export const fetchSurveysAction = async (): Promise<void> => {
   const surveys = await fetchSurveys()
@@ -28,14 +39,19 @@ export const deleteSurveyAction = async (surveyId: string): Promise<void> => {
   await fetchSurveysAction()
 }
 
-export const updateSurveyAction = async (surveyId: string, body: UpdateSurveyBody): Promise<void> => {
-  const updatedSurveyResponse = await updateSurvey(surveyId, body)
-  if (updatedSurveyResponse != null) {
+export const replaceCurrentSurveyAction = async (body: CreateSurveyBody): Promise<void> => {
+  const currentSurveyId = useGlobalStore.getState().currentDisplayedSurvey?.id
+  if (currentSurveyId == null) {
+    return
+  }
+  const replacedSurveyResponse = await replaceSurvey(currentSurveyId, body)
+  console.log('hippo', replacedSurveyResponse)
+  if (replacedSurveyResponse != null) {
     useGlobalStore.setState((state) => ({
       surveys: state.surveys.map(survey =>
-        survey.id === surveyId ? updatedSurveyResponse : survey
+        survey.id === currentSurveyId ? replacedSurveyResponse : survey
       ),
-      currentDisplayedSurvey: state.currentDisplayedSurvey?.id === surveyId ? updatedSurveyResponse : state.currentDisplayedSurvey
+      currentDisplayedSurvey: replacedSurveyResponse
     }))
     await fetchSurveysAction()
   }
@@ -43,11 +59,15 @@ export const updateSurveyAction = async (surveyId: string, body: UpdateSurveyBod
 
 export const submitSurveyAnswersAction = async (surveyId: string, body: AnswerSurveyBody): Promise<void> => {
   await submitSurveyAnswers(surveyId, body)
-  await fetchSurveyResultsAction(surveyId)
 }
 
-export const fetchSurveyResultsAction = async (surveyId: string): Promise<void> => {
-  const surveyResults = await fetchSurveyResults(surveyId)
+export const fetchCurrentSurveyResultsAction = async (): Promise<void> => {
+  const currentSurveyId = useGlobalStore.getState().currentDisplayedSurvey?.id
+  if (currentSurveyId == null) {
+    return
+  }
+
+  const surveyResults = await fetchSurveyResults(currentSurveyId)
   if (surveyResults != null) {
     useGlobalStore.setState({ currentSurveyResults: surveyResults })
   }

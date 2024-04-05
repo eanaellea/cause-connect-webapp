@@ -1,5 +1,6 @@
 import { Association } from '@/models/Association'
 import { User } from '@/services/mainApi/queries/auth'
+import { FullSurveyResponse, SurveyVisibility } from '@/services/mainApi/queries/surveys'
 import { FullVoteResponse, QuestionAnswersCount, Vote } from '@/services/mainApi/queries/votes'
 
 export interface AuthSlice {
@@ -34,7 +35,7 @@ export interface VotesSlice {
 
 export interface SurveysSlice {
   surveys: Survey[]
-  currentDisplayedSurvey: Survey | null
+  currentDisplayedSurvey: FullSurveyResponse | null
   currentSurveyResults: SurveyResults | null
 }
 
@@ -54,8 +55,7 @@ interface Survey {
   id: string
   title: string
   description: string
-  status: string
-  visibility: string
+  visibility: SurveyVisibility
   questions?: SurveyQuestion[]
 }
 
@@ -66,14 +66,10 @@ interface SurveyQuestion {
   options: Array<{ id: string, content: string }>
 }
 
-interface SurveyResults {
-  // Assuming a structure for survey results; adjust as necessary based on actual data structure
-  surveyId: string
-  questionsResults: Array<{
-    questionId: string
-    optionCounts: Array<{
-      optionId: string
-      count: number
-    }>
+type SurveyResults = Array<{
+  questionId: string
+  optionCounts: Array<{
+    optionId: string
+    count: number
   }>
-}
+}>
