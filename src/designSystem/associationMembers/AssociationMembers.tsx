@@ -6,8 +6,9 @@ import { ZodError, z } from 'zod'
 
 import { UserRole } from '@/services/mainApi/queries/auth'
 import { Role, RoleSelect } from '@/components/roleSelect/RoleSelect'
-import { updateUserAction } from '@/store/usersSlice/actions'
+import { updateUserAction, deleteUserAction } from '@/store/usersSlice/actions'
 import styles from './AssociationMembers.module.scss'
+import toast from 'react-hot-toast'
 
 const updateUserSchema = z.object({
   fullName: z.string().min(2),
@@ -98,7 +99,7 @@ export const AssociationMembers: FC<AssociationMembersProps> = ({ members }) => 
         onClick={() => handleSave(member.id)}
         key='save'
       />,
-      <Button type='primary' danger icon={<DeleteOutlined />} key='delete' />
+      <Button type='primary' danger icon={<DeleteOutlined />} onClick={() => handleDelete(member.id)} key='delete' />
     ]
   }))
 
@@ -231,6 +232,7 @@ export const AssociationMembers: FC<AssociationMembersProps> = ({ members }) => 
         })
         void updateUserAction(memberId, updateUserBody)
         setModifiedMemberIds(previousState => previousState.filter((id) => id !== memberId))
+        toast.success('Le membre a bien été modifié')
       } catch (error: ZodError | unknown) {
         if (error instanceof ZodError) {
           setErrors(previousState => ([
@@ -240,6 +242,15 @@ export const AssociationMembers: FC<AssociationMembersProps> = ({ members }) => 
         }
       }
     }
+  }
+
+  const handleDelete = (memberId: string): void => {
+    const memberIndex = memberRows.findIndex((memberRow) => memberRow.id === memberId)
+    if (memberIndex !== -1) {
+      void deleteUserAction(memberId)
+      setModifiedMemberIds(previousState => previousState.filter((id) => id !== memberId))
+    }
+    toast.success('Le membre a beien supprimé')
   }
 
   return (

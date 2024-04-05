@@ -1,5 +1,5 @@
 import { useGlobalStore } from '../store'
-import { getUsersFromMyAssociation, InviteUserBody, inviteUser, UpdateUserBody, updateUser } from '@/services/mainApi/queries/users'
+import { getUsersFromMyAssociation, InviteUserBody, inviteUser, UpdateUserBody, updateUser, deleteUser } from '@/services/mainApi/queries/users'
 
 export const getAssociationMembersAction = async (): Promise<void> => {
   const response = await getUsersFromMyAssociation()
@@ -37,5 +37,18 @@ export const updateUserAction = async (userId: string, updateUserBody: UpdateUse
   useGlobalStore.setState((state) => ({
     ...state,
     users: state.users.map((user) => user.id === userId ? response : user)
+  }))
+}
+
+export const deleteUserAction = async (userId: string): Promise<void> => {
+  const response = await deleteUser(userId)
+
+  if (response === null) {
+    return
+  }
+
+  useGlobalStore.setState((state) => ({
+    ...state,
+    users: state.users.filter((user) => user.id !== userId)
   }))
 }

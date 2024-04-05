@@ -60,3 +60,12 @@ export const updateUser = async (userId: string, updateUserBody: UpdateUserBody)
     return null
   }
 }
+
+export const deleteUser = async (userId: string): Promise<UserResponse | null> => {
+  try {
+    const response = await query.delete('users/' + userId)
+    return await response.json<UserResponse>()
+  } catch (e) {
+    return null
+  }
+}
