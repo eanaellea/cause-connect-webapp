@@ -43,3 +43,20 @@ export const inviteUser = async (inviteUserBody: InviteUserBody): Promise<UserRe
     return null
   }
 }
+
+export interface UpdateUserBody {
+  fullName?: string
+  email?: string
+  role?: string
+}
+
+export const updateUser = async (userId: string, updateUserBody: UpdateUserBody): Promise<UserResponse | null> => {
+  try {
+    const response = await query.patch('users/' + userId, {
+      json: updateUserBody
+    })
+    return await response.json<UserResponse>()
+  } catch (e) {
+    return null
+  }
+}

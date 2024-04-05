@@ -11,9 +11,10 @@ export enum Role {
 
 interface RoleSelectProps {
   onChange: (value: Role) => void
+  initialValue?: Role
 }
 
-export const RoleSelect: FC<RoleSelectProps> = ({ onChange }) => {
+export const RoleSelect: FC<RoleSelectProps> = ({ onChange, initialValue }) => {
   const options = Object.keys(Role).map((key) => ({
     label: Role[key as keyof typeof Role],
     value: key
@@ -24,6 +25,7 @@ export const RoleSelect: FC<RoleSelectProps> = ({ onChange }) => {
       options={options}
       onChange={onChange}
       className={styles.select}
+      defaultValue={initialValue}
       placeholder='Sélectionnez un rôle'
     />
   )

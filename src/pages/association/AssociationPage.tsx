@@ -5,15 +5,13 @@ import { Alert } from 'antd'
 import styles from './AssociationPage.module.scss'
 import { AssociationCard } from '@/designSystem/associationProfile/AssociationCard'
 import { InviteUserForm } from '@/designSystem/inviteUserForm/InviteUserForm'
-import { AssociationMembers } from '@/designSystem/associationMembers'
+import { AssociationMembers } from '@/designSystem/associationMembers/AssociationMembers'
 import { getAssociationMembersAction } from '@/store/usersSlice/actions'
 
 export const AssociationPage: FC = () => {
-  const REFETCH_DOCUMENTS_INTERVAL = 10000
   const association = useGlobalStore(state => state.association!) /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
 
-  const members = useGlobalStore((state) => state.users).map((user, index) => ({
-    key: index,
+  const members = useGlobalStore((state) => state.users).map((user) => ({
     id: user.id,
     fullName: user.fullName,
     email: user.email,
@@ -22,12 +20,6 @@ export const AssociationPage: FC = () => {
 
   useEffect(() => {
     void getAssociationMembersAction()
-
-    const interval = setInterval(() => {
-      void getAssociationMembersAction()
-    }, REFETCH_DOCUMENTS_INTERVAL)
-
-    return () => clearInterval(interval)
   }, [])
 
   return (
