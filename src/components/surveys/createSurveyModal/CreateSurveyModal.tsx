@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const CreateSurveyModal: FC<Props> = ({ open, onClose }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof CreateSurveyBodySchema>>({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof CreateSurveyBodySchema>>({
     resolver: zodResolver(CreateSurveyBodySchema)
   })
   const { fields: questionFields, append, remove } = useFieldArray({
@@ -27,6 +27,7 @@ export const CreateSurveyModal: FC<Props> = ({ open, onClose }) => {
 
   const onSubmit: SubmitHandler<z.infer<typeof CreateSurveyBodySchema>> = async (data) => {
     await createSurveyAction(data)
+    reset()
     onClose()
   }
 

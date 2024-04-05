@@ -47,7 +47,7 @@ export const SurveyCard: FC<Props> = ({ survey }) => {
   return (
     <>
       <Card
-        className={styles.voteCard}
+        className={styles.card}
         title={survey.title}
         actions={actions}
       >
