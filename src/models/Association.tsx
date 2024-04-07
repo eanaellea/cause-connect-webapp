@@ -1,6 +1,6 @@
 export interface Association {
-  id: string;
-  name: string;
-  logo?: string;
-  description: string;
+  id: string
+  name: string
+  logo?: string
+  description: string
 }

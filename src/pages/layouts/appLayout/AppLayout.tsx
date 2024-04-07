@@ -6,6 +6,7 @@ import {
   LogoutOutlined,
   SignatureOutlined,
   ScheduleOutlined,
+  SettingOutlined,
   CheckSquareOutlined,
   RobotOutlined
 } from '@ant-design/icons'
@@ -27,9 +28,9 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   {
-    key: 'home',
+    key: 'dashboard',
     icon: HomeOutlined,
-    label: 'Home',
+    label: 'Tableau de bord',
     url: '/app'
   },
   {
@@ -63,9 +64,15 @@ const menuItems: MenuItem[] = [
     url: '/app/chatbot'
   },
   {
+    key: 'association-settings',
+    icon: SettingOutlined,
+    label: 'Paramètres',
+    url: '/app/settings'
+  },
+  {
     key: 'logout',
     icon: LogoutOutlined,
-    label: 'Logout',
+    label: 'Déconnexion',
     action: () => { void logoutAction() }
   }
 ]

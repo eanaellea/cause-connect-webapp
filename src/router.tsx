@@ -17,6 +17,7 @@ import { Votes } from './pages/votes/Votes'
 import { AssociationPage } from './pages/association/AssociationPage'
 import { Surveys } from './pages/surveys/Surveys'
 import { Chatbot } from './pages/chatbot/Chatbot'
+import { Settings } from './pages/settings/Settings'
 
 export const router = createBrowserRouter(
   [
@@ -103,6 +104,10 @@ export const router = createBrowserRouter(
             {
               path: 'chatbot',
               element: <Chatbot />
+            },
+            {
+              path: 'settings',
+              element: <Settings />
             }
           ]
         }

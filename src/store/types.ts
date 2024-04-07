@@ -1,4 +1,5 @@
 import { Association } from '@/models/Association'
+import { Theme } from '@/models/Theme'
 import { User } from '@/services/mainApi/queries/auth'
 import { ChatbotConversationResponse } from '@/services/mainApi/queries/chatbot'
 import { FullSurveyResponse, SurveyVisibility } from '@/services/mainApi/queries/surveys'
@@ -43,9 +44,13 @@ export interface SurveysSlice {
 export interface ChatbotSlice {
   conversation: ChatbotConversationResponse | null
   loadingChatbotResponse: boolean
+export interface SettingsSlice {
+  theme: Theme | null
+  contributionPrice: number | null
+  contributionInterval: number | null
 }
 
-export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice, SurveysSlice, ChatbotSlice {
+export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice, SurveysSlice, ChatbotSlice, SettingsSlice {
 }
 
 // useful types for the slices
