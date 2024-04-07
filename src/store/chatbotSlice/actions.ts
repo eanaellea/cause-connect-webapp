@@ -1,64 +1,3 @@
-/*
-import { query } from '../setup'
-
-export interface ChatbotConversationMessageResponse {
-  id: string
-  role: ChatbotChatRole
-  content: string
-  createdAt: Date
-}
-
-export interface ChatbotConversationResponse {
-  id: string
-  messages: ChatbotConversationMessageResponse[]
-}
-
-interface ChatbotAnswerResponse {
-  question: ChatbotConversationMessageResponse
-  answer: ChatbotConversationMessageResponse
-}
-
-export enum ChatbotChatRole {
-  USER = 'user',
-  ASSISTANT = 'assistant',
-}
-
-export const getConversationQuery = async (): Promise<ChatbotConversationResponse | null> => {
-  try {
-    const result = await query.get('chatbot/conversation')
-    const conversation = await result.json<ChatbotConversationResponse>()
-    return conversation
-  } catch (e) {
-    return null
-  }
-}
-
-export const sendMessageQuery = async (
-  messageContent: string
-): Promise<ChatbotAnswerResponse | null> => {
-  try {
-    const result = await query.post('chatbot/send-question', {
-      json: { question: messageContent }
-    })
-    const message = await result.json<ChatbotAnswerResponse>()
-    return message
-  } catch (e) {
-    return null
-  }
-}
-
-export const resetConversationQuery = async (): Promise<ChatbotConversationResponse | null> => {
-  try {
-    const result = await query.delete('chatbot/reset')
-    const conversation = await result.json<ChatbotConversationResponse>()
-    return conversation
-  } catch (e) {
-    return null
-  }
-}
-
-*/
-
 import { ChatbotChatRole, ChatbotConversationMessageResponse, getConversationQuery, resetConversationQuery, sendMessageQuery } from '@/services/mainApi/queries/chatbot'
 import { useGlobalStore } from '../store'
 
@@ -93,23 +32,11 @@ export const sendMessageAction = async (messageContent: string): Promise<void> =
     return
   }
 
-  const conversation = useGlobalStore.getState().conversation
-  if (conversation === null) {
-    await fetchConversationAction()
-    return
-  }
+  await fetchConversationAction()
 
-  const newMessages = conversation.messages
-    .filter((message) => message.id !== 'temp')
-    .concat([exchange.question, exchange.answer])
+  useGlobalStore.setState({ loadingChatbotResponse: false })
 
-  useGlobalStore.setState({
-    loadingChatbotResponse: false,
-    conversation: {
-      ...conversation,
-      messages: newMessages
-    }
-  })
+  return
 }
 
 export const resetConversationAction = async (): Promise<void> => {
