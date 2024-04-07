@@ -6,7 +6,8 @@ import {
   LogoutOutlined,
   SignatureOutlined,
   ScheduleOutlined,
-  CheckSquareOutlined
+  CheckSquareOutlined,
+  RobotOutlined
 } from '@ant-design/icons'
 import { createElement, FC } from 'react'
 import { Layout, Menu, MenuProps } from 'antd'
@@ -54,6 +55,12 @@ const menuItems: MenuItem[] = [
     icon: ScheduleOutlined,
     label: 'Association',
     url: '/app/association'
+  },
+  {
+    key: 'chatbot',
+    icon: RobotOutlined,
+    label: 'Chatbot',
+    url: '/app/chatbot'
   },
   {
     key: 'logout',

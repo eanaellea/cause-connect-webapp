@@ -16,6 +16,7 @@ import { useShareCodeAction } from './store/documentsSlice/actions'
 import { Votes } from './pages/votes/Votes'
 import { AssociationPage } from './pages/association/AssociationPage'
 import { Surveys } from './pages/surveys/Surveys'
+import { Chatbot } from './pages/chatbot/Chatbot'
 
 export const router = createBrowserRouter(
   [
@@ -98,6 +99,10 @@ export const router = createBrowserRouter(
             {
               path: 'association',
               element: <AssociationPage />
+            },
+            {
+              path: 'chatbot',
+              element: <Chatbot />
             }
           ]
         }

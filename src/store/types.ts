@@ -1,5 +1,6 @@
 import { Association } from '@/models/Association'
 import { User } from '@/services/mainApi/queries/auth'
+import { ChatbotConversationResponse } from '@/services/mainApi/queries/chatbot'
 import { FullSurveyResponse, SurveyVisibility } from '@/services/mainApi/queries/surveys'
 import { FullVoteResponse, QuestionAnswersCount, Vote } from '@/services/mainApi/queries/votes'
 
@@ -39,7 +40,12 @@ export interface SurveysSlice {
   currentSurveyResults: SurveyResults | null
 }
 
-export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice, SurveysSlice {
+export interface ChatbotSlice {
+  conversation: ChatbotConversationResponse | null
+  loadingChatbotResponse: boolean
+}
+
+export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice, SurveysSlice, ChatbotSlice {
 }
 
 // useful types for the slices
