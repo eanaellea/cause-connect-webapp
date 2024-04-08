@@ -1,0 +1,11 @@
+.calendarPage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  padding-bottom: 32px;
+
+  .calendar {
+    flex-grow: 1;
+  }
+}

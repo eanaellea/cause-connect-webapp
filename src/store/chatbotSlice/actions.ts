@@ -35,8 +35,6 @@ export const sendMessageAction = async (messageContent: string): Promise<void> =
   await fetchConversationAction()
 
   useGlobalStore.setState({ loadingChatbotResponse: false })
-
-  return
 }
 
 export const resetConversationAction = async (): Promise<void> => {

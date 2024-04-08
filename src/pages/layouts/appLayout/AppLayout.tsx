@@ -8,7 +8,8 @@ import {
   ScheduleOutlined,
   SettingOutlined,
   CheckSquareOutlined,
-  RobotOutlined
+  RobotOutlined,
+  CalendarOutlined
 } from '@ant-design/icons'
 import { createElement, FC } from 'react'
 import { Layout, Menu, MenuProps } from 'antd'
@@ -68,6 +69,12 @@ const menuItems: MenuItem[] = [
     icon: SettingOutlined,
     label: 'Paramètres',
     url: '/app/settings'
+  },
+  {
+    key: 'calendar',
+    icon: CalendarOutlined,
+    label: 'Calendar',
+    url: '/app/calendar'
   },
   {
     key: 'logout',

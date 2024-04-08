@@ -18,6 +18,7 @@ import { AssociationPage } from './pages/association/AssociationPage'
 import { Surveys } from './pages/surveys/Surveys'
 import { Chatbot } from './pages/chatbot/Chatbot'
 import { Settings } from './pages/settings/Settings'
+import { Calendar } from './pages/calendar/Calendar'
 
 export const router = createBrowserRouter(
   [
@@ -108,6 +109,10 @@ export const router = createBrowserRouter(
             {
               path: 'settings',
               element: <Settings />
+            },
+            {
+              path: 'calendar',
+              element: <Calendar />
             }
           ]
         }

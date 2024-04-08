@@ -1,7 +1,7 @@
 import { query } from '../setup'
 import { UserRole } from './auth'
 
-interface UserResponse {
+export interface UserResponse {
   id: string
   fullName: string
   email: string
