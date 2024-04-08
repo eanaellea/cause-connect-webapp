@@ -54,10 +54,10 @@ export interface SettingsSlice {
 }
 
 export interface EventsSlice {
-  eventsByDate: Record<string, EventResponse>
+  eventsByDate: Record<string, EventResponse[]>
 }
 
-export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice, SurveysSlice, ChatbotSlice, SettingsSlice {
+export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice, SurveysSlice, ChatbotSlice, SettingsSlice, EventsSlice {
 }
 
 // useful types for the slices

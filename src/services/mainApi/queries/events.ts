@@ -43,7 +43,7 @@ export const createEventQuery = async (event: z.infer<typeof createEventSchema>)
       json: event
     })
     const eventResponse = await result.json<EventResponse>()
-    return eventResponse
+    return parseEventResponse(eventResponse)
   } catch (e) {
     return null
   }
@@ -53,7 +53,8 @@ export const getAllPublicEventsQuery = async (): Promise<EventResponse[] | null>
   try {
     const result = await query.get('events')
     const events = await result.json<EventResponse[]>()
-    return events
+
+    return events.map(parseEventResponse)
   } catch (e) {
     return null
   }
@@ -63,7 +64,7 @@ export const getEventByIdQuery = async (id: string): Promise<EventResponse | nul
   try {
     const result = await query.get(`events/${id}`)
     const event = await result.json<EventResponse>()
-    return event
+    return parseEventResponse(event)
   } catch (e) {
     return null
   }
@@ -73,7 +74,7 @@ export const deleteEventQuery = async (id: string): Promise<EventResponse | null
   try {
     const result = await query.delete(`events/${id}`)
     const event = await result.json<EventResponse>()
-    return event
+    return parseEventResponse(event)
   } catch (e) {
     return null
   }
@@ -85,7 +86,7 @@ export const updateEventQuery = async (id: string, event: z.infer<typeof updateE
       json: event
     })
     const eventResponse = await result.json<EventResponse>()
-    return eventResponse
+    return parseEventResponse(eventResponse)
   } catch (e) {
     return null
   }
@@ -164,5 +165,13 @@ export const getPresentUsersQuery = async (id: string): Promise<UserResponse[] |
     return users
   } catch (e) {
     return null
+  }
+}
+
+function parseEventResponse (event: EventResponse): EventResponse {
+  return {
+    ...event,
+    startTime: new Date(event.startTime),
+    endTime: new Date(event.endTime)
   }
 }
