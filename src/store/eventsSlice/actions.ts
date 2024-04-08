@@ -8,6 +8,8 @@ export const refetchEventsAction = async (): Promise<void> => {
     return
   }
 
+  console.log(events)
+
   useGlobalStore.setState({ eventsByDate: transformEventsToRecord(events) })
 }
 

@@ -1,46 +1,36 @@
-import { Badge } from 'antd'
+import { useGlobalStore } from '@/store/store'
+import { Tooltip } from 'antd'
 import dayjs from 'dayjs'
-import { FC } from 'react'
+import { FC, MouseEvent } from 'react'
+import styles from './DateCellRender.module.scss'
+import { router } from '@/router'
+import { EventResponse } from '@/services/mainApi/queries/events'
 
 interface Props {
   date: dayjs.Dayjs
-  info: any
 }
 
-export const DateCellRender: FC<Props> = () => {
-  const listData: Array<{ type: 'warning' | 'success' | 'error', content: string }> = [
-    {
-      type: 'warning',
-      content: 'This is warning event'
-    },
-    {
-      type: 'success',
-      content: 'This is very long usual event......'
-    },
-    {
-      type: 'error',
-      content: 'This is error event 1.'
-    },
-    {
-      type: 'error',
-      content: 'This is error event 2.'
-    },
-    {
-      type: 'error',
-      content: 'This is error event 3.'
-    },
-    {
-      type: 'error',
-      content: 'This is error event 4.'
-    }
-  ]
+export const DateCellRender: FC<Props> = ({ date }) => {
+  const events = useGlobalStore((state) => state.eventsByDate[date.format('YYYY-MM-DD')])
+  if (events === undefined) {
+    return <ul />
+  }
+
+  const handleEventClick = (clickEvent: MouseEvent<HTMLDivElement>, clickedEvent: EventResponse): void => {
+    void router.navigate(`/app/events/${clickedEvent.id}`)
+    clickEvent.stopPropagation()
+  }
 
   return (
-    <ul>
-      {listData.map((item) => (
-        <li key={item.content}>
-          <Badge status={item.type} text={item.content} />
-        </li>
+    <ul
+      className={styles.cellContent}
+    >
+      {events.map((event) => (
+        <Tooltip key={event.id} title={event.title}>
+          <div className={styles.event} onClick={(e) => handleEventClick(e, event)}>
+            {event.title}
+          </div>
+        </Tooltip>
       ))}
     </ul>
   )
