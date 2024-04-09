@@ -6,7 +6,7 @@ import { DateCellRender } from '@/components/calendar/dateCellRender/DateCellRen
 import { refetchEventsAction } from '@/store/eventsSlice/actions'
 import { CalendarDateModal } from '@/components/calendar/calendarDateModal/CalendarDateModal'
 
-const dateCellRender: CalendarProps<dayjs.Dayjs>['cellRender'] = (date, info) => (
+const dateCellRender: CalendarProps<dayjs.Dayjs>['cellRender'] = (date) => (
   <DateCellRender date={date} />
 )
 

@@ -8,13 +8,14 @@ export const refetchEventsAction = async (): Promise<void> => {
     return
   }
 
-  console.log(events)
-
-  useGlobalStore.setState({ eventsByDate: transformEventsToRecord(events) })
+  useGlobalStore.setState({
+    eventIdsByDate: transformEventsToEventIdsByDate(events),
+    eventsById: transfomEventsToEventsById(events)
+  })
 }
 
-const transformEventsToRecord = (events: EventResponse[]): Record<string, EventResponse[]> => {
-  return events.reduce((acc: Record<string, EventResponse[]>, event: EventResponse) => {
+const transformEventsToEventIdsByDate = (events: EventResponse[]): Record<string, string[]> => {
+  return events.reduce((acc: Record<string, string[]>, event: EventResponse) => {
     // array of all dates this event is on
     const allDates = []
     const currentDate = new Date(event.startTime)
@@ -24,15 +25,24 @@ const transformEventsToRecord = (events: EventResponse[]): Record<string, EventR
     }
 
     // add event to each date it is on
-    const addedDates: Record<string, EventResponse[]> = {}
+    const addedDates: Record<string, string[]> = {}
     allDates.forEach(dateString => {
-      addedDates[dateString] = [...(acc[dateString] ?? []), event]
+      addedDates[dateString] = [...(acc[dateString] ?? []), event.id]
     })
 
     // merge addedDates into acc
     return {
       ...acc,
       ...addedDates
+    }
+  }, {})
+}
+
+const transfomEventsToEventsById = (events: EventResponse[]): Record<string, EventResponse> => {
+  return events.reduce((acc: Record<string, EventResponse>, event: EventResponse) => {
+    return {
+      ...acc,
+      [event.id]: event
     }
   }, {})
 }

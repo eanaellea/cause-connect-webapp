@@ -3,7 +3,8 @@ import { StateCreator } from 'zustand'
 import { GlobalStore, EventsSlice } from '../types'
 
 export const initialState: EventsSlice = {
-  eventsByDate: {}
+  eventIdsByDate: {},
+  eventsById: {}
 }
 
 export const createEventsSlice: StateCreator<
