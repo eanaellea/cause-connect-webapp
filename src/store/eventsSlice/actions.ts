@@ -1,5 +1,33 @@
-import { EventResponse, getAllPublicEventsQuery } from '@/services/mainApi/queries/events'
+import { EventResponse, EventVisibility, getAllPublicEventsQuery, updateEventQuery } from '@/services/mainApi/queries/events'
 import { useGlobalStore } from '../store'
+import { z } from 'zod'
+
+export const UpdateEventBodySchema = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+  visibility: z.nativeEnum(EventVisibility).optional(),
+  startTime: z.date().optional(),
+  endTime: z.date().optional(),
+  summary: z.string().optional()
+})
+
+export const updateEventAction = async (eventId: string, updatedData: z.infer<typeof UpdateEventBodySchema>): Promise<void> => {
+  const updatedEvent = await updateEventQuery(eventId, updatedData)
+  if (updatedEvent === null) {
+    return
+  }
+
+  const updatedEventsById = {
+    [eventId]: updatedEvent
+  }
+
+  useGlobalStore.setState({
+    eventsById: {
+      ...useGlobalStore.getState().eventsById,
+      ...updatedEventsById
+    }
+  })
+}
 
 export const refetchEventsAction = async (): Promise<void> => {
   const events = await getAllPublicEventsQuery()
