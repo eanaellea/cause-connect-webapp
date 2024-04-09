@@ -1,6 +1,30 @@
-import { EventResponse, EventVisibility, getAllPublicEventsQuery, updateEventQuery } from '@/services/mainApi/queries/events'
+import { createEventQuery, EventResponse, EventVisibility, getAllPublicEventsQuery, updateEventQuery } from '@/services/mainApi/queries/events'
 import { useGlobalStore } from '../store'
 import { z } from 'zod'
+
+export const CreateEventBodySchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  visibility: z.nativeEnum(EventVisibility),
+  startTime: z.date(),
+  endTime: z.date(),
+  summary: z.string().optional()
+}).refine((data) => data.endTime > data.startTime, {
+  message: 'End time cannot be earlier than start time.',
+  path: ['endTime']
+})
+
+export const createEventAction = async (data: z.infer<typeof CreateEventBodySchema>): Promise<void> => {
+  const event = await createEventQuery({
+    ...data,
+    summary: data.summary ?? ''
+  })
+  if (event === null) {
+    return
+  }
+
+  await refetchEventsAction()
+}
 
 export const UpdateEventBodySchema = z.object({
   title: z.string().optional(),
