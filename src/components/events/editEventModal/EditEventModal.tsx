@@ -34,7 +34,7 @@ export const EditEventModal: FC<Props> = ({ eventId, open, onClose }) => {
       onCancel={onClose}
       footer={[
         <Button key='back' onClick={onClose}>Annuler</Button>,
-        <Button disabled={isDirty} key='submit' type='primary' onClick={handleSubmit(onSubmit)}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
+        <Button disabled={!isDirty} key='submit' type='primary' onClick={handleSubmit(onSubmit)}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
           Modifier
         </Button>
       ]}

@@ -6,9 +6,12 @@ export const UpdateEventBodySchema = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
   visibility: z.nativeEnum(EventVisibility).optional(),
-  startTime: z.date().optional(),
-  endTime: z.date().optional(),
+  startTime: z.date(),
+  endTime: z.date(),
   summary: z.string().optional()
+}).refine((data) => data.endTime > data.startTime, {
+  message: 'End time cannot be earlier than start time.',
+  path: ['endTime']
 })
 
 export const updateEventAction = async (eventId: string, updatedData: z.infer<typeof UpdateEventBodySchema>): Promise<void> => {
