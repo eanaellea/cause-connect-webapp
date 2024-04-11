@@ -1,9 +1,7 @@
 import { Card } from 'antd'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import styles from './SurveyCard.module.scss'
 import { EditOutlined, EyeOutlined } from '@ant-design/icons'
-import { EditSurveyModal } from '../editSurveyModal/EditSurveyModal'
-import { ViewSurveyModal } from '../viewSurveyModal/ViewSurveyModal'
 import { SurveyInfo } from '../surveyInfo/SurveyInfo'
 import { useGlobalStore } from '@/store/store'
 import { UserRole } from '@/services/mainApi/queries/auth'
@@ -12,27 +10,21 @@ import { setCurrentDisplayedSurveyAction } from '@/store/surveysSlice/actions'
 
 interface Props {
   survey: Survey
+  setIsEditModalOpen: (isOpen: boolean) => void
+  setIsViewModalOpen: (isOpen: boolean) => void
 }
 
-export const SurveyCard: FC<Props> = ({ survey }) => {
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false)
+export const SurveyCard: FC<Props> = ({ survey, setIsEditModalOpen, setIsViewModalOpen }) => {
   const userRole = useGlobalStore((state) => state.user?.role)
 
   const handleEditClick = async (): Promise<void> => {
-    void setCurrentDisplayedSurveyAction(survey.id)
+    await setCurrentDisplayedSurveyAction(survey.id)
     setIsEditModalOpen(true)
   }
 
   const handleViewClick = async (): Promise<void> => {
-    void setCurrentDisplayedSurveyAction(survey.id)
+    await setCurrentDisplayedSurveyAction(survey.id)
     setIsViewModalOpen(true)
-  }
-
-  const handleClose = (): void => {
-    void setCurrentDisplayedSurveyAction(null)
-    setIsEditModalOpen(false)
-    setIsViewModalOpen(false)
   }
 
   const actions = [
@@ -53,8 +45,6 @@ export const SurveyCard: FC<Props> = ({ survey }) => {
       >
         <SurveyInfo survey={survey} />
       </Card>
-      <EditSurveyModal open={isEditModalOpen} onClose={handleClose} />
-      <ViewSurveyModal open={isViewModalOpen} onClose={handleClose} />
     </>
   )
 }

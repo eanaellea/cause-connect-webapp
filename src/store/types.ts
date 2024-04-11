@@ -3,6 +3,7 @@ import { Theme } from '@/models/Theme'
 import { User } from '@/services/mainApi/queries/auth'
 import { ChatbotConversationResponse } from '@/services/mainApi/queries/chatbot'
 import { EventResponse } from '@/services/mainApi/queries/events'
+import { FeedItemResponse } from '@/services/mainApi/queries/feed'
 import { FullSurveyResponse, SurveyVisibility } from '@/services/mainApi/queries/surveys'
 import { FullVoteResponse, QuestionAnswersCount, Vote } from '@/services/mainApi/queries/votes'
 
@@ -58,8 +59,24 @@ export interface EventsSlice {
   eventsById: Record<string, EventResponse>
 }
 
-export interface GlobalStore extends AuthSlice, LayoutSlice, DocumentsSlice, VotesSlice, AssociationSlice, UsersSlice, SurveysSlice, ChatbotSlice, SettingsSlice, EventsSlice {
+export interface FeedSlice {
+  feedItemsById: Record<string, FeedItemResponse>
+  feedItemIds: string[]
 }
+
+export interface GlobalStore extends
+  AuthSlice,
+  LayoutSlice,
+  DocumentsSlice,
+  VotesSlice,
+  AssociationSlice,
+  UsersSlice,
+  SurveysSlice,
+  ChatbotSlice,
+  SettingsSlice,
+  EventsSlice,
+  FeedSlice
+{}
 
 // useful types for the slices
 export interface Document {

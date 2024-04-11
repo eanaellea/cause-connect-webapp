@@ -12,6 +12,7 @@ import { createSurveysSlice } from './surveysSlice/surveysSlice'
 import { createChatbotSlice } from './chatbotSlice/chatbotSlice'
 import { createEventsSlice } from './eventsSlice/eventsSlice'
 import { createSettingsSlice } from './settingsSlice/settingsSlice'
+import { createfeedSlice } from './feedSlice/feedSlice'
 
 export const useGlobalStore = create<GlobalStore>()(
   devtools((...a) => ({
@@ -24,6 +25,7 @@ export const useGlobalStore = create<GlobalStore>()(
     ...createSurveysSlice(...a),
     ...createChatbotSlice(...a),
     ...createSettingsSlice(...a),
-    ...createEventsSlice(...a)
+    ...createEventsSlice(...a),
+    ...createfeedSlice(...a)
   }))
 )

@@ -5,15 +5,36 @@ import styles from './Votes.module.scss'
 import { VoteCard } from '@/components/votes/voteCard/VoteCard'
 import { useGlobalStore } from '@/store/store'
 import { CreateVoteModal } from '@/components/votes/createVoteModal/CreateVoteModal'
-import { fetchCurrentBallotResultsAction, fetchVotesAction, fetchWinningOptionAction } from '@/store/votesSlice/actions'
+import { fetchCurrentBallotResultsAction, fetchVotesAction, fetchWinningOptionAction, updateCurrentDisplayedVoteAction } from '@/store/votesSlice/actions'
+import { useParams } from 'react-router-dom'
+import { router } from '@/router'
+import { EditVoteModal } from '@/components/votes/editVoteModal/EditVoteModal'
+import { ViewVoteModal } from '@/components/votes/viewVoteModal/ViewVoteModal'
+
+const REFETCH_VOTES_INTERVAL = 10000
+const REFETCH_BALLOT_RESULTS_INTERVAL = 5000
 
 export const Votes: FC = () => {
-  const REFETCH_VOTES_INTERVAL = 10000
-  const REFETCH_BALLOT_RESULTS_INTERVAL = 5000
+  // data
   const [searchValue, setSearchValue] = useState('')
-  const votes = useGlobalStore((state) => state.publicVotes).filter((vote) => vote.title.includes(searchValue))
-  const [isCreateVoteModalOpen, setIsCreateVoteModalOpen] = useState(false)
   const currentVote = useGlobalStore((state) => state.currentDisplayedVote)
+  const votes = useGlobalStore((state) => state.publicVotes).filter((vote) => vote.title.includes(searchValue))
+
+  // modal states
+  const [isCreateVoteModalOpen, setIsCreateVoteModalOpen] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false)
+
+  // handle voteId param
+  const voteId = useParams<{ voteId: string }>().voteId
+  const applyParamVoteId = async (voteId: string): Promise<void> => {
+    await updateCurrentDisplayedVoteAction(voteId)
+    await router.navigate('/app/votes')
+    setIsViewModalOpen(true)
+  }
+  if (voteId !== undefined) {
+    void applyParamVoteId(voteId)
+  }
 
   useEffect(() => {
     void fetchVotesAction()
@@ -46,10 +67,21 @@ export const Votes: FC = () => {
       </div>
       <div className={styles.votesList}>
         {votes.map((vote) => (
-          <VoteCard vote={vote} key={vote.id} />
+          <VoteCard
+            vote={vote}
+            key={vote.id}
+            setIsEditModalOpen={setIsEditModalOpen}
+            setIsViewModalOpen={setIsViewModalOpen}
+          />
         ))}
       </div>
       <CreateVoteModal open={isCreateVoteModalOpen} onClose={() => setIsCreateVoteModalOpen(false)} />
+      {(currentVote != null) && (
+        <>
+          <EditVoteModal vote={currentVote} open={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} />
+          <ViewVoteModal voteId={currentVote.id} open={isViewModalOpen} onClose={() => setIsViewModalOpen(false)} />
+        </>
+      )}
     </div>
   )
 }

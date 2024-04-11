@@ -1,10 +1,8 @@
 import { Vote } from '@/services/mainApi/queries/votes'
 import { Card } from 'antd'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import styles from './VoteCard.module.scss'
 import { EditOutlined, EyeOutlined } from '@ant-design/icons'
-import { EditVoteModal } from '../editVoteModal/EditVoteModal'
-import { ViewVoteModal } from '../viewVoteModal/ViewVoteModal'
 import { VoteInfo } from '../voteInfo/VoteInfo'
 import { useGlobalStore } from '@/store/store'
 import { UserRole } from '@/services/mainApi/queries/auth'
@@ -12,11 +10,11 @@ import { updateCurrentDisplayedVoteAction } from '@/store/votesSlice/actions'
 
 interface Props {
   vote: Vote
+  setIsEditModalOpen: (isOpen: boolean) => void
+  setIsViewModalOpen: (isOpen: boolean) => void
 }
 
-export const VoteCard: FC<Props> = ({ vote }) => {
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false)
+export const VoteCard: FC<Props> = ({ vote, setIsEditModalOpen, setIsViewModalOpen }) => {
   const userRole = useGlobalStore((state) => state.user?.role)
 
   const handleEditClick = async (): Promise<void> => {
@@ -47,8 +45,6 @@ export const VoteCard: FC<Props> = ({ vote }) => {
       >
         <VoteInfo vote={vote} />
       </Card>
-      <EditVoteModal vote={vote} open={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} />
-      <ViewVoteModal voteId={vote.id} open={isViewModalOpen} onClose={() => setIsViewModalOpen(false)} />
     </>
   )
 }

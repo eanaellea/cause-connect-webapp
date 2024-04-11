@@ -93,11 +93,23 @@ export const router = createBrowserRouter(
             },
             {
               path: 'votes',
-              element: <Votes />
+              element: <Votes />,
+              children: [
+                {
+                  path: ':voteId',
+                  element: <Votes />
+                }
+              ]
             },
             {
               path: 'surveys',
-              element: <Surveys />
+              element: <Surveys />,
+              children: [
+                {
+                  path: ':surveyId',
+                  element: <Surveys />
+                }
+              ]
             },
             {
               path: 'association',
