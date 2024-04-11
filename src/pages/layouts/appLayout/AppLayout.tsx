@@ -9,6 +9,7 @@ import {
   SettingOutlined,
   CheckSquareOutlined,
   RobotOutlined,
+  CreditCardOutlined,
   CalendarOutlined
 } from '@ant-design/icons'
 import { createElement, FC } from 'react'
@@ -75,6 +76,12 @@ const menuItems: MenuItem[] = [
     icon: CalendarOutlined,
     label: 'Calendar',
     url: '/app/calendar'
+  },
+  {
+    key: 'payments',
+    icon: CreditCardOutlined,
+    label: 'Paiements',
+    url: '/app/payments'
   },
   {
     key: 'logout',

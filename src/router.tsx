@@ -20,6 +20,8 @@ import { Chatbot } from './pages/chatbot/Chatbot'
 import { Settings } from './pages/settings/Settings'
 import { Calendar } from './pages/calendar/Calendar'
 import { EventPage } from './pages/eventPage/EventPage'
+import { Payments } from './pages/payments/Payments'
+import { getPaymentDataAction, getThemeAction } from './store/settingsSlice/actions'
 
 export const router = createBrowserRouter(
   [
@@ -121,7 +123,11 @@ export const router = createBrowserRouter(
             },
             {
               path: 'settings',
-              element: <Settings />
+              element: <Settings />,
+              loader: async () => {
+                await getThemeAction()
+                return null
+              }
             },
             {
               path: 'calendar',
@@ -135,6 +141,14 @@ export const router = createBrowserRouter(
                   element: <EventPage />
                 }
               ]
+            },
+            {
+              path: 'payments',
+              element: <Payments />,
+              loader: async () => {
+                await getPaymentDataAction()
+                return null
+              }
             }
           ]
         }

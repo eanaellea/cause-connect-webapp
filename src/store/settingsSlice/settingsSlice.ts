@@ -3,9 +3,17 @@ import { StateCreator } from 'zustand'
 import { GlobalStore, SettingsSlice } from '../types'
 
 export const initialState: SettingsSlice = {
-  theme: null,
-  contributionPrice: null,
-  contributionInterval: null
+  payment: {
+    id: null,
+    stripeAccountId: null,
+    stripePlanId: null,
+    contributionPrice: null
+  },
+  theme: {
+    id: null,
+    color: null,
+    font: null
+  }
 }
 
 export const createSettingsSlice: StateCreator<

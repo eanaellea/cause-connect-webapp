@@ -1,5 +1,3 @@
-import { Association } from '@/models/Association'
-import { Theme } from '@/models/Theme'
 import { User } from '@/services/mainApi/queries/auth'
 import { ChatbotConversationResponse } from '@/services/mainApi/queries/chatbot'
 import { EventResponse } from '@/services/mainApi/queries/events'
@@ -49,9 +47,8 @@ export interface ChatbotSlice {
 }
 
 export interface SettingsSlice {
-  theme: Theme | null
-  contributionPrice: number | null
-  contributionInterval: number | null
+  payment: PaymentData
+  theme: Theme
 }
 
 export interface EventsSlice {
@@ -109,3 +106,23 @@ type SurveyResults = Array<{
     count: number
   }>
 }>
+
+interface PaymentData {
+  id: string | null
+  stripeAccountId: string | null
+  stripePlanId: string | null
+  contributionPrice: number | null
+}
+
+interface Association {
+  id: string
+  name: string
+  logo?: string
+  description: string
+}
+
+interface Theme {
+  id: string | null
+  color: string | null
+  font: string | null
+}

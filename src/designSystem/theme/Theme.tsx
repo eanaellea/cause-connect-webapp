@@ -3,7 +3,7 @@ import { Space, ColorPicker, Select, Divider, Button } from 'antd'
 import { Color } from 'antd/es/color-picker'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm, useFormState } from 'react-hook-form'
 
 import styles from './Theme.module.scss'
 import { getThemeAction, updateThemeAction } from '@/store/settingsSlice/actions'
@@ -23,17 +23,11 @@ interface ThemeColor {
 }
 
 export const Theme: FC = () => {
-  useEffect(() => {
-    if (useGlobalStore.getState().theme == null) {
-      void getThemeAction()
-    }
-  }, [])
-
   const [previewFont, setPreviewFont] = useState<ThemeFont>({
-    '--custom-font': useGlobalStore.getState().theme!.font // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    '--custom-font': useGlobalStore.getState().theme.font! // eslint-disable-line @typescript-eslint/no-non-null-assertion
   })
   const [previewColor, setPreviewColor] = useState<ThemeColor>({
-    '--custom-color': useGlobalStore.getState().theme!.color // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    '--custom-color': useGlobalStore.getState().theme.color! // eslint-disable-line @typescript-eslint/no-non-null-assertion
   })
 
   const { control, handleSubmit, formState: { errors }, setValue } = useForm<z.infer<typeof themeSchema>>({
@@ -90,6 +84,7 @@ export const Theme: FC = () => {
                   className={styles.fontSelect}
                   placeholder='Sélectionnez une police'
                   onChange={handleFontChange}
+                  defaultValue={previewFont['--custom-font']}
                 >
                   <Select.Option value='Arial'>Arial</Select.Option>
                   <Select.Option value='Courier'>Courier</Select.Option>

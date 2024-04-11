@@ -219,11 +219,6 @@ export const AssociationMembers: FC<AssociationMembersProps> = ({ members }) => 
   const handleSave = (memberId: string): void => {
     const memberIndex = memberRows.findIndex((memberRow) => memberRow.id === memberId)
     if (memberIndex !== -1) {
-      console.log({
-        fullName: members[memberIndex].fullName,
-        email: members[memberIndex].email,
-        role: members[memberIndex].role
-      })
       try {
         const updateUserBody = updateUserSchema.parse({
           fullName: members[memberIndex].fullName,
