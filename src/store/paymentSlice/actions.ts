@@ -1,9 +1,17 @@
 import { useGlobalStore } from '../store'
-import { createAccountWithPlanQuery, CreateAccountWithPlanBody, CreateAccountWithPlanResponse, createAccountSessionQuery, getAccountQuery } from '@/services/mainApi/queries/payment'
+import {
+  createAccountWithProductQuery,
+  CreateAccountWithProductBody,
+  CreateAccountWithProductResponse,
+  createAccountSessionQuery,
+  getAccountQuery,
+  updateProductQuery,
+  UpdateProductBody
+} from '@/services/mainApi/queries/payment'
 import { updatePaymentDataQuery } from '@/services/mainApi/queries/settings'
 
-export const createAccountWithPlanAction = async (createAccountWithPlanBody: CreateAccountWithPlanBody): Promise<CreateAccountWithPlanResponse | null> => {
-  const response = await createAccountWithPlanQuery(createAccountWithPlanBody)
+export const createAccountWithProductAction = async (createAccountWithProductBody: CreateAccountWithProductBody): Promise<CreateAccountWithProductResponse | null> => {
+  const response = await createAccountWithProductQuery(createAccountWithProductBody)
 
   if (response === null) {
     return null
@@ -11,7 +19,7 @@ export const createAccountWithPlanAction = async (createAccountWithPlanBody: Cre
 
   await updatePaymentDataQuery({
     stripeAccountId: response.account.id,
-    stripePlanId: response.plan.id
+    stripeProductId: response.product.id
   })
 
   useGlobalStore.setState((state) => ({
@@ -19,7 +27,7 @@ export const createAccountWithPlanAction = async (createAccountWithPlanBody: Cre
     payment: {
       ...state.payment,
       stripeAccountId: response.account.id,
-      stripePlanId: response.plan.id
+      stripeProductId: response.product.id
     }
   }))
 
@@ -38,7 +46,7 @@ export const getAccountAction = async (): Promise<boolean | null> => {
 
 export const createAccountSessionAction = async (): Promise<string | null> => {
   if (useGlobalStore.getState().payment?.stripeAccountId === undefined) {
-    const createAccountResponse = await createAccountWithPlanAction({ email: useGlobalStore.getState().user?.email ?? '' })
+    const createAccountResponse = await createAccountWithProductAction({ email: useGlobalStore.getState().user?.email ?? '' })
     if (createAccountResponse === null) {
       return null
     }
@@ -56,4 +64,19 @@ export const createAccountSessionAction = async (): Promise<string | null> => {
   }
 
   return response
+}
+
+export const updateProductAction = async (updateProductBody: UpdateProductBody): Promise<boolean> => {
+  const stripeProductId = useGlobalStore.getState().payment.stripeProductId
+  if (stripeProductId === null) {
+    return false
+  }
+
+  const response = await updateProductQuery(stripeProductId, updateProductBody)
+
+  if (response === null) {
+    return false
+  }
+
+  return true
 }

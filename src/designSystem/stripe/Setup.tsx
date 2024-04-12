@@ -6,9 +6,13 @@ import {
 
 import { useGlobalStore } from '@/store/store'
 import StripeConnect from './Connect'
-import { createAccountWithPlanAction } from '@/store/paymentSlice/actions'
+import { createAccountWithProductAction } from '@/store/paymentSlice/actions'
 
-export const StripeSetup: FC = () => {
+interface StripeSetupProps {
+  onExit: () => void
+}
+
+export const StripeSetup: FC<StripeSetupProps> = ({ onExit }) => {
   const [accountCreatePending, setAccountCreatePending] = useState(false)
   const [onboardingExited, setOnboardingExited] = useState(false)
   const [error, setError] = useState(false)
@@ -27,7 +31,7 @@ export const StripeSetup: FC = () => {
   const createAccount = async (email: string): Promise<void> => {
     setAccountCreatePending(true)
     setError(false)
-    await createAccountWithPlanAction({ email })
+    await createAccountWithProductAction({ email })
       .then((response) => {
         if (response === null) {
           setError(true)
@@ -42,22 +46,27 @@ export const StripeSetup: FC = () => {
       })
   }
 
+  const handleExit = (): void => {
+    setOnboardingExited(true)
+    onExit()
+  }
+
   return (
-    <div className='content'>
-      {(stripeConnectInstance != null) && (
-        <ConnectComponentsProvider connectInstance={stripeConnectInstance}>
-          <ConnectAccountOnboarding
-            onExit={() => setOnboardingExited(true)}
-          />
-        </ConnectComponentsProvider>
-      )}
-      {error && <p className='error'>Something went wrong!</p>}
-      {(connectedAccountId !== undefined || accountCreatePending || onboardingExited) && (
-        <div className='dev-callout'>
-          {accountCreatePending && !error && <p>Création de votre compte Stripe en cours</p>}
-          {onboardingExited && <p>The Account Onboarding component has exited</p>}
-        </div>
-      )}
-    </div>
+    !onboardingExited &&
+      <div className='content'>
+        {(stripeConnectInstance != null) && (
+          <ConnectComponentsProvider connectInstance={stripeConnectInstance}>
+            <ConnectAccountOnboarding
+              onExit={handleExit}
+            />
+          </ConnectComponentsProvider>
+        )}
+        {error && <p className='error'>Something went wrong!</p>}
+        {(connectedAccountId !== undefined || accountCreatePending || onboardingExited) && (
+          <div className='dev-callout'>
+            {accountCreatePending && !error && <p>Création de votre compte Stripe en cours</p>}
+          </div>
+        )}
+      </div>
   )
 }

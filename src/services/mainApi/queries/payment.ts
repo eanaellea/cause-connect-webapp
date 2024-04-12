@@ -11,23 +11,23 @@ export const getAccountQuery = async (accountId: string): Promise<Stripe.Account
   }
 }
 
-export interface CreateAccountWithPlanBody {
+export interface CreateAccountWithProductBody {
   email: string
 }
 
-export interface CreateAccountWithPlanResponse {
+export interface CreateAccountWithProductResponse {
   account: Stripe.Account
-  plan: Stripe.Plan
+  product: Stripe.Product
 }
 
-export const createAccountWithPlanQuery = async (
-  createAccountWithPlanBody: CreateAccountWithPlanBody
-): Promise<CreateAccountWithPlanResponse | null> => {
+export const createAccountWithProductQuery = async (
+  createAccountWithProductBody: CreateAccountWithProductBody
+): Promise<CreateAccountWithProductResponse | null> => {
   try {
     const result = await query.post('payment/account', {
-      json: createAccountWithPlanBody
+      json: createAccountWithProductBody
     })
-    const json = await result.json<CreateAccountWithPlanResponse>()
+    const json = await result.json<CreateAccountWithProductResponse>()
     return json
   } catch (e) {
     return null
@@ -41,6 +41,22 @@ export const createAccountSessionQuery = async (accountId: string): Promise<stri
     return clientSecret
   } catch (e) {
     console.log('createAccountSessionQuery error', e)
+    return null
+  }
+}
+
+export interface UpdateProductBody {
+  contributionPrice: number
+}
+
+export const updateProductQuery = async (planId: string, updateProductBody: UpdateProductBody): Promise<Stripe.Product | null> => {
+  try {
+    const result = await query.patch('payment/plan/' + planId, {
+      json: updateProductBody
+    })
+    const json = await result.json<Stripe.Product>()
+    return json
+  } catch (e) {
     return null
   }
 }

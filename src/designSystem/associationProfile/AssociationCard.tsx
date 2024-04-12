@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { Button, Input, UploadFile } from 'antd'
-import { Association } from '@/models/Association'
+import { Association } from '../../store/types'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'

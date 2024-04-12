@@ -3,8 +3,7 @@ import { query } from '../setup'
 interface PaymentDataResponse {
   id: string
   stripeAccountId: string
-  stripePlanId: string
-  stripeSessionInProgress: boolean
+  stripeProductId: string
   contributionPrice: number
 }
 
@@ -86,7 +85,7 @@ export const getPaymentDataQuery = async (): Promise<PaymentDataResponse | null>
 
 export interface UpdatePaymentDataBody {
   stripeAccountId?: string
-  stripePlanId?: string
+  stripeProductId?: string
   contributionPrice?: number
 }
 

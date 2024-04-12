@@ -110,11 +110,11 @@ type SurveyResults = Array<{
 interface PaymentData {
   id: string | null
   stripeAccountId: string | null
-  stripePlanId: string | null
+  stripeProductId: string | null
   contributionPrice: number | null
 }
 
-interface Association {
+export interface Association {
   id: string
   name: string
   logo?: string
