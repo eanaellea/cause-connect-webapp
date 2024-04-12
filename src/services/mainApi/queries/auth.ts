@@ -36,13 +36,15 @@ export interface User {
   email: string
   fullName: string
   role: UserRole
+  stripeCustomerId: string
 }
 
 export interface fetchMeResponse {
   id: string
   email: string
-  role: UserRole
   fullName: string
+  role: UserRole
+  stripeCustomerId: string
   association: {
     id: string
     name: string

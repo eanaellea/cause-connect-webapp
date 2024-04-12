@@ -22,7 +22,8 @@ export const loginAction = async (body: any): Promise<void> => {
       id: myInfo.id,
       email: myInfo.email,
       role: myInfo.role,
-      fullName: myInfo.fullName
+      fullName: myInfo.fullName,
+      stripeCustomerId: myInfo.stripeCustomerId
     }
   }))
 
@@ -48,7 +49,8 @@ export const registerAction = async (signUpBody: any, associationLogo: File | nu
         id: '',
         email: signUpBody.admin.email,
         role: UserRole.ADMIN,
-        fullName: signUpBody.admin.fullName
+        fullName: signUpBody.admin.fullName,
+        stripeCustomerId: ''
       },
       association: {
         id: response.id,
@@ -80,7 +82,8 @@ export const resetPasswordAction = async (resetPasswordBody: ResetPasswordBody):
       id: myInfo.id,
       email: myInfo.email,
       role: myInfo.role,
-      fullName: myInfo.fullName
+      fullName: myInfo.fullName,
+      stripeCustomerId: myInfo.stripeCustomerId
     }
   }))
 
