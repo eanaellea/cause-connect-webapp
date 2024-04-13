@@ -5,8 +5,8 @@ import {
   CreateAccountWithProductResponse,
   createAccountSessionQuery,
   getAccountQuery,
-  updateProductQuery,
-  UpdateProductBody
+  createCheckoutSessionQuery,
+  getCustomerSubscriptionQuery
 } from '@/services/mainApi/queries/payment'
 import { updatePaymentDataQuery } from '@/services/mainApi/queries/settings'
 
@@ -34,7 +34,7 @@ export const createAccountWithProductAction = async (createAccountWithProductBod
   return response
 }
 
-export const getAccountAction = async (): Promise<boolean | null> => {
+export const isAccountReadyAction = async (): Promise<boolean | null> => {
   const stripeAccountId = useGlobalStore.getState().payment.stripeAccountId
   if (stripeAccountId === null) {
     return false
@@ -66,17 +66,32 @@ export const createAccountSessionAction = async (): Promise<string | null> => {
   return response
 }
 
-export const updateProductAction = async (updateProductBody: UpdateProductBody): Promise<boolean> => {
-  const stripeProductId = useGlobalStore.getState().payment.stripeProductId
-  if (stripeProductId === null) {
-    return false
+export const isCustomerReadyAction = async (): Promise<boolean | null> => {
+  const stripeCustomerId = useGlobalStore.getState().user?.stripeCustomerId
+  if (stripeCustomerId == null) {
+    return null
+  }
+  const response = await getCustomerSubscriptionQuery(stripeCustomerId)
+  const subscriptionsCount = response?.data.reduce((acc, subscription) => {
+    if (subscription.status === 'active') {
+      return acc + 1
+    }
+    return acc
+  }, 0)
+  return subscriptionsCount === 1
+}
+
+export const createCheckoutSessionAction = async (): Promise<string | null> => {
+  const stripeCustomerId = useGlobalStore.getState().user?.stripeCustomerId
+  if (stripeCustomerId == null) {
+    return null
   }
 
-  const response = await updateProductQuery(stripeProductId, updateProductBody)
+  const response = await createCheckoutSessionQuery(stripeCustomerId)
 
   if (response === null) {
-    return false
+    return null
   }
 
-  return true
+  return response
 }

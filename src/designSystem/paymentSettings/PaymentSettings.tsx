@@ -8,23 +8,32 @@ import toast from 'react-hot-toast'
 
 import styles from './PaymentSettings.module.scss'
 import { updatePaymentDataAction } from '@/store/settingsSlice/actions'
+import { router } from '@/router'
 
 const updateContributionPriceSchema = z.object({
   contributionPrice: z.number().nonnegative().transform((v: number) => v * 100)
 })
 
-export const PaymentSettings: FC = () => {
+interface PaymentSettingsProps {
+  redirectTo?: string
+}
+
+export const PaymentSettings: FC<PaymentSettingsProps> = ({ redirectTo }) => {
+  const contributionPrice = useGlobalStore.getState().payment.contributionPrice
   const { control, handleSubmit, formState: { errors, isValid, isDirty } } = useForm<z.infer<typeof updateContributionPriceSchema>>({
     resolver: zodResolver(updateContributionPriceSchema),
     defaultValues: {
-      contributionPrice: (useGlobalStore.getState().payment.contributionPrice ?? 0) / 100
+      contributionPrice: typeof contributionPrice === 'number' ? contributionPrice / 100 : undefined
     }
   })
-  const onSubmit: SubmitHandler<z.infer<typeof updateContributionPriceSchema>> = (data) => {
+  const onSubmit: SubmitHandler<z.infer<typeof updateContributionPriceSchema>> = async (data) => {
     void updatePaymentDataAction({
       contributionPrice: data.contributionPrice
     })
     toast.success('Prix de la contribution mis à jour')
+    if (redirectTo != null) {
+      await router.navigate(redirectTo)
+    }
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.contributionForm}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}

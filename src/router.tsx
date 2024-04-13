@@ -22,6 +22,10 @@ import { Calendar } from './pages/calendar/Calendar'
 import { EventPage } from './pages/eventPage/EventPage'
 import { Payments } from './pages/payments/Payments'
 import { getPaymentDataAction, getThemeAction } from './store/settingsSlice/actions'
+import { isAccountReadyAction, isCustomerReadyAction } from './store/paymentSlice/actions'
+import { Subscribe } from './designSystem/stripe/Subscribe'
+import { UserRole } from './services/mainApi/queries/auth'
+import { PaymentsSetup } from './pages/associationPaymentSetup/associationPaymentSetup'
 
 export const router = createBrowserRouter(
   [
@@ -60,14 +64,37 @@ export const router = createBrowserRouter(
             {
               path: 'reset-password',
               element: <ResetPassword title='Réinitialiser le mot de passe' buttonContent='Réinitialiser le mot de passe' />
+            },
+            {
+              path: 'association-setup',
+              element: <PaymentsSetup />,
+              loader: async () => {
+                await getPaymentDataAction()
+                return null
+              }
+            },
+            {
+              path: 'user-setup',
+              element: <Subscribe />,
+              loader: async () => {
+                await getPaymentDataAction()
+                return null
+              }
             }
           ]
         },
         {
           path: '/app',
-          loader: () => {
+          loader: async () => {
             if (useGlobalStore.getState().token === null) {
               return redirect('/login')
+            }
+            await getPaymentDataAction()
+            if (await isAccountReadyAction() !== true && useGlobalStore.getState().user?.role === UserRole.ADMIN) {
+              return redirect('/association-setup')
+            }
+            if (await isCustomerReadyAction() !== true) {
+              return redirect('/user-setup')
             }
             return null
           },

@@ -3,7 +3,7 @@ import Stripe from 'stripe'
 
 export const getAccountQuery = async (accountId: string): Promise<Stripe.Account | null> => {
   try {
-    const result = await query.get('payment/account/' + accountId)
+    const result = await query.get('payment/accounts/' + accountId)
     const json = await result.json<Stripe.Account>()
     return json
   } catch (e) {
@@ -24,7 +24,7 @@ export const createAccountWithProductQuery = async (
   createAccountWithProductBody: CreateAccountWithProductBody
 ): Promise<CreateAccountWithProductResponse | null> => {
   try {
-    const result = await query.post('payment/account', {
+    const result = await query.post('payment/accounts', {
       json: createAccountWithProductBody
     })
     const json = await result.json<CreateAccountWithProductResponse>()
@@ -36,7 +36,7 @@ export const createAccountWithProductQuery = async (
 
 export const createAccountSessionQuery = async (accountId: string): Promise<string | null> => {
   try {
-    const result = await query.post('payment/account/' + accountId + '/session')
+    const result = await query.post('payment/accounts/' + accountId + '/session')
     const clientSecret = await result.text()
     return clientSecret
   } catch (e) {
@@ -45,16 +45,20 @@ export const createAccountSessionQuery = async (accountId: string): Promise<stri
   }
 }
 
-export interface UpdateProductBody {
-  contributionPrice: number
+export const createCheckoutSessionQuery = async (customerId: string): Promise<string | null> => {
+  try {
+    const result = await query.post('payment/customers/' + customerId + '/checkout-session')
+    const clientSecret = await result.text()
+    return clientSecret
+  } catch (e) {
+    return null
+  }
 }
 
-export const updateProductQuery = async (planId: string, updateProductBody: UpdateProductBody): Promise<Stripe.Product | null> => {
+export const getCustomerSubscriptionQuery = async (customerId: string): Promise<Stripe.ApiList<Stripe.Subscription> | null> => {
   try {
-    const result = await query.patch('payment/plan/' + planId, {
-      json: updateProductBody
-    })
-    const json = await result.json<Stripe.Product>()
+    const result = await query.get('payment/customers/' + customerId + '/subscription')
+    const json = await result.json<Stripe.ApiList<Stripe.Subscription>>()
     return json
   } catch (e) {
     return null
