@@ -7,7 +7,8 @@ import {
   getAccountQuery,
   createContributionCheckoutSessionQuery,
   getCustomerSubscriptionQuery,
-  createDonationCheckoutSessionQuery
+  createDonationCheckoutSessionQuery,
+  getCheckoutSessionQuery
 } from '@/services/mainApi/queries/payment'
 import { updatePaymentDataQuery } from '@/services/mainApi/queries/settings'
 
@@ -112,4 +113,19 @@ export const createDonationCheckoutSessionAction = async (): Promise<string | nu
   }
 
   return response
+}
+
+export enum CheckoutSessionStatus {
+  COMPLETE = 'complete',
+  OPEN = 'open',
+}
+
+export const getCheckoutSessionStatusAction = async (sessionId: string): Promise<string | null> => {
+  const response = await getCheckoutSessionQuery(sessionId)
+
+  if (response === null) {
+    return null
+  }
+
+  return response.status
 }

@@ -1,0 +1,12 @@
+@import '../../designSystem/mixins.scss';
+@import '../../designSystem/variables.scss';
+
+.container {
+  flex-grow: 1;
+  width: calc(100% - 64px);
+  overflow-y: scroll;
+  position: relative;
+  padding: 32px;
+  @include flex-column;
+  align-items: center;
+}

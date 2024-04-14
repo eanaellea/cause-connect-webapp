@@ -27,6 +27,8 @@ import { Subscribe } from './designSystem/stripe/Subscribe'
 import { UserRole } from './services/mainApi/queries/auth'
 import { PaymentsSetup } from './pages/associationPaymentSetup/associationPaymentSetup'
 import { Donate } from './designSystem/stripe/Donate'
+import { DonationReturn } from './pages/donationReturn/DonationReturn'
+import { ContributionReturn } from './pages/contributionReturn/ContributionReturn'
 
 export const router = createBrowserRouter(
   [
@@ -81,6 +83,10 @@ export const router = createBrowserRouter(
                 await getPaymentDataAction()
                 return null
               }
+            },
+            {
+              path: 'checkout/donation/return',
+              element: <DonationReturn />
             }
           ]
         },
@@ -185,6 +191,10 @@ export const router = createBrowserRouter(
                 await getPaymentDataAction()
                 return null
               }
+            },
+            {
+              path: 'checkout/contribution/return',
+              element: <ContributionReturn />
             }
           ]
         }

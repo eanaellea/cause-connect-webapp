@@ -75,3 +75,13 @@ export const getCustomerSubscriptionQuery = async (customerId: string): Promise<
     return null
   }
 }
+
+export const getCheckoutSessionQuery = async (sessionId: string): Promise<Stripe.Checkout.Session | null> => {
+  try {
+    const result = await query.get('payment/checkout/session/' + sessionId + '/status')
+    const json = await result.json<Stripe.Checkout.Session>()
+    return json
+  } catch (e) {
+    return null
+  }
+}
