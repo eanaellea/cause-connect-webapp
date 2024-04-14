@@ -6,7 +6,7 @@ import {
 
 import { useGlobalStore } from '@/store/store'
 import StripeConnect from './Connect'
-import { createAccountWithProductAction } from '@/store/paymentSlice/actions'
+import { createAccountWithProductsAction } from '@/store/paymentSlice/actions'
 
 interface StripeSetupProps {
   onExit: () => void
@@ -31,7 +31,7 @@ export const StripeSetup: FC<StripeSetupProps> = ({ onExit }) => {
   const createAccount = async (email: string): Promise<void> => {
     setAccountCreatePending(true)
     setError(false)
-    await createAccountWithProductAction({ email })
+    await createAccountWithProductsAction({ email })
       .then((response) => {
         if (response === null) {
           setError(true)

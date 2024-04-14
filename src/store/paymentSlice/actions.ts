@@ -1,17 +1,18 @@
 import { useGlobalStore } from '../store'
 import {
-  createAccountWithProductQuery,
-  CreateAccountWithProductBody,
-  CreateAccountWithProductResponse,
+  createAccountWithProductsQuery,
+  CreateAccountWithProductsBody,
+  CreateAccountWithProductsResponse,
   createAccountSessionQuery,
   getAccountQuery,
-  createCheckoutSessionQuery,
-  getCustomerSubscriptionQuery
+  createContributionCheckoutSessionQuery,
+  getCustomerSubscriptionQuery,
+  createDonationCheckoutSessionQuery
 } from '@/services/mainApi/queries/payment'
 import { updatePaymentDataQuery } from '@/services/mainApi/queries/settings'
 
-export const createAccountWithProductAction = async (createAccountWithProductBody: CreateAccountWithProductBody): Promise<CreateAccountWithProductResponse | null> => {
-  const response = await createAccountWithProductQuery(createAccountWithProductBody)
+export const createAccountWithProductsAction = async (createAccountWithProductsBody: CreateAccountWithProductsBody): Promise<CreateAccountWithProductsResponse | null> => {
+  const response = await createAccountWithProductsQuery(createAccountWithProductsBody)
 
   if (response === null) {
     return null
@@ -19,7 +20,8 @@ export const createAccountWithProductAction = async (createAccountWithProductBod
 
   await updatePaymentDataQuery({
     stripeAccountId: response.account.id,
-    stripeProductId: response.product.id
+    stripeContributionId: response.contribution.id,
+    stripeDonationId: response.donation.id
   })
 
   useGlobalStore.setState((state) => ({
@@ -27,7 +29,8 @@ export const createAccountWithProductAction = async (createAccountWithProductBod
     payment: {
       ...state.payment,
       stripeAccountId: response.account.id,
-      stripeProductId: response.product.id
+      stripeContributionId: response.contribution.id,
+      stripeDonationId: response.donation.id
     }
   }))
 
@@ -46,7 +49,7 @@ export const isAccountReadyAction = async (): Promise<boolean | null> => {
 
 export const createAccountSessionAction = async (): Promise<string | null> => {
   if (useGlobalStore.getState().payment?.stripeAccountId === undefined) {
-    const createAccountResponse = await createAccountWithProductAction({ email: useGlobalStore.getState().user?.email ?? '' })
+    const createAccountResponse = await createAccountWithProductsAction({ email: useGlobalStore.getState().user?.email ?? '' })
     if (createAccountResponse === null) {
       return null
     }
@@ -81,13 +84,28 @@ export const isCustomerReadyAction = async (): Promise<boolean | null> => {
   return subscriptionsCount === 1
 }
 
-export const createCheckoutSessionAction = async (): Promise<string | null> => {
+export const createContributionCheckoutSessionAction = async (): Promise<string | null> => {
   const stripeCustomerId = useGlobalStore.getState().user?.stripeCustomerId
   if (stripeCustomerId == null) {
     return null
   }
 
-  const response = await createCheckoutSessionQuery(stripeCustomerId)
+  const response = await createContributionCheckoutSessionQuery(stripeCustomerId)
+
+  if (response === null) {
+    return null
+  }
+
+  return response
+}
+
+export const createDonationCheckoutSessionAction = async (): Promise<string | null> => {
+  const stripeCustomerId = useGlobalStore.getState().user?.stripeCustomerId
+  if (stripeCustomerId == null) {
+    return null
+  }
+
+  const response = await createDonationCheckoutSessionQuery(stripeCustomerId)
 
   if (response === null) {
     return null

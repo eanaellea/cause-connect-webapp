@@ -26,6 +26,7 @@ import { isAccountReadyAction, isCustomerReadyAction } from './store/paymentSlic
 import { Subscribe } from './designSystem/stripe/Subscribe'
 import { UserRole } from './services/mainApi/queries/auth'
 import { PaymentsSetup } from './pages/associationPaymentSetup/associationPaymentSetup'
+import { Donate } from './designSystem/stripe/Donate'
 
 export const router = createBrowserRouter(
   [
@@ -172,6 +173,14 @@ export const router = createBrowserRouter(
             {
               path: 'payments',
               element: <Payments />,
+              loader: async () => {
+                await getPaymentDataAction()
+                return null
+              }
+            },
+            {
+              path: 'donate',
+              element: <Donate />,
               loader: async () => {
                 await getPaymentDataAction()
                 return null

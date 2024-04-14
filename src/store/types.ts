@@ -110,7 +110,8 @@ type SurveyResults = Array<{
 interface PaymentData {
   id: string | null
   stripeAccountId: string | null
-  stripeProductId: string | null
+  stripeContributionId: string | null
+  stripeDonationId: string | null
   contributionPrice: number | null
 }
 

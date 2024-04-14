@@ -10,6 +10,7 @@ import {
   CheckSquareOutlined,
   RobotOutlined,
   CreditCardOutlined,
+  EuroCircleOutlined,
   CalendarOutlined
 } from '@ant-design/icons'
 import { createElement, FC } from 'react'
@@ -82,6 +83,12 @@ const menuItems: MenuItem[] = [
     icon: CreditCardOutlined,
     label: 'Paiements',
     url: '/app/payments'
+  },
+  {
+    key: 'donations',
+    icon: EuroCircleOutlined,
+    label: 'Dons',
+    url: '/app/donate'
   },
   {
     key: 'logout',

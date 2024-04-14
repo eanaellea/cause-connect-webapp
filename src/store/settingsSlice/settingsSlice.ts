@@ -6,7 +6,8 @@ export const initialState: SettingsSlice = {
   payment: {
     id: null,
     stripeAccountId: null,
-    stripeProductId: null,
+    stripeContributionId: null,
+    stripeDonationId: null,
     contributionPrice: null
   },
   theme: {

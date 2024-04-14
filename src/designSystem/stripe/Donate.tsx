@@ -5,7 +5,7 @@ import {
   EmbeddedCheckout
 } from '@stripe/react-stripe-js'
 
-import { createContributionCheckoutSessionAction } from '@/store/paymentSlice/actions'
+import { createDonationCheckoutSessionAction } from '@/store/paymentSlice/actions'
 import { getPaymentDataQuery } from '@/services/mainApi/queries/settings'
 import styles from './Subscribe.module.scss'
 
@@ -14,16 +14,17 @@ const stripePromise = loadStripe(import.meta.env.VITE_REACT_APP_STRIPE_PUBLISHAB
   stripeAccount: String((await getPaymentDataQuery())?.stripeAccountId)
 })
 
-export const Subscribe: FC = () => {
+export const Donate: FC = () => {
   const options = {
     fetchClientSecret: async () => {
-      const clientSecret = await createContributionCheckoutSessionAction()
+      const clientSecret = await createDonationCheckoutSessionAction()
       return clientSecret ?? ''
     }
   }
 
   return (
     <div className={styles.container}>
+      <h1>Don</h1>
       <EmbeddedCheckoutProvider
         stripe={stripePromise}
         options={options}

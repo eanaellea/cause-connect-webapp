@@ -11,23 +11,24 @@ export const getAccountQuery = async (accountId: string): Promise<Stripe.Account
   }
 }
 
-export interface CreateAccountWithProductBody {
+export interface CreateAccountWithProductsBody {
   email: string
 }
 
-export interface CreateAccountWithProductResponse {
+export interface CreateAccountWithProductsResponse {
   account: Stripe.Account
-  product: Stripe.Product
+  contribution: Stripe.Product
+  donation: Stripe.Product
 }
 
-export const createAccountWithProductQuery = async (
-  createAccountWithProductBody: CreateAccountWithProductBody
-): Promise<CreateAccountWithProductResponse | null> => {
+export const createAccountWithProductsQuery = async (
+  createAccountWithProductsBody: CreateAccountWithProductsBody
+): Promise<CreateAccountWithProductsResponse | null> => {
   try {
     const result = await query.post('payment/accounts', {
-      json: createAccountWithProductBody
+      json: createAccountWithProductsBody
     })
-    const json = await result.json<CreateAccountWithProductResponse>()
+    const json = await result.json<CreateAccountWithProductsResponse>()
     return json
   } catch (e) {
     return null
@@ -45,9 +46,19 @@ export const createAccountSessionQuery = async (accountId: string): Promise<stri
   }
 }
 
-export const createCheckoutSessionQuery = async (customerId: string): Promise<string | null> => {
+export const createContributionCheckoutSessionQuery = async (customerId: string): Promise<string | null> => {
   try {
-    const result = await query.post('payment/customers/' + customerId + '/checkout-session')
+    const result = await query.post('payment/customers/' + customerId + '/checkout/contribution')
+    const clientSecret = await result.text()
+    return clientSecret
+  } catch (e) {
+    return null
+  }
+}
+
+export const createDonationCheckoutSessionQuery = async (customerId: string): Promise<string | null> => {
+  try {
+    const result = await query.post('payment/customers/' + customerId + '/checkout/donation')
     const clientSecret = await result.text()
     return clientSecret
   } catch (e) {
