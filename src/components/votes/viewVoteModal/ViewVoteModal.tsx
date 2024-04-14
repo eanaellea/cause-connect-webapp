@@ -60,7 +60,7 @@ export const ViewVoteModal: FC<Props> = ({ voteId, open, onClose }) => {
       <VoteInfo vote={currentDisplayedVote} />
       {isOpen && (
         <div className={styles.qrCodeContainer}>
-          <QRCode value={currentDisplayedVote.id} />
+          <QRCode value={`vote:${currentDisplayedVote.id}`} />
         </div>
       )}
       {!isNotStarted && currentDisplayedVoteAnswers !== null && (

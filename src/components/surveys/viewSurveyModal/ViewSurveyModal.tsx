@@ -1,6 +1,6 @@
 import { useGlobalStore } from '@/store/store'
 import { FC } from 'react'
-import { Divider, Modal } from 'antd'
+import { Divider, Modal, QRCode } from 'antd'
 import { SurveyInfo } from '../surveyInfo/SurveyInfo'
 import { PollQuestionResults } from '@/designSystem/pollQuestionResults/PollQuestionResults'
 import styles from './ViewSurveyModal.module.scss'
@@ -25,6 +25,9 @@ export const ViewSurveyModal: FC<Props> = ({ open, onClose }) => {
       title={`Viewing survey ${currentDisplayedSurvey.title}`}
     >
       <SurveyInfo survey={currentDisplayedSurvey} />
+      <div className={styles.qrCodeContainer}>
+        <QRCode value={`survey:${currentDisplayedSurvey.id}`} />
+      </div>
       <Divider type='horizontal' />
       {currentDisplayedSurvey.questions?.map((question) => {
         const currentQuestionResults = results?.find((result) => result.questionId === question.id)
