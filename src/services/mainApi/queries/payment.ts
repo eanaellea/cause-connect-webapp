@@ -1,5 +1,6 @@
 import { query } from '../setup'
 import Stripe from 'stripe'
+import { UserResponse } from './users'
 
 export const getAccountQuery = async (accountId: string): Promise<Stripe.Account | null> => {
   try {
@@ -83,5 +84,30 @@ export const getCheckoutSessionQuery = async (sessionId: string): Promise<Stripe
     return json
   } catch (e) {
     return null
+  }
+}
+
+export const getLateUsersQuery = async (): Promise<UserResponse[] | null> => {
+  try {
+    const result = await query.get('payment/late-users')
+    const json = await result.json<UserResponse[]>()
+    return json
+  } catch (e) {
+    return null
+  }
+}
+
+export interface SendLateUsersReminderBody {
+  emails: string[]
+}
+
+export const sendLateUsersReminderQuery = async (sendLateUsersReminderBody: SendLateUsersReminderBody): Promise<boolean> => {
+  try {
+    const result = await query.post('payment/late-users/send-reminder', {
+      json: sendLateUsersReminderBody
+    })
+    return result.ok
+  } catch (e) {
+    return false
   }
 }

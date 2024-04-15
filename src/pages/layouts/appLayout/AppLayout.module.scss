@@ -1,8 +1,8 @@
 @import "../../../designSystem/mixins.scss";
 
 .content {
-  margin: 24px 16px 0;
-  overflow: scroll;
+  padding: 24px 16px;
+  overflow: auto;
 }
 
 .appContainer {
