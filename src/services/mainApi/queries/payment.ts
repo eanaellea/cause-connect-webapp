@@ -57,9 +57,25 @@ export const createContributionCheckoutSessionQuery = async (customerId: string)
   }
 }
 
-export const createDonationCheckoutSessionQuery = async (customerId: string): Promise<string | null> => {
+export const createPrivateDonationCheckoutSessionQuery = async (customerId: string): Promise<string | null> => {
   try {
     const result = await query.post('payment/customers/' + customerId + '/checkout/donation')
+    const clientSecret = await result.text()
+    return clientSecret
+  } catch (e) {
+    return null
+  }
+}
+
+interface CreatePublicDonationCheckoutSessionBody {
+  associationId: string
+}
+
+export const createPublicDonationCheckoutSessionQuery = async (createPublicDonationCheckoutSessionBody: CreatePublicDonationCheckoutSessionBody): Promise<string | null> => {
+  try {
+    const result = await query.post('payment/checkout/donation', {
+      json: createPublicDonationCheckoutSessionBody
+    })
     const clientSecret = await result.text()
     return clientSecret
   } catch (e) {

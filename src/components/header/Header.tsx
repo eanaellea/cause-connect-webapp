@@ -26,6 +26,14 @@ const items: MenuItem[] = [
   },
   {
     label: (
+      <Link to='/donate'>
+        Faire un don
+      </Link>
+    ),
+    key: 'donate'
+  },
+  {
+    label: (
       <Link to='/login'>
         Se connecter
       </Link>

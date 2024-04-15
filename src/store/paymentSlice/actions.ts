@@ -7,8 +7,9 @@ import {
   getAccountQuery,
   createContributionCheckoutSessionQuery,
   getCustomerSubscriptionQuery,
-  createDonationCheckoutSessionQuery,
-  getCheckoutSessionQuery
+  createPrivateDonationCheckoutSessionQuery,
+  getCheckoutSessionQuery,
+  createPublicDonationCheckoutSessionQuery
 } from '@/services/mainApi/queries/payment'
 import { updatePaymentDataQuery } from '@/services/mainApi/queries/settings'
 
@@ -100,13 +101,20 @@ export const createContributionCheckoutSessionAction = async (): Promise<string 
   return response
 }
 
-export const createDonationCheckoutSessionAction = async (): Promise<string | null> => {
-  const stripeCustomerId = useGlobalStore.getState().user?.stripeCustomerId
-  if (stripeCustomerId == null) {
-    return null
+export const createDonationCheckoutSessionAction = async (isPublic: boolean, associationId: string | null): Promise<string | null> => {
+  let response = null
+  if (isPublic) {
+    if (associationId === null) {
+      return null
+    }
+    response = await createPublicDonationCheckoutSessionQuery({ associationId })
+  } else {
+    const stripeCustomerId = useGlobalStore.getState().user?.stripeCustomerId
+    if (stripeCustomerId == null) {
+      return null
+    }
+    response = await createPrivateDonationCheckoutSessionQuery(stripeCustomerId)
   }
-
-  const response = await createDonationCheckoutSessionQuery(stripeCustomerId)
 
   if (response === null) {
     return null

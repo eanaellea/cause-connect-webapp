@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import styles from './LogIn.module.scss'
 import { SearchableSelect } from '@/designSystem/SearchableSelect'
-import { Association } from '@/models/Association'
+import { Association } from '@/store/types'
 import { getAssociationsQuery } from '@/services/mainApi/queries/associations'
 import { loginAction } from '@/store/authSlice/actions'
 import { Link } from 'react-router-dom'

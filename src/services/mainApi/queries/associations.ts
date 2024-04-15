@@ -56,3 +56,15 @@ export const updateAssociationLogoQuery = async (
     return null
   }
 }
+
+export const getAssociationStripeAccountIdQuery = async (
+  associationId: string
+): Promise<string | null> => {
+  try {
+    const result = await query.get(`associations/${associationId}/stripe-account-id`)
+    const json = await result.json<{ id: string }>()
+    return json.id
+  } catch (e) {
+    return null
+  }
+}

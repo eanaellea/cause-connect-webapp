@@ -26,9 +26,10 @@ import { isAccountReadyAction, isCustomerReadyAction } from './store/paymentSlic
 import { Subscribe } from './designSystem/stripe/Subscribe'
 import { UserRole } from './services/mainApi/queries/auth'
 import { PaymentsSetup } from './pages/associationPaymentSetup/associationPaymentSetup'
-import { Donate } from './designSystem/stripe/Donate'
+import { PrivateDonation } from './designSystem/stripe/PrivateDonation'
 import { DonationReturn } from './pages/donationReturn/DonationReturn'
 import { ContributionReturn } from './pages/contributionReturn/ContributionReturn'
+import { PublicDonation } from './pages/donation/PublicDonation'
 
 export const router = createBrowserRouter(
   [
@@ -70,23 +71,19 @@ export const router = createBrowserRouter(
             },
             {
               path: 'association-setup',
-              element: <PaymentsSetup />,
-              loader: async () => {
-                await getPaymentDataAction()
-                return null
-              }
+              element: <PaymentsSetup />
             },
             {
               path: 'user-setup',
-              element: <Subscribe />,
-              loader: async () => {
-                await getPaymentDataAction()
-                return null
-              }
+              element: <Subscribe />
             },
             {
               path: 'checkout/donation/return',
               element: <DonationReturn />
+            },
+            {
+              path: 'donate',
+              element: <PublicDonation />
             }
           ]
         },
@@ -186,11 +183,11 @@ export const router = createBrowserRouter(
             },
             {
               path: 'donate',
-              element: <Donate />,
-              loader: async () => {
-                await getPaymentDataAction()
-                return null
-              }
+              element: <PrivateDonation />
+            },
+            {
+              path: 'checkout/donation/return',
+              element: <DonationReturn />
             },
             {
               path: 'checkout/contribution/return',

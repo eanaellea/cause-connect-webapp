@@ -14,10 +14,10 @@ const stripePromise = loadStripe(import.meta.env.VITE_REACT_APP_STRIPE_PUBLISHAB
   stripeAccount: String((await getPaymentDataQuery())?.stripeAccountId)
 })
 
-export const Donate: FC = () => {
+export const PrivateDonation: FC = () => {
   const options = {
     fetchClientSecret: async () => {
-      const clientSecret = await createDonationCheckoutSessionAction()
+      const clientSecret = await createDonationCheckoutSessionAction(false, null)
       return clientSecret ?? ''
     }
   }
