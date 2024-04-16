@@ -13,6 +13,7 @@ import { createChatbotSlice } from './chatbotSlice/chatbotSlice'
 import { createEventsSlice } from './eventsSlice/eventsSlice'
 import { createSettingsSlice } from './settingsSlice/settingsSlice'
 import { createfeedSlice } from './feedSlice/feedSlice'
+import { createPluginsSlice } from './pluginsSlice/pluginsSlice'
 
 export const useGlobalStore = create<GlobalStore>()(
   devtools((...a) => ({
@@ -26,6 +27,7 @@ export const useGlobalStore = create<GlobalStore>()(
     ...createChatbotSlice(...a),
     ...createSettingsSlice(...a),
     ...createEventsSlice(...a),
-    ...createfeedSlice(...a)
+    ...createfeedSlice(...a),
+    ...createPluginsSlice(...a)
   }))
 )

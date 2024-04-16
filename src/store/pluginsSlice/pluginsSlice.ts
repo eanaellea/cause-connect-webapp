@@ -6,7 +6,7 @@ export const initialState: PluginsSlice = {
   plugins: []
 }
 
-export const createPlugInsSlice: StateCreator<
+export const createPluginsSlice: StateCreator<
 GlobalStore,
 [['zustand/devtools', never]],
 any,
