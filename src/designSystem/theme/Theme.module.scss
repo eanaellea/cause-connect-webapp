@@ -1,0 +1,40 @@
+@import '../../designSystem/mixins.scss';
+@import '../../designSystem/variables.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.fontSelect {
+  width: 100%;
+}
+
+.verticalDivider {
+  width: 1px;
+  height: auto;
+  margin: 0 16px;
+}
+
+#preview {
+  background-color: var(--ant-color-white);
+  padding: 1rem;
+  border-radius: var(--ant-border-radius);
+  border: $border;
+
+  * {
+    font-family: var(--custom-font, var(--ant-font-family));
+  }
+
+  #button {
+    background: var(--custom-color, var(--ant-blue));
+    color: white;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background: var(--custom-color, var(--ant-blue));
+      filter: brightness(1.1);
+    }
+  }
+}

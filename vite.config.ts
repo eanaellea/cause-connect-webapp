@@ -17,6 +17,7 @@ export default ({ mode }: { mode: string }): any => {
     },
     plugins: [react()],
     build: {
+      target: 'ES2022',
       emptyOutDir: true,
       outDir: 'build',
       rollupOptions: {

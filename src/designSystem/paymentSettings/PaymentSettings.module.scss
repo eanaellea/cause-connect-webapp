@@ -1,0 +1,9 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+.contributionForm {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

@@ -1,12 +1,14 @@
-import { mockBeforeRequestInterceptor } from "@/services/mainApi/setup/mockSetup";
-import ky from "ky";
+import { mockBeforeRequestInterceptor } from '@/services/mainApi/setup/mockSetup'
+import ky from 'ky'
 
-import { authInterceptor } from "./setup/authInterceptor";
+import { authInterceptor } from './setup/authInterceptor'
+import { errorInterceptor } from './setup/errorInterceptor'
 
 export const query = ky.create({
-  prefixUrl: "http://localhost:3000",
+  prefixUrl: 'https://api.causeconnect.fr',
   headers: {},
   hooks: {
     beforeRequest: [authInterceptor, mockBeforeRequestInterceptor],
-  },
-});
+    afterResponse: [errorInterceptor]
+  }
+})

@@ -1,0 +1,38 @@
+@import '../../designSystem/mixins.scss';
+@import '../../designSystem/variables.scss';
+
+.updateAssocitaionForm {
+  @include flex-column;
+  gap: 16px;
+  justify-content: center;
+
+  .formContent {
+    @include flex-column;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    gap: 16px;
+    border: $border;
+    border-radius: var(--ant-border-radius);
+    background-color: var(--ant-color-bg-base);
+
+    .formControl {
+      width: 100%;
+
+      &.logoUpload {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+
+        label {
+          justify-self: unset;
+        }
+      }
+    }
+  }
+
+  button {
+    width: fit-content;
+    margin: 0 auto;
+  }
+}

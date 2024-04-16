@@ -6,18 +6,20 @@ import { router } from '@/router'
 import '@/localization/i18n'
 
 import './styles/global.css'
+import { Toaster } from 'react-hot-toast'
 
-function init() {
+function init (): void {
   const root = document.getElementById('root')
   if (root != null) {
     ReactDOM.createRoot(root).render(
       <ConfigProvider
         theme={{
           algorithm: document.body.getAttribute('data-theme') === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
-          cssVar: true,
+          cssVar: true
         }}
       >
         <RouterProvider router={router} />
+        <Toaster />
       </ConfigProvider>
     )
   }

@@ -1,19 +1,71 @@
-import { query } from "../setup";
-import { handleError } from "../setup/helpers";
+import { query } from '../setup'
+import { UserRole } from './auth'
 
-export const searchUsersQuery = async (
-  search: string,
-): Promise<any[] | null> => {
+export interface UserResponse {
+  id: string
+  fullName: string
+  email: string
+  role: UserRole
+}
+
+export const getUsersFromMyAssociation = async (): Promise<UserResponse[] | null> => {
   try {
-    const result = await query.get("users/search", {
-      searchParams: {
-        "search-string": search,
-      },
-    });
-    const json = await result.json<any[]>();
-    return json;
+    const response = await query.get('users')
+    return await response.json<UserResponse[]>()
   } catch (e) {
-    handleError(e as Error);
-    return null;
+    return null
   }
-};
+}
+
+export interface InviteUserBody {
+  firstName: string
+  lastName: string
+  email: string
+  role: string
+}
+
+export const inviteUser = async (inviteUserBody: InviteUserBody): Promise<UserResponse | null> => {
+  try {
+    const creationResponse = await query.post('users', {
+      json: {
+        ...inviteUserBody,
+        firstName: undefined,
+        lastName: undefined,
+        fullName: `${inviteUserBody.firstName.slice(0, 1).toUpperCase() + inviteUserBody.firstName.slice(1)} ${inviteUserBody.lastName.toUpperCase()}`
+      }
+    })
+    const user = await creationResponse.json<UserResponse>()
+
+    await query.post('users/' + user.id + '/send-password-email')
+
+    return user
+  } catch (e) {
+    return null
+  }
+}
+
+export interface UpdateUserBody {
+  fullName?: string
+  email?: string
+  role?: string
+}
+
+export const updateUser = async (userId: string, updateUserBody: UpdateUserBody): Promise<UserResponse | null> => {
+  try {
+    const response = await query.patch('users/' + userId, {
+      json: updateUserBody
+    })
+    return await response.json<UserResponse>()
+  } catch (e) {
+    return null
+  }
+}
+
+export const deleteUser = async (userId: string): Promise<UserResponse | null> => {
+  try {
+    const response = await query.delete('users/' + userId)
+    return await response.json<UserResponse>()
+  } catch (e) {
+    return null
+  }
+}

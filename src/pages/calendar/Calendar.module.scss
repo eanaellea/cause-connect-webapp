@@ -1,0 +1,15 @@
+.calendarPage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .calendar {
+    flex-grow: 1;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

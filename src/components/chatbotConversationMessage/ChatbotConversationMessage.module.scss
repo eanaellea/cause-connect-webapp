@@ -1,0 +1,17 @@
+.message {
+  width: fit-content;
+  max-width: 60%;
+  padding: 8px;
+  border-radius: 4px;
+
+  &.userMessage {
+    align-self: flex-end;
+    text-align: end;
+    background-color: var(--ant-blue-3);
+  }
+
+  &.assistantMessage {
+    border: 1px solid var(--ant-blue-3);
+    background-color: var(--ant-blue-1);
+  }
+}

@@ -1,0 +1,23 @@
+@import "../../designSystem/mixins.scss";
+
+.header {
+  width: 100%;
+  @include flex-row;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: var(--ant-color-bg-base);
+  box-shadow: var(--ant-box-shadow);
+  z-index: 100;
+
+  .logo {
+    width: 32px;
+    height: 32px;
+    margin-left: 16px;
+  }
+
+  .menu {
+    justify-content: end;
+    flex: 1 0 auto;
+  }
+}
