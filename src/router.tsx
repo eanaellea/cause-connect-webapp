@@ -30,6 +30,7 @@ import { PrivateDonation } from './designSystem/stripe/PrivateDonation'
 import { DonationReturn } from './pages/donationReturn/DonationReturn'
 import { ContributionReturn } from './pages/contributionReturn/ContributionReturn'
 import { PublicDonation } from './pages/donation/PublicDonation'
+import { JavaApp } from './pages/javaApp/JavaApp'
 
 export const router = createBrowserRouter(
   [
@@ -84,6 +85,10 @@ export const router = createBrowserRouter(
             {
               path: 'donate',
               element: <PublicDonation />
+            },
+            {
+              path: 'cause-connector',
+              element: <JavaApp />
             }
           ]
         },

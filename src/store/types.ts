@@ -61,6 +61,10 @@ export interface FeedSlice {
   feedItemIds: string[]
 }
 
+export interface PluginsSlice {
+  plugins: PlugIn[]
+}
+
 export interface GlobalStore extends
   AuthSlice,
   LayoutSlice,
@@ -72,7 +76,8 @@ export interface GlobalStore extends
   ChatbotSlice,
   SettingsSlice,
   EventsSlice,
-  FeedSlice
+  FeedSlice,
+  PluginsSlice
 {}
 
 // useful types for the slices
@@ -126,4 +131,11 @@ interface Theme {
   id: string | null
   color: string | null
   font: string | null
+}
+
+interface PlugIn {
+  id: string
+  name: string
+  description: string
+  author: string
 }

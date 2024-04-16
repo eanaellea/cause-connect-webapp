@@ -1,0 +1,33 @@
+@import '../../designSystem/mixins.scss';
+@import '../../designSystem/variables.scss';
+
+.uploadPluginForm {
+  @include flex-column;
+  gap: 16px;
+  justify-content: center;
+
+  .formContent {
+    @include flex-column;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    gap: 16px;
+    border: $border;
+    border-radius: var(--ant-border-radius);
+    background-color: var(--ant-color-bg-base);
+
+    .formControl {
+      width: 100%;
+      text-align: start;
+
+      div {
+        height: unset;
+      }
+    }
+  }
+
+  button {
+    width: fit-content;
+    margin: 0 auto;
+  }
+}

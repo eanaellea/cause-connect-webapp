@@ -26,6 +26,14 @@ const items: MenuItem[] = [
   },
   {
     label: (
+      <Link to='/cause-connector'>
+        Cause Connector
+      </Link>
+    ),
+    key: 'java-app'
+  },
+  {
+    label: (
       <Link to='/donate'>
         Faire un don
       </Link>
