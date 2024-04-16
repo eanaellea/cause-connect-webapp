@@ -23,7 +23,7 @@ export const AssociationCard: FC<AssociationProfileProps> = ({ association }) =>
     uid: '-1',
     name: 'image.png',
     status: 'done',
-    url: association.logo
+    url: association.logo ?? undefined
   })
 
   const defaultValues = {
