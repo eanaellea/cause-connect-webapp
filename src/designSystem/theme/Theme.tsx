@@ -1,12 +1,12 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState } from 'react'
 import { Space, ColorPicker, Select, Divider, Button } from 'antd'
 import { Color } from 'antd/es/color-picker'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Controller, SubmitHandler, useForm, useFormState } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 import styles from './Theme.module.scss'
-import { getThemeAction, updateThemeAction } from '@/store/settingsSlice/actions'
+import { updateThemeAction } from '@/store/settingsSlice/actions'
 import { useGlobalStore } from '@/store/store'
 
 const themeSchema = z.object({

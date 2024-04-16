@@ -16,7 +16,7 @@ import {
 import { createElement, FC } from 'react'
 import { Layout, Menu, MenuProps } from 'antd'
 import { Content } from 'antd/es/layout/layout'
-import styles from './appLayout.module.scss'
+import styles from './AppLayout.module.scss'
 import { router } from '@/router'
 import { logoutAction } from '@/store/authSlice/actions'
 import { SideBar } from '@/components/sider/SideBar'

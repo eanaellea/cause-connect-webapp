@@ -120,7 +120,7 @@ export const EditSurveyModal: FC<Props> = ({ open, onClose }) => {
                 />
               )}
             />
-            {(errors.questions?.[questionIndex]?.prompt != null) && <span>{errors.questions[questionIndex].prompt.message}</span>}
+            {(errors.questions?.[questionIndex]?.prompt != null) && <span>{errors.questions[questionIndex]?.prompt?.message}</span>}
             <div className={styles.selectWithLabel}>
               <label>Type</label>
               <Controller
@@ -135,7 +135,7 @@ export const EditSurveyModal: FC<Props> = ({ open, onClose }) => {
                 )}
               />
             </div>
-            {(errors.questions?.[questionIndex]?.type != null) && <span>{(errors.questions[questionIndex].type as FieldError).message}</span>}
+            {(errors.questions?.[questionIndex]?.type != null) && <span>{(errors.questions[questionIndex]?.type as FieldError).message}</span>}
             <SurveyQuestionOptions control={control} questionIndex={questionIndex} />
           </div>
         ))}

@@ -10,7 +10,10 @@ export const getAssociationMembersAction = async (): Promise<void> => {
 
   useGlobalStore.setState((state) => ({
     ...state,
-    users: response
+    users: response.map((user) => ({
+      ...user,
+      stripeCustomerId: ''
+    }))
   }))
 }
 
@@ -23,7 +26,7 @@ export const createUserAction = async (createUserBody: InviteUserBody): Promise<
 
   useGlobalStore.setState((state) => ({
     ...state,
-    users: [...state.users, response]
+    users: [...state.users, { ...response, stripeCustomerId: ''}]
   }))
 }
 
@@ -36,7 +39,7 @@ export const updateUserAction = async (userId: string, updateUserBody: UpdateUse
 
   useGlobalStore.setState((state) => ({
     ...state,
-    users: state.users.map((user) => user.id === userId ? response : user)
+    users: state.users.map((user) => user.id === userId ? {...response, stripeCustomerId: ''} : user)
   }))
 }
 
