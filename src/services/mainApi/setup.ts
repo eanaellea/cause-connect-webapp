@@ -5,7 +5,7 @@ import { authInterceptor } from './setup/authInterceptor'
 import { errorInterceptor } from './setup/errorInterceptor'
 
 export const query = ky.create({
-  prefixUrl: 'https://api.causeconnect.fr',
+  prefixUrl: import.meta.env.VITE_REACT_APP_API_URL,
   headers: {},
   hooks: {
     beforeRequest: [authInterceptor, mockBeforeRequestInterceptor],
