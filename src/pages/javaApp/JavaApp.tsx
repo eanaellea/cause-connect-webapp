@@ -30,6 +30,7 @@ export const JavaApp: FC = () => {
     <main className={styles.main}>
       <span className={styles.background} />
       <section className={styles.download}>
+        <img src='/java-app-logo.svg' alt='java app logo' className={styles.logo} />
         <h1>Cause Connector</h1>
         <p>Gérez vos projets internes avec notre application</p>
         <Button type='primary' onClick={async () => await downloadFile()}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}

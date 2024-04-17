@@ -6,6 +6,11 @@
   width: 100%;
   overflow-y: scroll;
   position: relative;
+  
+  .logo {
+    width: 50%;
+    max-width: 200px;
+  }
 
   & > :last-child {
     margin-bottom: 32px;
