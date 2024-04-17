@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router-dom'
 
 import {
   HomeOutlined,
@@ -137,7 +137,9 @@ export const AppLayout: FC = () => {
   return (
     <Layout hasSider className={styles.appContainer}>
       <SideBar>
-        <div className='demo-logo-vertical' />
+        <Link to='/' className={styles.logoContainer}>
+          <img src='/logo.svg' alt='logo' className={styles.logo} />
+        </Link>
         <Menu mode='inline' defaultSelectedKeys={[selectedMenuKey ?? '']} items={items} onClick={handleMenuItemClick} />
       </SideBar>
       <Layout>

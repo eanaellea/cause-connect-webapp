@@ -67,7 +67,7 @@ export const Header: FC = () => {
 
   return (
     <header className={styles.header}>
-      <Link to='/'>
+      <Link to='/' className={styles.logoContainer}>
         <img src='/logo.svg' alt='logo' className={styles.logo} />
       </Link>
       <Menu className={styles.menu} selectedKeys={[currentPage]} mode='horizontal'>

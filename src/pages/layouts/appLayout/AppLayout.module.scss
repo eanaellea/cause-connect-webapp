@@ -7,4 +7,15 @@
 
 .appContainer {
   height: 100%;
+
+}
+
+.logoContainer {
+  @include flex-row;
+  justify-content: center;
+}
+
+.logo {
+  height: 32px;
+  margin: 8px;
 }

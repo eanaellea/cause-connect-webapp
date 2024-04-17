@@ -137,7 +137,7 @@ export const EventPage: FC = () => {
             {
               participants.length >= Math.ceil(0.5 * nbUsersInAssociation)
                 ? <Tag color='green'>quorum reached</Tag>
-                : <Tag color='red'>quorum not reached, at least {Math.ceil(nbUsersInAssociation * 0.5)} people required</Tag>
+                : <Tag color='red'>quorum not reached, at least {Math.ceil(nbUsersInAssociation * 0.5)} participants required</Tag>
             }
           </h1>
           <p>{meeting.agendum}</p>

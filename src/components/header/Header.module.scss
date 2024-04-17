@@ -10,6 +10,11 @@
   box-shadow: var(--ant-box-shadow);
   z-index: 100;
 
+  .logoContainer {
+    @include flex-row;
+    align-items: center;
+  }
+
   .logo {
     width: 32px;
     height: 32px;
