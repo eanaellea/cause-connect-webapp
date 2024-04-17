@@ -34,7 +34,7 @@ export const ShareDocumentModal: FC<Props> = ({ document, open, onClose }) => {
     const shareCodeResponse = await generateShareCode(document.id, { permissions })
     setShareLink(
       shareCodeResponse?.shareCode != null
-        ? `http://localhost:5173/app/documents/use-share-code/${shareCodeResponse.shareCode}`
+        ? `https://www.causeconnect.fr/app/documents/use-share-code/${shareCodeResponse.shareCode}`
         : 'No share link')
   }
 
