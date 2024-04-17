@@ -7,7 +7,7 @@ import {
 
 import { createDonationCheckoutSessionAction } from '@/store/paymentSlice/actions'
 import { getPaymentDataQuery } from '@/services/mainApi/queries/settings'
-import styles from './Subscribe.module.scss'
+import styles from './PrivateDomation.module.scss'
 
 // TODO: use store instead of query
 const stripePromise = loadStripe(import.meta.env.VITE_REACT_APP_STRIPE_PUBLISHABLE_KEY, {
