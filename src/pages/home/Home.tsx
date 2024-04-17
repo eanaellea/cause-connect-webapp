@@ -38,7 +38,7 @@ export const Home: FC = () => {
         <h2>La gestion de votre association, simplifiée</h2>
         <p>Autant manger la grenouille maintenant</p>
         <Button type='primary'>
-          <Link to='/register'>Démarrer</Link>
+          <Link to='/register'>Créer un compte</Link>
         </Button>
       </section>
       <section className={styles.features} id='features'>

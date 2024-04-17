@@ -1,8 +1,8 @@
 import { useGlobalStore } from '../store'
-import { getUsersFromMyAssociation, InviteUserBody, inviteUser, UpdateUserBody, updateUser, deleteUser } from '@/services/mainApi/queries/users'
+import { getUsersFromMyAssociationQuery, InviteUserBody, inviteUserQuery, UpdateUserBody, updateUserQuery, deleteUserQuery, resetUserPasswordQuery } from '@/services/mainApi/queries/users'
 
 export const getAssociationMembersAction = async (): Promise<void> => {
-  const response = await getUsersFromMyAssociation()
+  const response = await getUsersFromMyAssociationQuery()
 
   if (response === null) {
     return
@@ -18,7 +18,7 @@ export const getAssociationMembersAction = async (): Promise<void> => {
 }
 
 export const createUserAction = async (createUserBody: InviteUserBody): Promise<void> => {
-  const response = await inviteUser(createUserBody)
+  const response = await inviteUserQuery(createUserBody)
 
   if (response === null) {
     return
@@ -26,12 +26,12 @@ export const createUserAction = async (createUserBody: InviteUserBody): Promise<
 
   useGlobalStore.setState((state) => ({
     ...state,
-    users: [...state.users, { ...response, stripeCustomerId: ''}]
+    users: [...state.users, { ...response, stripeCustomerId: '' }]
   }))
 }
 
 export const updateUserAction = async (userId: string, updateUserBody: UpdateUserBody): Promise<void> => {
-  const response = await updateUser(userId, updateUserBody)
+  const response = await updateUserQuery(userId, updateUserBody)
 
   if (response === null) {
     return
@@ -39,12 +39,12 @@ export const updateUserAction = async (userId: string, updateUserBody: UpdateUse
 
   useGlobalStore.setState((state) => ({
     ...state,
-    users: state.users.map((user) => user.id === userId ? {...response, stripeCustomerId: ''} : user)
+    users: state.users.map((user) => user.id === userId ? { ...response, stripeCustomerId: '' } : user)
   }))
 }
 
 export const deleteUserAction = async (userId: string): Promise<void> => {
-  const response = await deleteUser(userId)
+  const response = await deleteUserQuery(userId)
 
   if (response === null) {
     return
@@ -54,4 +54,8 @@ export const deleteUserAction = async (userId: string): Promise<void> => {
     ...state,
     users: state.users.filter((user) => user.id !== userId)
   }))
+}
+
+export const resetUserPasswordAction = async (userId: string): Promise<void> => {
+  await resetUserPasswordQuery(userId)
 }

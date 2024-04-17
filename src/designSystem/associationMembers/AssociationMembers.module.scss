@@ -4,6 +4,6 @@
   }
 }
 
-.actionButton {
-  margin: 0 8px;
+.actionButton:not(:last-child) {
+  margin-right: 8px;
 }

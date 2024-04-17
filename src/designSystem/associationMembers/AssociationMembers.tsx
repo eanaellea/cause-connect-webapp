@@ -1,12 +1,12 @@
 import { FC, Key, ReactNode, useState } from 'react'
-import { Table, Button, Input } from 'antd'
-import { SaveOutlined, DeleteOutlined } from '@ant-design/icons'
+import { Table, Button, Input, Tooltip } from 'antd'
+import { SaveOutlined, SendOutlined, DeleteOutlined } from '@ant-design/icons'
 import type { TableColumnsType, TableProps } from 'antd'
 import { ZodError, z } from 'zod'
 
 import { UserRole } from '@/services/mainApi/queries/auth'
 import { Role, RoleSelect } from '@/components/roleSelect/RoleSelect'
-import { updateUserAction, deleteUserAction } from '@/store/usersSlice/actions'
+import { updateUserAction, deleteUserAction, resetUserPasswordAction } from '@/store/usersSlice/actions'
 import styles from './AssociationMembers.module.scss'
 import toast from 'react-hot-toast'
 
@@ -99,7 +99,10 @@ export const AssociationMembers: FC<AssociationMembersProps> = ({ members }) => 
         onClick={() => handleSave(member.id)}
         key='save'
       />,
-      <Button type='primary' danger icon={<DeleteOutlined />} onClick={() => handleDelete(member.id)} key='delete' />
+      <Tooltip key={member.id} title='Envoyer un e-mail de réinitialisation de mot de passe'>
+        <Button type='primary' icon={<SendOutlined />} className={styles.actionButton} onClick={() => handleForgottenPassword(member.id)} key='forgotten-password' />
+      </Tooltip>,
+      <Button type='primary' danger icon={<DeleteOutlined />} className={styles.actionButton} onClick={() => handleDelete(member.id)} key='delete' />
     ]
   }))
 
@@ -112,24 +115,24 @@ export const AssociationMembers: FC<AssociationMembersProps> = ({ members }) => 
       onFilter: (value: boolean | Key, record) => record.fullName.startsWith(String(value)),
       sorter: (a, b) => a.fullName.length - b.fullName.length,
       sortDirections: ['descend'],
-      width: '30%'
+      width: '29%'
     },
     {
       title: 'Adresse e-mail',
       dataIndex: 'emailInput',
-      width: '30%'
+      width: '29%'
     },
     {
       title: 'Rôle',
       dataIndex: 'roleSelect',
       filters: [...new Set(members.map((member) => ({ text: member.role, value: member.role })))],
       onFilter: (value: boolean | Key, record) => record.role.indexOf(String(value)) === 0,
-      width: '30%'
+      width: '29%'
     },
     {
       title: 'Actions',
       dataIndex: 'actions',
-      width: '10%'
+      width: '13%'
     }
   ]
 
@@ -227,6 +230,23 @@ export const AssociationMembers: FC<AssociationMembersProps> = ({ members }) => 
         })
         void updateUserAction(memberId, updateUserBody)
         setModifiedMemberIds(previousState => previousState.filter((id) => id !== memberId))
+        toast.success('Le membre a bien été modifié')
+      } catch (error: ZodError | unknown) {
+        if (error instanceof ZodError) {
+          setErrors(previousState => ([
+            ...previousState,
+            { id: memberId, error: error as ZodError }
+          ]))
+        }
+      }
+    }
+  }
+
+  const handleForgottenPassword = (memberId: string): void => {
+    const memberIndex = memberRows.findIndex((memberRow) => memberRow.id === memberId)
+    if (memberIndex !== -1) {
+      try {
+        void resetUserPasswordAction(memberId)
         toast.success('Le membre a bien été modifié')
       } catch (error: ZodError | unknown) {
         if (error instanceof ZodError) {

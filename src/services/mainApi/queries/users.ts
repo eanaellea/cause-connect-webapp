@@ -8,7 +8,7 @@ export interface UserResponse {
   role: UserRole
 }
 
-export const getUsersFromMyAssociation = async (): Promise<UserResponse[] | null> => {
+export const getUsersFromMyAssociationQuery = async (): Promise<UserResponse[] | null> => {
   try {
     const response = await query.get('users')
     return await response.json<UserResponse[]>()
@@ -24,7 +24,7 @@ export interface InviteUserBody {
   role: string
 }
 
-export const inviteUser = async (inviteUserBody: InviteUserBody): Promise<UserResponse | null> => {
+export const inviteUserQuery = async (inviteUserBody: InviteUserBody): Promise<UserResponse | null> => {
   try {
     const creationResponse = await query.post('users', {
       json: {
@@ -50,7 +50,7 @@ export interface UpdateUserBody {
   role?: string
 }
 
-export const updateUser = async (userId: string, updateUserBody: UpdateUserBody): Promise<UserResponse | null> => {
+export const updateUserQuery = async (userId: string, updateUserBody: UpdateUserBody): Promise<UserResponse | null> => {
   try {
     const response = await query.patch('users/' + userId, {
       json: updateUserBody
@@ -61,11 +61,15 @@ export const updateUser = async (userId: string, updateUserBody: UpdateUserBody)
   }
 }
 
-export const deleteUser = async (userId: string): Promise<UserResponse | null> => {
+export const deleteUserQuery = async (userId: string): Promise<UserResponse | null> => {
   try {
     const response = await query.delete('users/' + userId)
     return await response.json<UserResponse>()
   } catch (e) {
     return null
   }
+}
+
+export const resetUserPasswordQuery = async (userId: string): Promise<void> => {
+  await query.post('users/' + userId + '/send-password-email')
 }
