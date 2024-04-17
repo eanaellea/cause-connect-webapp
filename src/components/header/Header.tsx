@@ -58,7 +58,9 @@ export const Header: FC = () => {
 
   return (
     <header className={styles.header}>
-      <img src='/logo.svg' alt='logo' className={styles.logo} />
+      <Link to='/'>
+        <img src='/logo.svg' alt='logo' className={styles.logo} />
+      </Link>
       <Menu className={styles.menu} selectedKeys={[currentPage]} mode='horizontal'>
         {items.map(item => (
           <Menu.Item key={item.key} onClick={() => onClick(item)}>
