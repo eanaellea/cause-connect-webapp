@@ -1,4 +1,4 @@
-import { createBrowserRouter, redirect } from 'react-router-dom'
+import { createBrowserRouter, redirect, Link } from 'react-router-dom'
 
 import { GlobalLayout } from '@/pages/layouts/globalLayout/GlobalLayout'
 import { Home } from './pages/home/Home'
@@ -30,11 +30,23 @@ import { DonationReturn } from './pages/donationReturn/DonationReturn'
 import { ContributionReturn } from './pages/contributionReturn/ContributionReturn'
 import { PublicDonation } from './pages/donation/PublicDonation'
 import { JavaApp } from './pages/javaApp/JavaApp'
+import { RequestResult } from './components/result/RequestResult'
+import { Button } from 'antd'
 
 export const router = createBrowserRouter(
   [
     {
       path: '/',
+      errorElement: <RequestResult
+        status='404'
+        title='Erreur 404'
+        subTitle="La page à laquelle vous essayez d'accéder est introuvable."
+        extra={[
+          <Button type='primary' key='home' href='/'>
+            <Link to='/'>Retour à la page d'acceuil</Link>
+          </Button>
+        ]}
+                    />,
       element: <GlobalLayout />,
       children: [
         {
