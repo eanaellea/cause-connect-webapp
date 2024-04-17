@@ -47,11 +47,20 @@ const items: MenuItem[] = [
       </Link>
     ),
     key: 'login'
+  },
+  {
+    label: (
+      <Link to='/app'>
+        Mon espace
+      </Link>
+    ),
+    key: 'app'
   }
 ]
 
 export const Header: FC = () => {
   const currentPage = useGlobalStore(state => state.activePage)
+  const isConnected = useGlobalStore(state => state.token !== null)
   const onClick = (e: MenuItem): void => {
     void setActivePage(e.key)
   }
@@ -62,11 +71,16 @@ export const Header: FC = () => {
         <img src='/logo.svg' alt='logo' className={styles.logo} />
       </Link>
       <Menu className={styles.menu} selectedKeys={[currentPage]} mode='horizontal'>
-        {items.map(item => (
-          <Menu.Item key={item.key} onClick={() => onClick(item)}>
-            {item.label}
-          </Menu.Item>
-        ))}
+        {items.map(item => {
+          if ((isConnected && item.key === 'login') || (!isConnected && item.key === 'app')) {
+            return null
+          }
+          return (
+            <Menu.Item key={item.key} onClick={() => onClick(item)}>
+              {item.label}
+            </Menu.Item>
+          )
+        })}
       </Menu>
     </header>
   )

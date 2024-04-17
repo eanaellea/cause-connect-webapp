@@ -59,7 +59,13 @@ export const router = createBrowserRouter(
             },
             {
               path: 'login',
-              element: <LogIn />
+              element: <LogIn />,
+              loader: async () => {
+                if (useGlobalStore.getState().token !== null) {
+                  return redirect('/app')
+                }
+                return null
+              }
             },
             {
               path: 'first-login',
