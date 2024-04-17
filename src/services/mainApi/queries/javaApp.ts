@@ -27,3 +27,13 @@ export const createPluginQuery = async (plugin: File, createPluginBody: CreatePl
     return null
   }
 }
+
+export const getInstallerQuery = async (): Promise<Blob | null> => {
+  try {
+    const result = await query.get('java-app/installer')
+    const installer = await result.blob()
+    return installer
+  } catch (error) {
+    return null
+  }
+}
