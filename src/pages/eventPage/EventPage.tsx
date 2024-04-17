@@ -133,11 +133,11 @@ export const EventPage: FC = () => {
       {meeting != null && (
         <div>
           <h1 className={styles.title}>
-            Meeting {participants.length} / {nbUsersInAssociation} members
+            Meeting ({participants.length} / {nbUsersInAssociation} members)
             {
-              participants.length >= 0.5 * nbUsersInAssociation
+              participants.length >= Math.ceil(0.5 * nbUsersInAssociation)
                 ? <Tag color='green'>quorum reached</Tag>
-                : <Tag color='red'>quorum not reached, at least {nbUsersInAssociation * 0.5} required</Tag>
+                : <Tag color='red'>quorum not reached, at least {Math.ceil(nbUsersInAssociation * 0.5)} people required</Tag>
             }
           </h1>
           <p>{meeting.agendum}</p>
