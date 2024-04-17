@@ -69,7 +69,7 @@ export const getPaymentDataAction = async (): Promise<void> => {
   const response = await getPaymentDataQuery()
 
   if (response === null) {
-    return
+    throw new Error('Error while fetching payment data')
   }
 
   useGlobalStore.setState((state) => ({

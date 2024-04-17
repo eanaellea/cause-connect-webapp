@@ -20,12 +20,15 @@ import styles from './AppLayout.module.scss'
 import { router } from '@/router'
 import { logoutAction } from '@/store/authSlice/actions'
 import { SideBar } from '@/components/sider/SideBar'
+import { UserRole } from '@/services/mainApi/queries/auth'
+import { useGlobalStore } from '@/store/store'
 
 interface MenuItem {
   key: string
   icon: FC
   label: string
   url?: string | null
+  rolesAllowed?: UserRole[]
   action?: (() => void) | null
 }
 
@@ -58,7 +61,8 @@ const menuItems: MenuItem[] = [
     key: 'association-profile',
     icon: ScheduleOutlined,
     label: 'Association',
-    url: '/app/association'
+    url: '/app/association',
+    rolesAllowed: [UserRole.ADMIN]
   },
   {
     key: 'chatbot',
@@ -70,7 +74,8 @@ const menuItems: MenuItem[] = [
     key: 'association-settings',
     icon: SettingOutlined,
     label: 'Paramètres',
-    url: '/app/settings'
+    url: '/app/settings',
+    rolesAllowed: [UserRole.ADMIN]
   },
   {
     key: 'calendar',
@@ -82,7 +87,8 @@ const menuItems: MenuItem[] = [
     key: 'payments',
     icon: CreditCardOutlined,
     label: 'Paiements',
-    url: '/app/payments'
+    url: '/app/payments',
+    rolesAllowed: [UserRole.ADMIN]
   },
   {
     key: 'donations',
@@ -98,13 +104,16 @@ const menuItems: MenuItem[] = [
   }
 ]
 
-const items: MenuProps['items'] = menuItems.map((item) => ({
-  key: item.key,
-  label: item.label,
-  icon: createElement(item.icon)
-}))
-
 export const AppLayout: FC = () => {
+  const userRole = useGlobalStore((state) => state.user!.role) // eslint-disable-line @typescript-eslint/no-non-null-assertion
+  const items: MenuProps['items'] = menuItems
+    .filter((item) => item.rolesAllowed == null || item.rolesAllowed.includes(userRole))
+    .map((item) => ({
+      key: item.key,
+      label: item.label,
+      icon: createElement(item.icon)
+    }))
+
   const { pathname } = useLocation()
 
   const selectedMenuKey = menuItems.find((item) => item.url === pathname)?.key

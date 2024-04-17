@@ -164,7 +164,18 @@ export const router = createBrowserRouter(
             },
             {
               path: 'association',
-              element: <AssociationPage />
+              element: <AssociationPage />,
+              loader: async () => {
+                if (useGlobalStore.getState().user?.role !== UserRole.ADMIN) {
+                  throw new Error()
+                }
+                return null
+              },
+              errorElement: <RequestResult
+                status='403'
+                title='Erreur 403'
+                subTitle="Vous n'avez pas les droits pour accéder à cette page."
+                            />
             },
             {
               path: 'chatbot',
@@ -174,9 +185,21 @@ export const router = createBrowserRouter(
               path: 'settings',
               element: <Settings />,
               loader: async () => {
-                await getThemeAction()
+                if (useGlobalStore.getState().user?.role !== UserRole.ADMIN) {
+                  throw new Error()
+                }
+                try {
+                  await getThemeAction()
+                } catch (error) {
+                  throw new Error()
+                }
                 return null
-              }
+              },
+              errorElement: <RequestResult
+                status='403'
+                title='Erreur 403'
+                subTitle="Vous n'avez pas les droits pour accéder à cette page."
+                            />
             },
             {
               path: 'calendar',
@@ -195,9 +218,21 @@ export const router = createBrowserRouter(
               path: 'payments',
               element: <Payments />,
               loader: async () => {
-                await getPaymentDataAction()
+                if (useGlobalStore.getState().user?.role !== UserRole.ADMIN) {
+                  throw new Error()
+                }
+                try {
+                  await getPaymentDataAction()
+                } catch (error) {
+                  throw new Error()
+                }
                 return null
-              }
+              },
+              errorElement: <RequestResult
+                status='403'
+                title='Erreur 403'
+                subTitle="Vous n'avez pas les droits pour accéder à cette page."
+                            />
             },
             {
               path: 'donate',
