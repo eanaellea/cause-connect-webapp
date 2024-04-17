@@ -13,6 +13,13 @@ export const loginAction = async (body: any): Promise<void> => {
 
   setState({ token: response.token })
 
+  await getMyInfoAction()
+
+  await router.navigate('/app')
+}
+
+export const getMyInfoAction = async (): Promise<void> => {
+  const setState = useGlobalStore.setState
   const myInfo = await fetchMe()
 
   setState((state: GlobalStore) => ({ ...state, association: myInfo.association }))
@@ -26,8 +33,6 @@ export const loginAction = async (body: any): Promise<void> => {
       stripeCustomerId: myInfo.stripeCustomerId
     }
   }))
-
-  await router.navigate('/app')
 }
 
 export const logoutAction = async (): Promise<void> => {
