@@ -19,7 +19,6 @@ const getBase64 = async (file: FileType): Promise<string> =>
   })
 
 export const ImageUpload: FC<ImageUploadProps> = ({ initialImage, onChange }) => {
-  console.log('initialImage', initialImage)
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')

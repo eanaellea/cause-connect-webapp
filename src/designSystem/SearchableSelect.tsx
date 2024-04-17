@@ -12,10 +12,6 @@ interface SearchableSelectProps {
   onChange: (value: string) => void
 }
 
-const onSearch = (value: string): void => {
-  console.log('search:', value)
-}
-
 const filterOption = (input: string, option?: { label: string, value: string }): boolean =>
   (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
 
@@ -27,7 +23,6 @@ export const SearchableSelect: FC<SearchableSelectProps> = ({ options, placehold
       placeholder={placeholder}
       optionFilterProp='label'
       onChange={onChange}
-      onSearch={onSearch}
       filterOption={filterOption}
       options={options}
     />
