@@ -1,4 +1,5 @@
 import { StateCreator } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 import { GlobalStore, AssociationSlice } from '../types'
 
@@ -11,4 +12,4 @@ GlobalStore,
 [['zustand/devtools', never]],
 any,
 AssociationSlice
-> = () => initialState
+> = persist(() => initialState, { name: 'association' })
