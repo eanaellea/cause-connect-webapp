@@ -1,5 +1,5 @@
 import { useGlobalStore } from '@/store/store'
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 import { Alert } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 
@@ -8,11 +8,10 @@ import { AssociationCard } from '@/designSystem/associationProfile/AssociationCa
 import { InviteUserForm } from '@/designSystem/inviteUserForm/InviteUserForm'
 import { AssociationMembers } from '@/designSystem/associationMembers/AssociationMembers'
 import { getAssociationMembersAction } from '@/store/usersSlice/actions'
-import { Association } from '@/store/types'
 import { getMyInfoAction } from '@/store/authSlice/actions'
 
 export const AssociationPage: FC = () => {
-  const [association, setAssociation] = useState<Association | null>(null)
+  let association = useGlobalStore((state) => state.association)
 
   const members = useGlobalStore((state) => state.users).map((user) => ({
     id: user.id,
@@ -24,9 +23,11 @@ export const AssociationPage: FC = () => {
   useEffect(() => {
     const getMyInfo = async (): Promise<void> => {
       await getMyInfoAction()
-      setAssociation(useGlobalStore((state) => state.association))
+      association = useGlobalStore((state) => state.association)
     }
-    void getMyInfo()
+    if (association === null) {
+      void getMyInfo()
+    }
     void getAssociationMembersAction()
   }, [])
 
