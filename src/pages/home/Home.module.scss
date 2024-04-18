@@ -49,6 +49,7 @@
         width: 256px;
         background-color: var(--ant-color-bg-base);
         border: $border;
+        transition: .3s;
 
         &:hover {
           box-shadow: var(--ant-box-shadow);
