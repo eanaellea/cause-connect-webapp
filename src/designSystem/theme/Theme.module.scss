@@ -4,7 +4,7 @@
 .container {
   display: flex;
   align-items: center;
-  width: 50%;
+  flex-wrap: wrap;
 }
 
 .fontSelect {
@@ -15,6 +15,10 @@
   width: 1px;
   height: auto;
   margin: 0 16px;
+}
+
+.saveButton {
+  margin-bottom: 16px;
 }
 
 #preview {

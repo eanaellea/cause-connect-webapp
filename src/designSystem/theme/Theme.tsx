@@ -99,8 +99,7 @@ export const Theme: FC = () => {
             />
             {((errors.font) != null) && <span>{errors.font.message}</span>}
 
-            <Divider />
-            <Button type='primary' htmlType='submit'>Enregistrer les modifications</Button>
+            <Button className={styles.saveButton} type='primary' htmlType='submit'>Enregistrer les modifications</Button>
           </Space>
           <Divider type='vertical' className={styles.verticalDivider} />
           <Space direction='vertical'>

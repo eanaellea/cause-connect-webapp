@@ -22,6 +22,7 @@ export const ViewSurveyModal: FC<Props> = ({ open, onClose }) => {
     <Modal
       open={open}
       onCancel={onClose}
+      onOk={onClose}
       title={`Viewing survey ${currentDisplayedSurvey.title}`}
     >
       <SurveyInfo survey={currentDisplayedSurvey} />
