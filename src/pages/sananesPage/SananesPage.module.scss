@@ -1,0 +1,10 @@
+.container {
+  height: 100%;
+  display: flex;
+  place-items: center center;
+  .image {
+    width: 50vw;
+    height: 50vh;
+    object-fit: contain;
+  }
+}

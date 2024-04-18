@@ -32,6 +32,7 @@ import { PublicDonation } from './pages/donation/PublicDonation'
 import { JavaApp } from './pages/javaApp/JavaApp'
 import { RequestResult } from './components/result/RequestResult'
 import { Button } from 'antd'
+import { SananesPage } from './pages/sananesPage/SananesPage'
 
 export const router = createBrowserRouter(
   [
@@ -102,6 +103,18 @@ export const router = createBrowserRouter(
             {
               path: 'cause-connector',
               element: <JavaApp />
+            },
+            {
+              path: 'cgv',
+              element: <SananesPage />
+            },
+            {
+              path: 'cgu',
+              element: <SananesPage />
+            },
+            {
+              path: 'privacy',
+              element: <SananesPage />
             }
           ]
         },
