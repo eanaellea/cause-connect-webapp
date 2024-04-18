@@ -22,6 +22,7 @@ export const PaymentsSetup: FC = () => {
   return (
     <div className={styles.container}>
       <h1>Configuration des contributions</h1>
+      <p>Afin de finaliser le paramétrage de votre compte, veuillez terminer la mise en place de votre compte Stripe.</p>
       <div>
         {stripeSetupComplete === false && <StripeSetup onExit={() => setStripeSetupExited(true)} />}
         {stripeSetupComplete === true && <PaymentSettings redirectTo='/app' />}

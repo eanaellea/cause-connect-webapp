@@ -40,6 +40,7 @@ export const Subscribe: FC = () => {
 
   return (
     <div className={styles.container}>
+      <p>Veuillez payer votre contribution.</p>
       <EmbeddedCheckoutProvider
         stripe={stripePromise}
         options={options}
