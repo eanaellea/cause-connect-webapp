@@ -23,7 +23,7 @@ export const DeleteDocumentModal: FC<Props> = ({ document, open, onClose }) => {
       cancelButtonProps={{ style: { display: 'none' } }}
       okButtonProps={{ content: 'Delete' }}
     >
-      <p>Are you sure you want to delete this document? This action is irreversible.</p>
+      <p>Êtes-vous certain de vouloir supprimer ce document ? Cette action est irréversible.</p>
     </Modal>
   )
 }

@@ -35,7 +35,7 @@ export const ShareDocumentModal: FC<Props> = ({ document, open, onClose }) => {
     setShareLink(
       shareCodeResponse?.shareCode != null
         ? `https://www.causeconnect.fr/app/documents/use-share-code/${shareCodeResponse.shareCode}`
-        : 'No share link')
+        : 'Pas de lien.')
   }
 
   const handleCopyShareCode = async (): Promise<void> => {
@@ -84,8 +84,8 @@ export const ShareDocumentModal: FC<Props> = ({ document, open, onClose }) => {
       </div>
       <div>
         <h2>People with link can</h2>
-        <Checkbox checked={readPermission} disabled={!document.permissions.includes('read')} onChange={handleSharePermissionsReadChange}>Read</Checkbox>
-        <Checkbox checked={editPermission} disabled={!document.permissions.includes('edit')} onChange={handleSharePermissionsEditChange}>Edit</Checkbox>
+        <Checkbox checked={readPermission} disabled={!document.permissions.includes('read')} onChange={handleSharePermissionsReadChange}>Écriture</Checkbox>
+        <Checkbox checked={editPermission} disabled={!document.permissions.includes('edit')} onChange={handleSharePermissionsEditChange}>Lecture</Checkbox>
       </div>
     </Modal>
   )

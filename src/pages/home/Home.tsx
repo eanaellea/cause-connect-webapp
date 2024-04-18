@@ -42,7 +42,7 @@ export const Home: FC = () => {
         </Button>
       </section>
       <section className={styles.features} id='features'>
-        <h2>Features</h2>
+        <h2>Fonctionnalités</h2>
         <div className={styles.featuresList}>
           {features.map((feature) => (
             <Card

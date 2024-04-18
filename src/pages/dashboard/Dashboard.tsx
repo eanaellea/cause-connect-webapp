@@ -19,7 +19,7 @@ export const Dashboard: FC = () => {
 
   return (
     <div>
-      <h1>What's happening in {associationName ?? 'the association'}</h1>
+      <h1>Dernières nouvelles de {associationName ?? 'votre association'}</h1>
       <Feed />
     </div>
   )

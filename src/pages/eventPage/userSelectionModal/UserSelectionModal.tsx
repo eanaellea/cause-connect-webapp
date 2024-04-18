@@ -50,7 +50,7 @@ export const UserSelectionModal: FC<Props> = ({ open, onClose, initialSelectedUs
             <p>
               {user.fullName}
             </p>
-            <Tooltip title={selectedUserIds.includes(user.id) ? 'Remove' : 'Add'}>
+            <Tooltip title={selectedUserIds.includes(user.id) ? 'Retirer' : 'Ajouter'}>
               {selectedUserIds.includes(user.id)
                 ? <Button onClick={() => setSelectedUserIds(selectedUserIds.filter((id) => id !== user.id))} icon={<UserDeleteOutlined />} />
                 : <Button type='primary' onClick={() => setSelectedUserIds([...selectedUserIds, user.id])} icon={<UserAddOutlined />} />}

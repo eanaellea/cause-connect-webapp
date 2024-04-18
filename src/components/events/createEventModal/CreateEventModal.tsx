@@ -28,13 +28,13 @@ export const CreateEventModal: FC<Props> = ({ open, onClose }) => {
 
   return (
     <Modal
-      title={`Create ${meeting !== undefined ? 'Event and Meeting' : 'Event'}`}
+      title={`Create ${meeting !== undefined ? 'Événement et assemblée générale' : 'Événement'}`}
       open={open}
       onCancel={onClose}
       footer={[
         <Button key='back' onClick={onClose}>Annuler</Button>,
         <Button key='submit' type='primary' onClick={handleSubmit(onSubmit)}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
-          Save
+          Sauvegarder
         </Button>
       ]}
     >
@@ -67,7 +67,7 @@ export const CreateEventModal: FC<Props> = ({ open, onClose }) => {
         </div>
         <div>
           <div className={styles.selectWithLabel}>
-            <label>Visibility</label>
+            <label>Visibilité</label>
             <Controller
               name='visibility'
               control={control}
@@ -83,7 +83,7 @@ export const CreateEventModal: FC<Props> = ({ open, onClose }) => {
           {(errors.visibility != null) && <span>{errors.visibility.message}</span>}
         </div>
         <div>
-          <label>Start Time</label>
+          <label>Début</label>
           <Controller
             name='startTime'
             control={control}
@@ -105,7 +105,7 @@ export const CreateEventModal: FC<Props> = ({ open, onClose }) => {
           {(errors.startTime != null) && <span>{errors.startTime.message}</span>}
         </div>
         <div>
-          <label>End Time</label>
+          <label>Fin</label>
           <Controller
             name='endTime'
             control={control}
@@ -127,7 +127,7 @@ export const CreateEventModal: FC<Props> = ({ open, onClose }) => {
           {(errors.endTime != null) && <span>{errors.endTime.message}</span>}
         </div>
         <div>
-          <label>Summary</label>
+          <label>Résumé</label>
           <Controller
             name='summary'
             control={control}
@@ -138,9 +138,9 @@ export const CreateEventModal: FC<Props> = ({ open, onClose }) => {
           {(errors.summary != null) && <span>{errors.summary.message}</span>}
         </div>
         <Divider type='horizontal' />
-        <h2>Meeting</h2>
+        <h2>Assemblée générale</h2>
         <div className={styles.createMeetingConfirmation}>
-          <label>Create meeting</label>
+          <label>Créer une assemblée générale</label>
           <Checkbox
             className={styles.checkbox}
             checked={meeting !== undefined}
@@ -148,7 +148,7 @@ export const CreateEventModal: FC<Props> = ({ open, onClose }) => {
           />
         </div>
         <div>
-          <label>Agendum</label>
+          <label>Ordre du jour</label>
           <Input.TextArea
             disabled={meeting === undefined}
             value={meeting?.agendum}

@@ -23,7 +23,7 @@ export const EventCard: FC<Props> = ({ event }) => {
         {event.description}
       </p>
       <p>
-        From {startTime.format('HH:mm')} to {endTime.format('HH:mm')}
+        De {startTime.format('HH:mm')} à {endTime.format('HH:mm')}
       </p>
     </Card>
   )

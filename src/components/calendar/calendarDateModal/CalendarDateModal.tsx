@@ -34,7 +34,7 @@ export const CalendarDateModal: FC<Props> = ({ date, open, onClose }) => {
               />))
           )
         : (
-          <p>No events on this day.</p>
+          <p>Pas d'événements ce jour.</p>
           )}
     </Modal>
   )

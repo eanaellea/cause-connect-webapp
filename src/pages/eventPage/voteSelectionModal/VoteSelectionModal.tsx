@@ -39,7 +39,7 @@ export const VoteSelectionModal: FC<Props> = ({ open, onClose, initialSelectedVo
 
   return (
     <Modal
-      title='Users modal'
+      title='Utilisateurs'
       open={open}
       onCancel={() => { void handleCancel() }}
       onOk={() => { void handleClose() }}

@@ -68,15 +68,15 @@ export const EditEventModal: FC<Props> = ({ eventId, open, onClose }) => {
         </div>
         <div>
           <div className={styles.selectWithLabel}>
-            <label>Visibility</label>
+            <label>Visibilité</label>
             <Controller
               name='visibility'
               control={control}
               render={({ field }) => (
                 <Select {...field} defaultValue='' className={styles.selectInput}>
-                  <Select.Option value=''>Pick a Visibility</Select.Option>
+                  <Select.Option value=''>Choisir une visibilité</Select.Option>
                   <Select.Option value={EventVisibility.PUBLIC}>Public</Select.Option>
-                  <Select.Option value={EventVisibility.PRIVATE}>Private</Select.Option>
+                  <Select.Option value={EventVisibility.PRIVATE}>Privé</Select.Option>
                 </Select>
               )}
             />
@@ -84,7 +84,7 @@ export const EditEventModal: FC<Props> = ({ eventId, open, onClose }) => {
           {(errors.visibility != null) && <span>{errors.visibility.message}</span>}
         </div>
         <div>
-          <label>Start Time</label>
+          <label>Début</label>
           <Controller
             name='startTime'
             control={control}
@@ -106,7 +106,7 @@ export const EditEventModal: FC<Props> = ({ eventId, open, onClose }) => {
           {(errors.startTime != null) && <span>{errors.startTime.message}</span>}
         </div>
         <div>
-          <label>End Time</label>
+          <label>Fin</label>
           <Controller
             name='endTime'
             control={control}
@@ -128,7 +128,7 @@ export const EditEventModal: FC<Props> = ({ eventId, open, onClose }) => {
           {(errors.endTime != null) && <span>{errors.endTime.message}</span>}
         </div>
         <div>
-          <label>Summary</label>
+          <label>Résumé</label>
           <Controller
             name='summary'
             control={control}

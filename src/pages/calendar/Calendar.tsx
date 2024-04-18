@@ -38,8 +38,8 @@ export const Calendar: FC = () => {
   return (
     <div className={styles.calendarPage}>
       <h1 className={styles.title}>
-        Calendar
-        <Tooltip title='Create event'>
+        Calendrier
+        <Tooltip title='Créer un événement'>
           <Button type='primary' icon={<PlusOutlined />} onClick={() => setIsCreateModalOpen(true)} />
         </Tooltip>
       </h1>

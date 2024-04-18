@@ -98,16 +98,16 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
 
         <div>
           <div className={styles.selectWithLabel}>
-            <label>Visibility</label>
+            <label>Visibilité</label>
             <Controller
               name='visibility'
               control={control}
               disabled={isNotEditable}
               render={({ field }) => (
                 <Select {...field} defaultValue='' className={styles.selectInput}>
-                  <Select.Option value=''>Pick a visibility</Select.Option>
+                  <Select.Option value=''>Choisir une visibilité</Select.Option>
                   <Select.Option value={VoteVisibility.PUBLIC}>Public</Select.Option>
-                  <Select.Option value={VoteVisibility.PRIVATE}>Private</Select.Option>
+                  <Select.Option value={VoteVisibility.PRIVATE}>Privé</Select.Option>
                 </Select>
               )}
             />
@@ -116,7 +116,7 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
         </div>
 
         <div>
-          <label className={styles.label}>Minimum Percentage of Answers</label>
+          <label className={styles.label}>Pourcentage minimum de réponses</label>
           <Controller
             name='minPercentAnswers'
             control={control}
@@ -125,7 +125,7 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
               <Input
                 {...field}
                 type='number'
-                placeholder='Minimum Percentage of Answers'
+                placeholder='Pourcentage minimum de réponses'
                 onChange={(event) => field.onChange(+event.target.value)}
               />
             )}
@@ -135,17 +135,17 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
 
         <div>
           <div className={styles.selectWithLabel}>
-            <label>Acceptance Criteria</label>
+            <label>Critère de validité</label>
             <Controller
               name='acceptanceCriteria'
               control={control}
               disabled={isNotEditable}
               render={({ field }) => (
                 <Select {...field} defaultValue='' className={styles.selectInput}>
-                  <Select.Option value=''>Pick a criteria</Select.Option>
-                  <Select.Option value={VoteAcceptanceCriteria.MAJORITY}>Majority</Select.Option>
-                  <Select.Option value={VoteAcceptanceCriteria.TWO_THIRDS}>Two Thirds</Select.Option>
-                  <Select.Option value={VoteAcceptanceCriteria.UNANIMITY}>Unanimity</Select.Option>
+                  <Select.Option value=''>Choisir un critère</Select.Option>
+                  <Select.Option value={VoteAcceptanceCriteria.MAJORITY}>Majorité</Select.Option>
+                  <Select.Option value={VoteAcceptanceCriteria.TWO_THIRDS}>Deux tiers</Select.Option>
+                  <Select.Option value={VoteAcceptanceCriteria.UNANIMITY}>Unanimité</Select.Option>
                 </Select>
               )}
             />
@@ -162,7 +162,7 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
           <Alert type='warning' message='To modify the question, you must create a new ballot.' />
         )}
         <div>
-          <label>Prompt</label>
+          <label>Question</label>
           <Controller
             name='question.prompt'
             control={control}
@@ -185,9 +185,9 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
               control={control}
               render={({ field }) => (
                 <Select {...field} defaultValue='' className={styles.selectInput} disabled={!isCreatingNewBallot}>
-                  <Select.Option value=''>Pick a type</Select.Option>
-                  <Select.Option value={PollQuestionType.SINGLE_CHOICE}>Single Choice</Select.Option>
-                  <Select.Option value={PollQuestionType.MULTIPLE_CHOICE}>Multiple Choice</Select.Option>
+                  <Select.Option value=''>Choisir un type</Select.Option>
+                  <Select.Option value={PollQuestionType.SINGLE_CHOICE}>Choix unique</Select.Option>
+                  <Select.Option value={PollQuestionType.MULTIPLE_CHOICE}>Choix multiple</Select.Option>
                 </Select>
               )}
             />

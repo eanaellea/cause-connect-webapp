@@ -38,7 +38,7 @@ export const DonationReturn: FC = () => {
         <RequestResult
           status='error'
           title='Une erreur est survenue.'
-          subTitle='Votre don n’a pas pu être enregistré. Veuillez réessayer.'
+          subTitle="Votre don n'a pas pu être enregistré. Veuillez réessayer."
           extra={
             [
               <Button key='retry' type='primary'>

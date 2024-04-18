@@ -31,17 +31,17 @@ export const FeedItemCard: FC<Props> = ({ feedItemId }) => {
   const feedItemCardTitle = useMemo(() => {
     switch (feedItem.type) {
       case 'event':
-        return 'Scheduled event'
+        return 'Événement créé'
       case 'meeting':
-        return 'Scheduled meeting'
+        return 'Assemblée générale créée'
       case 'user':
-        return 'New member joined'
+        return 'Nouveau membre'
       case 'vote':
-        return 'Published vote'
+        return 'Vote publié'
       case 'survey':
-        return 'Published survey'
+        return 'Sondage publié'
       default:
-        return 'Feed Item'
+        return 'Élément de feed inconnu'
     }
   }
   , [feedItem])
@@ -98,8 +98,8 @@ const MeetingFeedItemContent: FC<{ feedItem: FeedItemResponse }> = ({ feedItem }
 const UserFeedItemContent: FC<{ feedItem: FeedItemResponse }> = ({ feedItem }) => {
   return (
     <div>
-      <p>His name is {feedItem.title}</p>
-      <p>Go greet him at {feedItem.description} !</p>
+      <p>Son nom est {feedItem.title}</p>
+      <p>Allez dire bonjour par email: {feedItem.description} !</p>
     </div>
   )
 }

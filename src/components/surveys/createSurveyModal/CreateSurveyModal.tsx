@@ -33,7 +33,7 @@ export const CreateSurveyModal: FC<Props> = ({ open, onClose }) => {
 
   return (
     <Modal
-      title='Create a Survey'
+      title='Créer un sondage'
       open={open}
       onCancel={onClose}
       onOk={handleSubmit(onSubmit)} /* eslint-disable-line @typescript-eslint/no-misused-promises */
@@ -41,13 +41,13 @@ export const CreateSurveyModal: FC<Props> = ({ open, onClose }) => {
       footer={[
         <Button key='back' onClick={onClose}>Cancel</Button>,
         <Button key='submit' type='primary' onClick={handleSubmit(onSubmit)}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
-          Create
+          Créer
         </Button>
       ]}
     >
       <form className={styles.formContent} onSubmit={handleSubmit(onSubmit)}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
         <div>
-          <label>Title</label>
+          <label>Titre</label>
           <Controller
             name='title'
             control={control}
@@ -55,7 +55,7 @@ export const CreateSurveyModal: FC<Props> = ({ open, onClose }) => {
               <Input
                 {...field}
                 type='text'
-                placeholder='Title'
+                placeholder='Titre'
               />
             )}
           />
@@ -75,15 +75,15 @@ export const CreateSurveyModal: FC<Props> = ({ open, onClose }) => {
 
         <div>
           <div className={styles.selectWithLabel}>
-            <label>Visibility</label>
+            <label>Visibilité</label>
             <Controller
               name='visibility'
               control={control}
               render={({ field }) => (
                 <Select {...field} defaultValue='' className={styles.selectInput}>
-                  <Select.Option value=''>Select Visibility</Select.Option>
+                  <Select.Option value=''>Selectionner une visibilité</Select.Option>
                   <Select.Option value={SurveyVisibility.PUBLIC}>Public</Select.Option>
-                  <Select.Option value={SurveyVisibility.PRIVATE}>Private</Select.Option>
+                  <Select.Option value={SurveyVisibility.PRIVATE}>Privé</Select.Option>
                 </Select>
               )}
             />
@@ -98,7 +98,7 @@ export const CreateSurveyModal: FC<Props> = ({ open, onClose }) => {
               <h4>Question {questionIndex + 1}</h4>
               <Button type='primary' danger onClick={() => remove(questionIndex)} icon={<DeleteOutlined />} />
             </div>
-            <label>Prompt</label>
+            <label>Question</label>
             <Controller
               name={`questions.${questionIndex}.prompt`}
               control={control}
@@ -118,9 +118,9 @@ export const CreateSurveyModal: FC<Props> = ({ open, onClose }) => {
                 control={control}
                 render={({ field }) => (
                   <Select {...field} defaultValue='' className={styles.selectInput}>
-                    <Select.Option value=''>Select a Type</Select.Option>
-                    <Select.Option value={PollQuestionType.SINGLE_CHOICE}>Single Choice</Select.Option>
-                    <Select.Option value={PollQuestionType.MULTIPLE_CHOICE}>Multiple Choice</Select.Option>
+                    <Select.Option value=''>Selectionner un type</Select.Option>
+                    <Select.Option value={PollQuestionType.SINGLE_CHOICE}>Choix simple</Select.Option>
+                    <Select.Option value={PollQuestionType.MULTIPLE_CHOICE}>Choix multiple</Select.Option>
                   </Select>
                 )}
               />
@@ -133,7 +133,7 @@ export const CreateSurveyModal: FC<Props> = ({ open, onClose }) => {
           type='dashed'
           onClick={() => append({ prompt: '', type: PollQuestionType.SINGLE_CHOICE, options: [] })}
         >
-          Add Question
+          Ajouter une question
         </Button>
       </form>
     </Modal>

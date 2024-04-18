@@ -36,7 +36,7 @@ export const ContributionReturn: FC = () => {
         <RequestResult
           status='error'
           title='Une erreur est survenue.'
-          subTitle='Votre contribution n’a pas pu être enregistrée. Veuillez réessayer.'
+          subTitle="Votre contribution n'a pas pu être enregistrée. Veuillez réessayer."
         />
       )}
     </div>

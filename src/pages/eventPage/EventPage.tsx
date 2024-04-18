@@ -110,7 +110,7 @@ export const EventPage: FC = () => {
         <h1 className={styles.title}>{event.title} <Button type='primary' icon={<EditOutlined />} onClick={() => setIsEditModalOpen(true)} /></h1>
         <p>{event.description}</p>
         <p>Visibility: <Tag color={colorPerVisibility[event.visibility]}>{event.visibility}</Tag></p>
-        <p>From <strong>{dayjs(event.startTime).format('DD/MM/YYYY HH:mm')}</strong> to <strong>{dayjs(event.endTime).format('DD/MM/YYYY HH:mm')}</strong></p>
+        <p>From <strong>{dayjs(event.startTime).format('DD/MM/YYYY HH:mm')}</strong> à <strong>{dayjs(event.endTime).format('DD/MM/YYYY HH:mm')}</strong></p>
         {event.summary != null && (
           <p className={styles.summary}>{event.summary}</p>
         )}
@@ -133,11 +133,11 @@ export const EventPage: FC = () => {
       {meeting != null && (
         <div>
           <h1 className={styles.title}>
-            Meeting ({participants.length} / {nbUsersInAssociation} members)
+            Assemblée générale ({participants.length} / {nbUsersInAssociation} participants)
             {
               participants.length >= Math.ceil(0.5 * nbUsersInAssociation)
-                ? <Tag color='green'>quorum reached</Tag>
-                : <Tag color='red'>quorum not reached, at least {Math.ceil(nbUsersInAssociation * 0.5)} participants required</Tag>
+                ? <Tag color='green'>quorum atteint</Tag>
+                : <Tag color='red'>quorum non atteint, minimum {Math.ceil(nbUsersInAssociation * 0.5)} participants requis</Tag>
             }
           </h1>
           <p>{meeting.agendum}</p>

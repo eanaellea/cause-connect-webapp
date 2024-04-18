@@ -78,9 +78,9 @@ export const CreateVoteModal: FC<Props> = ({ open, onClose }) => {
               control={control}
               render={({ field }) => (
                 <Select {...field} defaultValue='' className={styles.selectInput}>
-                  <Select.Option value=''>Pick a visibility</Select.Option>
+                  <Select.Option value=''>Sélectionner une visibiltié</Select.Option>
                   <Select.Option value={VoteVisibility.PUBLIC}>Public</Select.Option>
-                  <Select.Option value={VoteVisibility.PRIVATE}>Private</Select.Option>
+                  <Select.Option value={VoteVisibility.PRIVATE}>Privé</Select.Option>
                 </Select>
               )}
             />
@@ -89,7 +89,7 @@ export const CreateVoteModal: FC<Props> = ({ open, onClose }) => {
         </div>
 
         <div>
-          <label className={styles.label}>Minimum Percentage of Answers</label>
+          <label className={styles.label}>Pourcentage minimum de réponses</label>
           <Controller
             name='minPercentAnswers'
             control={control}
@@ -97,7 +97,7 @@ export const CreateVoteModal: FC<Props> = ({ open, onClose }) => {
               <Input
                 {...field}
                 type='number'
-                placeholder='Minimum Percentage of Answers'
+                placeholder='Pourcentage minimum de réponses'
                 onChange={(event) => field.onChange(+event.target.value)}
               />
             )}
@@ -107,16 +107,16 @@ export const CreateVoteModal: FC<Props> = ({ open, onClose }) => {
 
         <div>
           <div className={styles.selectWithLabel}>
-            <label>Acceptance Criteria</label>
+            <label>Critère de validité</label>
             <Controller
               name='acceptanceCriteria'
               control={control}
               render={({ field }) => (
                 <Select {...field} defaultValue='' className={styles.selectInput}>
-                  <Select.Option value=''>Pick a criteria</Select.Option>
-                  <Select.Option value={VoteAcceptanceCriteria.MAJORITY}>Majority</Select.Option>
-                  <Select.Option value={VoteAcceptanceCriteria.TWO_THIRDS}>Two Thirds</Select.Option>
-                  <Select.Option value={VoteAcceptanceCriteria.UNANIMITY}>Unanimity</Select.Option>
+                  <Select.Option value=''>Choisir un critère</Select.Option>
+                  <Select.Option value={VoteAcceptanceCriteria.MAJORITY}>Majorité</Select.Option>
+                  <Select.Option value={VoteAcceptanceCriteria.TWO_THIRDS}>Deux tiers</Select.Option>
+                  <Select.Option value={VoteAcceptanceCriteria.UNANIMITY}>Unanimité</Select.Option>
                 </Select>
               )}
             />
@@ -126,7 +126,7 @@ export const CreateVoteModal: FC<Props> = ({ open, onClose }) => {
         <Divider type='horizontal' />
         <h3>Question</h3>
         <div>
-          <label>Prompt</label>
+          <label>Question</label>
           <Controller
             name='question.prompt'
             control={control}
@@ -148,9 +148,9 @@ export const CreateVoteModal: FC<Props> = ({ open, onClose }) => {
               control={control}
               render={({ field }) => (
                 <Select {...field} defaultValue='' className={styles.selectInput}>
-                  <Select.Option value=''>Pick a type</Select.Option>
-                  <Select.Option value={PollQuestionType.SINGLE_CHOICE}>Single Choice</Select.Option>
-                  <Select.Option value={PollQuestionType.MULTIPLE_CHOICE}>Multiple Choice</Select.Option>
+                  <Select.Option value=''>Choisir un type</Select.Option>
+                  <Select.Option value={PollQuestionType.SINGLE_CHOICE}>Choix unique</Select.Option>
+                  <Select.Option value={PollQuestionType.MULTIPLE_CHOICE}>Choix multiple</Select.Option>
                 </Select>
               )}
             />

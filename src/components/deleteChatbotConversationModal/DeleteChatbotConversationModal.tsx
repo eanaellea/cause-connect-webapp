@@ -11,9 +11,9 @@ export const DeleteChatbotConversationModal: FC<Props> = ({ open, onClose }) => 
   return (
     <Modal
       open={open}
-      title='Confirm chatbot conversation deletion'
-      okText='Delete'
-      cancelText='Cancel'
+      title='Confirmation de suppression de la conversation'
+      okText='Supprimer'
+      cancelText='Annuler'
       onOk={() => { void resetConversationAction(); onClose() }}
       onCancel={onClose}
     >

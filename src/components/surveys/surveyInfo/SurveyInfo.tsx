@@ -19,7 +19,7 @@ export const SurveyInfo: FC<Props> = ({ survey }) => {
         {survey.description}
       </p>
       <p>
-        <span className={styles.infoProp}>Visibility:</span>
+        <span className={styles.infoProp}>Visibilité:</span>
         <Tag
           color={colorPerVisibility[survey.visibility]}
         >

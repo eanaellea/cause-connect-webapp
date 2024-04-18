@@ -19,7 +19,7 @@ const items: MenuItem[] = [
   {
     label: (
       <a href='/#features' target='_self'>
-        Features
+        Fonctionnalités
       </a>
     ),
     key: 'features'

@@ -16,7 +16,7 @@ export const CreateDocumentModal: FC<Props> = ({ open, onClose }) => {
 
   const handleSubmit = async (): Promise<void> => {
     if (uploadedFile == null) {
-      toast.error('Please select a file')
+      toast.error('Merci de sélectionner un fichier.')
       return
     }
     void uploadDocumentAction(uploadedFile, { title: documentTitle, visibility: fileVisibility })
@@ -32,16 +32,16 @@ export const CreateDocumentModal: FC<Props> = ({ open, onClose }) => {
     >
       <div className={styles.formContent}>
         <div>
-          <h3>File</h3>
+          <h3>Fichier</h3>
           <Upload type={uploadedFile === null ? 'drag' : undefined} onRemove={() => setUploadedFile(null)} beforeUpload={(file) => { setUploadedFile(file); return false }} />
         </div>
         <div>
-          <h3>Title (will be original file name if not specified)</h3>
+          <h3>Titre (sera le nom du fichier original si non spécifié)</h3>
           <Input value={documentTitle} onChange={(e) => setDocumentTitle(e.target.value)} placeholder='Document title' />
         </div>
         <div>
-          <h3>Visibility</h3>
-          <Checkbox onChange={(e) => setFileVisibility(e.target.checked ? 'private' : 'public')}>Private</Checkbox>
+          <h3>Visibilité</h3>
+          <Checkbox onChange={(e) => setFileVisibility(e.target.checked ? 'private' : 'public')}>Privé</Checkbox>
         </div>
       </div>
     </Modal>
