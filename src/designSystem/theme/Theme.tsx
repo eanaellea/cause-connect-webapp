@@ -23,11 +23,16 @@ interface ThemeColor {
 }
 
 export const Theme: FC = () => {
+  const font = useGlobalStore((state) => state.theme.font)
+  const color = useGlobalStore((state) => state.theme.color)
+  if (font == null || color == null) {
+    return null
+  }
   const [previewFont, setPreviewFont] = useState<ThemeFont>({
-    '--custom-font': useGlobalStore((state) => state.theme.font!) // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    '--custom-font': font
   })
   const [previewColor, setPreviewColor] = useState<ThemeColor>({
-    '--custom-color': useGlobalStore((state) => state.theme.color!) // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    '--custom-color': color
   })
 
   const { control, handleSubmit, formState: { errors }, setValue } = useForm<z.infer<typeof themeSchema>>({

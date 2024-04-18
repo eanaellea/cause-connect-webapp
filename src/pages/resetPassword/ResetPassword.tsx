@@ -14,12 +14,11 @@ const forgottenPasswordSchema = z.object({
 })
 
 interface ResetPasswordProps {
-  title: string,
+  title: string
   buttonContent: string
 }
 
-
-export const ResetPassword: FC<ResetPasswordProps> = ({title, buttonContent}) => {
+export const ResetPassword: FC<ResetPasswordProps> = ({ title, buttonContent }) => {
   const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof forgottenPasswordSchema>>({
     resolver: zodResolver(forgottenPasswordSchema)
   })
@@ -35,7 +34,7 @@ export const ResetPassword: FC<ResetPasswordProps> = ({title, buttonContent}) =>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.forgottenPasswordForm}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
         <div>
-          <label>Code de réinitialisation (envoyé par email{email ? ` à ${email}` : ''})</label>
+          <label>Code de réinitialisation (envoyé par email{email})</label>
           <Controller
             name='passwordResetCode'
             control={control}

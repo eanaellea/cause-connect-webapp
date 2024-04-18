@@ -8,10 +8,12 @@ import { AssociationCard } from '@/designSystem/associationProfile/AssociationCa
 import { InviteUserForm } from '@/designSystem/inviteUserForm/InviteUserForm'
 import { AssociationMembers } from '@/designSystem/associationMembers/AssociationMembers'
 import { getAssociationMembersAction } from '@/store/usersSlice/actions'
-import { getMyInfoAction } from '@/store/authSlice/actions'
 
 export const AssociationPage: FC = () => {
-  let association = useGlobalStore((state) => state.association)
+  const association = useGlobalStore((state) => state.association)
+  if (association === null) {
+    return null
+  }
 
   const members = useGlobalStore((state) => state.users).map((user) => ({
     id: user.id,
@@ -21,13 +23,6 @@ export const AssociationPage: FC = () => {
   }))
 
   useEffect(() => {
-    const getMyInfo = async (): Promise<void> => {
-      await getMyInfoAction()
-      association = useGlobalStore((state) => state.association)
-    }
-    if (association === null) {
-      void getMyInfo()
-    }
     void getAssociationMembersAction()
   }, [])
 
