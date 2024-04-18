@@ -6,7 +6,7 @@ import {
   createAccountSessionQuery,
   getAccountQuery,
   createContributionCheckoutSessionQuery,
-  getCustomerSubscriptionQuery,
+  getCustomerSubscriptionsQuery,
   createPrivateDonationCheckoutSessionQuery,
   getCheckoutSessionQuery,
   createPublicDonationCheckoutSessionQuery
@@ -40,11 +40,7 @@ export const createAccountWithProductsAction = async (createAccountWithProductsB
 }
 
 export const isAccountReadyAction = async (): Promise<boolean | null> => {
-  const stripeAccountId = useGlobalStore.getState().payment.stripeAccountId
-  if (stripeAccountId === null) {
-    return false
-  }
-  const response = await getAccountQuery(stripeAccountId)
+  const response = await getAccountQuery()
 
   return response?.payouts_enabled ?? null
 }
@@ -57,12 +53,7 @@ export const createAccountSessionAction = async (): Promise<string | null> => {
     }
   }
 
-  const stripeAccountId = useGlobalStore.getState().payment.stripeAccountId
-  if (stripeAccountId === null) {
-    return null
-  }
-
-  const response = await createAccountSessionQuery(stripeAccountId)
+  const response = await createAccountSessionQuery()
 
   if (response === null) {
     return null
@@ -72,11 +63,7 @@ export const createAccountSessionAction = async (): Promise<string | null> => {
 }
 
 export const isCustomerReadyAction = async (): Promise<boolean | null> => {
-  const stripeCustomerId = useGlobalStore.getState().user?.stripeCustomerId
-  if (stripeCustomerId == null) {
-    return null
-  }
-  const response = await getCustomerSubscriptionQuery(stripeCustomerId)
+  const response = await getCustomerSubscriptionsQuery()
   const subscriptionsCount = response?.data.reduce((acc, subscription) => {
     if (subscription.status === 'active') {
       return acc + 1
@@ -87,12 +74,7 @@ export const isCustomerReadyAction = async (): Promise<boolean | null> => {
 }
 
 export const createContributionCheckoutSessionAction = async (): Promise<string | null> => {
-  const stripeCustomerId = useGlobalStore.getState().user?.stripeCustomerId
-  if (stripeCustomerId == null) {
-    return null
-  }
-
-  const response = await createContributionCheckoutSessionQuery(stripeCustomerId)
+  const response = await createContributionCheckoutSessionQuery()
 
   if (response === null) {
     return null
@@ -109,11 +91,7 @@ export const createDonationCheckoutSessionAction = async (isPublic: boolean, ass
     }
     response = await createPublicDonationCheckoutSessionQuery({ associationId })
   } else {
-    const stripeCustomerId = useGlobalStore.getState().user?.stripeCustomerId
-    if (stripeCustomerId == null) {
-      return null
-    }
-    response = await createPrivateDonationCheckoutSessionQuery(stripeCustomerId)
+    response = await createPrivateDonationCheckoutSessionQuery()
   }
 
   if (response === null) {

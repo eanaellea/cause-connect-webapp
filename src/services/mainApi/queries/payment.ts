@@ -2,9 +2,9 @@ import { query } from '../setup'
 import Stripe from 'stripe'
 import { UserResponse } from './users'
 
-export const getAccountQuery = async (accountId: string): Promise<Stripe.Account | null> => {
+export const getAccountQuery = async (): Promise<Stripe.Account | null> => {
   try {
-    const result = await query.get('payment/accounts/' + accountId)
+    const result = await query.get('payment/accounts')
     const json = await result.json<Stripe.Account>()
     return json
   } catch (e) {
@@ -36,9 +36,9 @@ export const createAccountWithProductsQuery = async (
   }
 }
 
-export const createAccountSessionQuery = async (accountId: string): Promise<string | null> => {
+export const createAccountSessionQuery = async (): Promise<string | null> => {
   try {
-    const result = await query.post('payment/accounts/' + accountId + '/session')
+    const result = await query.post('payment/sessions')
     const clientSecret = await result.text()
     return clientSecret
   } catch (e) {
@@ -47,9 +47,9 @@ export const createAccountSessionQuery = async (accountId: string): Promise<stri
   }
 }
 
-export const createContributionCheckoutSessionQuery = async (customerId: string): Promise<string | null> => {
+export const createContributionCheckoutSessionQuery = async (): Promise<string | null> => {
   try {
-    const result = await query.post('payment/customers/' + customerId + '/checkout/contribution')
+    const result = await query.post('payment/checkout/contribution')
     const clientSecret = await result.text()
     return clientSecret
   } catch (e) {
@@ -57,9 +57,9 @@ export const createContributionCheckoutSessionQuery = async (customerId: string)
   }
 }
 
-export const createPrivateDonationCheckoutSessionQuery = async (customerId: string): Promise<string | null> => {
+export const createPrivateDonationCheckoutSessionQuery = async (): Promise<string | null> => {
   try {
-    const result = await query.post('payment/customers/' + customerId + '/checkout/donation')
+    const result = await query.post('payment/checkout/donation')
     const clientSecret = await result.text()
     return clientSecret
   } catch (e) {
@@ -73,7 +73,7 @@ interface CreatePublicDonationCheckoutSessionBody {
 
 export const createPublicDonationCheckoutSessionQuery = async (createPublicDonationCheckoutSessionBody: CreatePublicDonationCheckoutSessionBody): Promise<string | null> => {
   try {
-    const result = await query.post('payment/checkout/donation', {
+    const result = await query.post('payment/checkout/public-donation', {
       json: createPublicDonationCheckoutSessionBody
     })
     const clientSecret = await result.text()
@@ -83,9 +83,9 @@ export const createPublicDonationCheckoutSessionQuery = async (createPublicDonat
   }
 }
 
-export const getCustomerSubscriptionQuery = async (customerId: string): Promise<Stripe.ApiList<Stripe.Subscription> | null> => {
+export const getCustomerSubscriptionsQuery = async (): Promise<Stripe.ApiList<Stripe.Subscription> | null> => {
   try {
-    const result = await query.get('payment/customers/' + customerId + '/subscription')
+    const result = await query.get('payment/subscriptions')
     const json = await result.json<Stripe.ApiList<Stripe.Subscription>>()
     return json
   } catch (e) {
@@ -95,7 +95,7 @@ export const getCustomerSubscriptionQuery = async (customerId: string): Promise<
 
 export const getCheckoutSessionQuery = async (sessionId: string): Promise<Stripe.Checkout.Session | null> => {
   try {
-    const result = await query.get('payment/checkout/session/' + sessionId + '/status')
+    const result = await query.get('payment/checkout/sessions/' + sessionId + '/status')
     const json = await result.json<Stripe.Checkout.Session>()
     return json
   } catch (e) {
