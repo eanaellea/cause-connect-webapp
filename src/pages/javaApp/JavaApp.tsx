@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Button } from 'antd'
 
 import { UploadPlugIn } from '@/designSystem/uploadPlugin/UploadPlugIn'
@@ -7,7 +7,10 @@ import { getInstallerQuery } from '@/services/mainApi/queries/javaApp'
 import toast from 'react-hot-toast'
 
 export const JavaApp: FC = () => {
+  const [sent, setSent] = useState(false)
+
   const downloadFile = async (): Promise<void> => {
+    setSent(true)
     try {
       const response = await getInstallerQuery()
       if (response != null) {
@@ -20,6 +23,7 @@ export const JavaApp: FC = () => {
         link.click()
 
         window.URL.revokeObjectURL(url)
+        setSent(false)
       }
     } catch (error) {
       toast.error('Une erreur est survenue lors du téléchargement du fichier')
@@ -33,7 +37,7 @@ export const JavaApp: FC = () => {
         <img src='/java-app-logo.svg' alt='java app logo' className={styles.logo} />
         <h1>Cause Connector</h1>
         <p>Gérez vos projets internes avec notre application</p>
-        <Button type='primary' onClick={async () => await downloadFile()}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
+        <Button type='primary' loading={sent} onClick={async () => await downloadFile()}> {/* eslint-disable-line @typescript-eslint/no-misused-promises */}
           Télécharger
         </Button>
       </section>

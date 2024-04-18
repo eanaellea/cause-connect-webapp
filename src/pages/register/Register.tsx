@@ -26,11 +26,13 @@ const registerSchema = z.object({
 
 export const Register: FC = () => {
   const [logo, setLogo] = useState<File | null>(null)
+  const [sent, setSent] = useState(false)
 
   const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema)
   })
   const onSubmit: SubmitHandler<z.infer<typeof registerSchema>> = (data) => {
+    setSent(true)
     void registerAction(data, logo)
   }
 
@@ -147,7 +149,7 @@ export const Register: FC = () => {
           </div>
         </div>
 
-        <Button type='primary' htmlType='submit'>
+        <Button type='primary' loading={sent} htmlType='submit'>
           S'inscrire
         </Button>
       </form>
