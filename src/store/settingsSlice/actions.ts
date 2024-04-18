@@ -66,6 +66,11 @@ export const updateThemeAction = async (updateThemeBody: UpdateThemeBody): Promi
 }
 
 export const getPaymentDataAction = async (): Promise<void> => {
+  const token = useGlobalStore.getState().token
+  if (token === null) {
+    return
+  }
+  console.log('poney multicolore')
   const response = await getPaymentDataQuery()
 
   if (response === null) {
