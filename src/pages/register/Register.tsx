@@ -83,7 +83,7 @@ export const Register: FC = () => {
           <div className={styles.formColumn}>
             <div className={styles.formControlsContainer}>
               <div className={styles.formControl}>
-                <label>Prénom de l'administrateur</label>
+                <label className={styles.adminFieldLabel}>Prénom de l'administrateur</label>
                 <Controller
                   name='admin.firstName'
                   control={control}
@@ -97,7 +97,7 @@ export const Register: FC = () => {
                 {((errors.admin?.firstName) != null) && <span>{errors.admin.firstName.message}</span>}
               </div>
               <div className={styles.formControl}>
-                <label>Nom de l'administrateur</label>
+                <label className={styles.adminFieldLabel}>Nom de l'administrateur</label>
                 <Controller
                   name='admin.lastName'
                   control={control}
@@ -111,7 +111,7 @@ export const Register: FC = () => {
                 {((errors.admin?.lastName) != null) && <span>{errors.admin.lastName.message}</span>}
               </div>
               <div className={styles.formControl}>
-                <label>Adresse e-mail de l'administrateur</label>
+                <label className={styles.adminFieldLabel}>Adresse e-mail de l'administrateur</label>
                 <Controller
                   name='admin.email'
                   control={control}

@@ -5,11 +5,11 @@
   @include flex-column;
   gap: 16px;
   justify-content: center;
+  width: 80%;
 
   .formContent {
     @include flex-column;
     align-items: center;
-    width: 100%;
     padding: 16px;
     gap: 16px;
     border: $border;

@@ -12,11 +12,11 @@
   .registerForm{
     @include flex-column;
     gap: 16px;
-    margin: 16px;
 
     .formContent {
       @include flex-row;
-      padding: 16px;
+      justify-content: center;
+      padding: 32px;
       border: $border;
       border-radius: var(--ant-border-radius);
 
@@ -30,6 +30,28 @@
         width: 1px;
         height: auto;
         margin: 0 16px;
+      }
+
+      @media screen and (max-width: 768px) {
+        & {
+          flex-direction: column;
+        }
+      
+        .verticalDivider {
+          display: none;
+        }
+      }
+
+      .formControlsContainer {
+        width: 100%;
+
+        @media screen and (max-width: 768px) {
+          & {
+            padding-top: 8px;
+            margin-top: 16px;
+            border-top: $border;
+          }
+        }
       }
 
       .formColumn, .formControlsContainer {

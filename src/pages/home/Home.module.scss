@@ -26,7 +26,10 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 70%;
+
+    &.gettingStarted {
+      padding: 160px 0;
+    }
 
     &.gettingStarted > button {
       width: fit-content;
@@ -40,6 +43,7 @@
       width: 100%;
       max-width: 95vw;
       gap: 16px;
+      padding-top: 32px;
 
       .feature {
         width: 256px;
