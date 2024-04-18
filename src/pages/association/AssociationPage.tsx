@@ -24,7 +24,7 @@ export const AssociationPage: FC = () => {
   useEffect(() => {
     const getMyInfo = async (): Promise<void> => {
       await getMyInfoAction()
-      setAssociation(useGlobalStore.getState().association)
+      setAssociation(useGlobalStore((state) => state.association))
     }
     void getMyInfo()
     void getAssociationMembersAction()

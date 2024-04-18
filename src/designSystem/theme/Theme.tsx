@@ -24,10 +24,10 @@ interface ThemeColor {
 
 export const Theme: FC = () => {
   const [previewFont, setPreviewFont] = useState<ThemeFont>({
-    '--custom-font': useGlobalStore.getState().theme.font! // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    '--custom-font': useGlobalStore((state) => state.theme.font!) // eslint-disable-line @typescript-eslint/no-non-null-assertion
   })
   const [previewColor, setPreviewColor] = useState<ThemeColor>({
-    '--custom-color': useGlobalStore.getState().theme.color! // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    '--custom-color': useGlobalStore((state) => state.theme.color!) // eslint-disable-line @typescript-eslint/no-non-null-assertion
   })
 
   const { control, handleSubmit, formState: { errors }, setValue } = useForm<z.infer<typeof themeSchema>>({

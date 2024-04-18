@@ -19,7 +19,7 @@ interface PaymentSettingsProps {
 }
 
 export const PaymentSettings: FC<PaymentSettingsProps> = ({ redirectTo }) => {
-  const contributionPrice = useGlobalStore.getState().payment.contributionPrice
+  const contributionPrice = useGlobalStore((state) => state.payment.contributionPrice)
   const { control, handleSubmit, formState: { errors, isValid, isDirty } } = useForm<z.infer<typeof updateContributionPriceSchema>>({
     resolver: zodResolver(updateContributionPriceSchema),
     defaultValues: {

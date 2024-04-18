@@ -20,11 +20,12 @@ export const StripeSetup: FC<StripeSetupProps> = ({ onExit }) => {
   const stripeConnectInstance = StripeConnect(connectedAccountId)
 
   useEffect(() => {
-    const stripeAccountId = useGlobalStore.getState().payment.stripeAccountId
+    const stripeAccountId = useGlobalStore((state) => state.payment.stripeAccountId)
+
     if (stripeAccountId !== null) {
       setConnectedAccountId(stripeAccountId)
     } else {
-      void createAccount(useGlobalStore.getState().user!.email) // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      void createAccount(useGlobalStore((state) => state.user!.email)) // eslint-disable-line @typescript-eslint/no-non-null-assertion
     }
   }, [connectedAccountId])
 

@@ -13,7 +13,7 @@ interface Props {
 
 export const CalendarDateModal: FC<Props> = ({ date, open, onClose }) => {
   const eventIds = useGlobalStore((state) => state.eventIdsByDate[date.format('YYYY-MM-DD')])
-  const events = eventIds?.map((eventId) => useGlobalStore.getState().eventsById[eventId])
+  const events = eventIds?.map((eventId) => useGlobalStore((state) => state.eventsById[eventId]))
 
   return (
     <Modal

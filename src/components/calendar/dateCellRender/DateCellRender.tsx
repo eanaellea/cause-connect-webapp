@@ -12,7 +12,7 @@ interface Props {
 
 export const DateCellRender: FC<Props> = ({ date }) => {
   const eventIds = useGlobalStore((state) => state.eventIdsByDate[date.format('YYYY-MM-DD')])
-  const events = eventIds?.map((eventId) => useGlobalStore.getState().eventsById[eventId])
+  const events = eventIds?.map((eventId) => useGlobalStore((state) => state.eventsById[eventId]))
   if (eventIds === undefined) {
     return <ul />
   }
