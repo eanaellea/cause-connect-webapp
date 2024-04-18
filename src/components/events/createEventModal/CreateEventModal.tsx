@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import dayjs from 'dayjs'
-import { Button, DatePicker, Input, Modal, Select } from 'antd'
+import { Button, Checkbox, DatePicker, Divider, Input, Modal, Select } from 'antd'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -16,18 +16,19 @@ interface Props {
 }
 
 export const CreateEventModal: FC<Props> = ({ open, onClose }) => {
+  const [meeting, setMeeting] = useState<{ agendum: string } | undefined>(undefined)
   const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof CreateEventBodySchema>>({
     resolver: zodResolver(CreateEventBodySchema)
   })
 
   const onSubmit = async (data: z.infer<typeof CreateEventBodySchema>): Promise<void> => {
-    await createEventAction(data)
+    await createEventAction({ data, meeting })
     onClose()
   }
 
   return (
     <Modal
-      title='Create Event'
+      title={`Create ${meeting !== undefined ? 'Event and Meeting' : 'Event'}`}
       open={open}
       onCancel={onClose}
       footer={[
@@ -127,6 +128,25 @@ export const CreateEventModal: FC<Props> = ({ open, onClose }) => {
             )}
           />
           {(errors.summary != null) && <span>{errors.summary.message}</span>}
+        </div>
+        <Divider type='horizontal' />
+        <h2>Meeting</h2>
+        <div className={styles.createMeetingConfirmation}>
+          <label>Create meeting</label>
+          <Checkbox
+            className={styles.checkbox}
+            checked={meeting !== undefined}
+            onChange={(event) => setMeeting(event.target.checked ? { agendum: '' } : undefined)}
+          />
+        </div>
+        <div>
+          <label>Agendum</label>
+          <Input.TextArea
+            disabled={meeting === undefined}
+            value={meeting?.agendum}
+            onChange={(event) => setMeeting({ agendum: event.target.value })}
+            placeholder='Agendum'
+          />
         </div>
       </form>
     </Modal>

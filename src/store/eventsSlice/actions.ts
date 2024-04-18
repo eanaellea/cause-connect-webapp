@@ -1,6 +1,7 @@
 import { createEventQuery, EventResponse, EventVisibility, getAllPublicEventsQuery, updateEventQuery } from '@/services/mainApi/queries/events'
 import { useGlobalStore } from '../store'
 import { z } from 'zod'
+import { createMeetingQuery } from '@/services/mainApi/queries/meetings'
 
 export const CreateEventBodySchema = z.object({
   title: z.string(),
@@ -14,13 +15,25 @@ export const CreateEventBodySchema = z.object({
   path: ['endTime']
 })
 
-export const createEventAction = async (data: z.infer<typeof CreateEventBodySchema>): Promise<void> => {
-  const event = await createEventQuery({
+export const createEventAction = async ({ data, meeting }: { data: z.infer<typeof CreateEventBodySchema>, meeting?: { agendum: string } }): Promise<void> => {
+  const eventData = {
     ...data,
     summary: data.summary ?? ''
-  })
-  if (event === null) {
-    return
+  }
+
+  if (meeting !== undefined) {
+    const meetingResponse = await createMeetingQuery({
+      agendum: meeting.agendum,
+      event: eventData
+    })
+    if (meetingResponse === null) {
+      return
+    }
+  } else {
+    const event = await createEventQuery(eventData)
+    if (event === null) {
+      return
+    }
   }
 
   await refetchEventsAction()

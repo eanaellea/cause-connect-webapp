@@ -35,3 +35,17 @@
     color: var(--ant-red-1);
   }
 }
+
+.createMeetingConfirmation {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  .checkbox {
+    display: flex;
+  }
+
+  label {
+    padding-bottom: 0;
+  }
+}
