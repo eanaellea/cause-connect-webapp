@@ -24,7 +24,7 @@ export const updateAssociationLogoAction = async (associationId: string, associa
   useGlobalStore.setState((state) => ({
     ...state,
     association: {
-      ...state.association!,
+      ...state.association!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
       logo: response
     }
   }))

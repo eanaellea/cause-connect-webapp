@@ -4,7 +4,7 @@ import { Stripe, loadStripe } from '@stripe/stripe-js'
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from '@stripe/react-stripe-js'
 
 import { SearchableSelect } from '@/designSystem/SearchableSelect'
-import { getAssociationStripeAccountIdQuery, getAssociationsQuery } from '@/services/mainApi/queries/associations'
+import { getAssociationStripeAccountIdQuery, getReadyAssociationsQuery } from '@/services/mainApi/queries/associations'
 import { Association } from '@/store/types'
 import { createDonationCheckoutSessionAction } from '@/store/paymentSlice/actions'
 import styles from './PublicDonation.module.scss'
@@ -17,7 +17,7 @@ export const PublicDonation: FC = () => {
   const [stripePromise, setStripePromise] = useState<Promise<Stripe | null> | null>(null)
 
   const getAssociations = async (): Promise<void> => {
-    const associations = await getAssociationsQuery()
+    const associations = await getReadyAssociationsQuery()
     setAssociations(associations)
   }
 
@@ -59,6 +59,7 @@ export const PublicDonation: FC = () => {
               onChange={(associationId) => {
                 setSelectedAssociationId(associationId)
               }}
+              loading={associations === null}
             />
             <Button type='primary' onClick={handleConfirmation}>
               Valider

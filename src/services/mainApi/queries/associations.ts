@@ -16,6 +16,15 @@ export const getAssociationsQuery = async (): Promise<AssociationResponse[] | nu
     return null
   }
 }
+export const getReadyAssociationsQuery = async (): Promise<AssociationResponse[] | null> => {
+  try {
+    const result = await query.get('associations?ready=true')
+    const json = await result.json<AssociationResponse[]>()
+    return json
+  } catch (e) {
+    return null
+  }
+}
 
 export interface UpdateAssociationBody {
   name: string
