@@ -14,7 +14,7 @@ export const Welcome: FC = () => {
       <RequestResult
         status='success'
         title='Bienvenue !'
-        subTitle={`Vous êtes désormais inscrit•e sur Cause Connect. Un email de confirmation vous a été envoyé à ${email ?? ''} .`}
+        subTitle={`Vous êtes désormais inscrit•e sur Cause Connect. Un email de confirmation vous a été envoyé à ${email ?? 'votre email'} .`}
         extra={[
           <Button key='first-login' type='primary'>
             <Link to='/first-login'>Se connecter</Link>

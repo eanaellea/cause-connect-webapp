@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom'
 import { router } from '@/router'
 import { EditVoteModal } from '@/components/votes/editVoteModal/EditVoteModal'
 import { ViewVoteModal } from '@/components/votes/viewVoteModal/ViewVoteModal'
+import { UserRole } from '@/services/mainApi/queries/auth'
 
 const REFETCH_VOTES_INTERVAL = 10000
 const REFETCH_BALLOT_RESULTS_INTERVAL = 5000
@@ -19,6 +20,8 @@ export const Votes: FC = () => {
   const [searchValue, setSearchValue] = useState('')
   const currentVote = useGlobalStore((state) => state.currentDisplayedVote)
   const votes = useGlobalStore((state) => state.publicVotes).filter((vote) => vote.title.includes(searchValue))
+  const userRole = useGlobalStore((state) => state.user?.role)
+  if (!userRole) return null
 
   // modal states
   const [isCreateVoteModalOpen, setIsCreateVoteModalOpen] = useState(false)
@@ -62,7 +65,9 @@ export const Votes: FC = () => {
     <div>
       <h1>Votes</h1>
       <div className={styles.votesHeader}>
-        <Button type='primary' icon={<FileAddOutlined />} onClick={() => setIsCreateVoteModalOpen(true)}>Ajouter un vote</Button>
+        {userRole === UserRole.ADMIN && (
+          <Button type='primary' icon={<FileAddOutlined />} onClick={() => setIsCreateVoteModalOpen(true)}>Ajouter un vote</Button>
+        )}
         <Input.Search value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder='Rechercher un vote' />
       </div>
       <div className={styles.votesList}>

@@ -1,4 +1,4 @@
-import { Card } from 'antd'
+import { Button, Card } from 'antd'
 import { FC } from 'react'
 import styles from './SurveyCard.module.scss'
 import { EditOutlined, EyeOutlined } from '@ant-design/icons'
@@ -28,12 +28,8 @@ export const SurveyCard: FC<Props> = ({ survey, setIsEditModalOpen, setIsViewMod
   }
 
   const actions = [
-    userRole === UserRole.ADMIN
-      ? <EditOutlined key='edit' onClick={() => { void handleEditClick() }} />
-      : undefined,
-    userRole === UserRole.ADMIN
-      ? <EyeOutlined key='delete' onClick={() => { void handleViewClick() }} />
-      : undefined
+    <Button type='text' key='edit' disabled={userRole === UserRole.ADMIN} icon={<EditOutlined />} onClick={() => { void handleEditClick() }} />,
+    <Button type='text' key='delete' disabled={userRole === UserRole.ADMIN} icon={<EyeOutlined />} onClick={() => { void handleViewClick() }} />
   ]
 
   return (

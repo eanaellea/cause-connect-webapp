@@ -1,5 +1,5 @@
 import { Vote } from '@/services/mainApi/queries/votes'
-import { Card } from 'antd'
+import { Button, Card } from 'antd'
 import { FC } from 'react'
 import styles from './VoteCard.module.scss'
 import { EditOutlined, EyeOutlined } from '@ant-design/icons'
@@ -28,12 +28,8 @@ export const VoteCard: FC<Props> = ({ vote, setIsEditModalOpen, setIsViewModalOp
   }
 
   const actions = [
-    userRole === UserRole.ADMIN
-      ? <EditOutlined key='edit' onClick={() => { void handleEditClick() }} />
-      : undefined,
-    userRole === UserRole.ADMIN
-      ? <EyeOutlined key='delete' onClick={() => { void handleViewClick() }} />
-      : undefined
+    <Button type='text' icon={<EditOutlined />} disabled={userRole !== UserRole.ADMIN} key='edit' onClick={() => { void handleEditClick() }} />,
+    <Button type='text' icon={<EyeOutlined />} disabled={userRole !== UserRole.ADMIN} key='delete' onClick={() => { void handleViewClick() }} />
   ]
 
   return (

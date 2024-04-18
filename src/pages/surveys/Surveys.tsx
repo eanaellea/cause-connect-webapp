@@ -54,7 +54,7 @@ export const Surveys: FC = () => {
 
   return (
     <div>
-      <h1>Surveys</h1>
+      <h1>Sondages</h1>
       <div className={styles.surveysHeader}>
         <Button type='primary' icon={<FileAddOutlined />} onClick={() => setIsCreateSurveyModalOpen(true)}>Ajouter un sondage</Button>
         <Input.Search value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder='Rechercher un sondage' />

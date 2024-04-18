@@ -7,8 +7,9 @@ import { useGlobalStore } from '@/store/store'
 import { getMyDocumentsAction } from '@/store/documentsSlice/actions'
 import { CreateDocumentModal } from '@/components/documents/createDocumentModal/CreateDocumentModal'
 
+const REFETCH_DOCUMENTS_INTERVAL = 10000
+
 export const Documents: FC = () => {
-  const REFETCH_DOCUMENTS_INTERVAL = 10000
   const [searchValue, setSearchValue] = useState('')
   const documents = useGlobalStore((state) => state.documents).filter((document) => document.title.includes(searchValue))
   const [isCreateDocumentModalOpen, setIsCreateDocumentModalOpen] = useState(false)

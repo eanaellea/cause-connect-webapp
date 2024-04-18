@@ -22,7 +22,6 @@ export const PrivateDonation: FC = () => {
       return String((await getPaymentDataQuery())?.stripeAccountId)
     }
 
-    console.log('poney arc en ciel')
     fetchPaymentData()
       .then(stripeAccountId =>
         setStripePromise(loadStripe(import.meta.env.VITE_REACT_APP_STRIPE_PUBLISHABLE_KEY, {

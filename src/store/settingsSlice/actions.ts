@@ -70,7 +70,6 @@ export const getPaymentDataAction = async (): Promise<void> => {
   if (token === null) {
     return
   }
-  console.log('poney multicolore')
   const response = await getPaymentDataQuery()
 
   if (response === null) {
