@@ -93,6 +93,10 @@ export const EditEventModal: FC<Props> = ({ eventId, open, onClose }) => {
                 <DatePicker
                   {...field}
                   value={dayjs(field.value)}
+                  format='DD/MM/YYYY HH:mm'
+                  showTime
+                  showHour
+                  showMinute
                   placeholder='Start Time'
                   onChange={(date) => { field.onChange(date?.toDate()) }}
                 />
@@ -111,6 +115,10 @@ export const EditEventModal: FC<Props> = ({ eventId, open, onClose }) => {
                 <DatePicker
                   {...field}
                   value={dayjs(field.value)}
+                  format='DD/MM/YYYY HH:mm'
+                  showTime
+                  showHour
+                  showMinute
                   placeholder='End Time'
                   onChange={(date) => { field.onChange(date?.toDate()) }}
                 />
