@@ -38,7 +38,7 @@ export const Calendar: FC = () => {
   }
 
   // if no entries
-  if (eventIdsByDate === undefined || Object.keys(eventIdsByDate).length === 0) {
+  if (eventIdsByDate === undefined) {
     return null
   }
 
