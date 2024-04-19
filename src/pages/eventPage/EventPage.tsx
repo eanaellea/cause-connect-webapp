@@ -99,7 +99,6 @@ export const EventPage: FC = () => {
       await removeVoteFromMeetingQuery(meeting.id, voteId)
     }
     const newVotes = await getVotesForMeetingQuery(meeting.id)
-    console.log('new votes', newVotes)
     if (newVotes === null) return
     setVotes(newVotes)
   }

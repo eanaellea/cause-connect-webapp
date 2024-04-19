@@ -1,7 +1,7 @@
 import { Vote, VoteAcceptanceCriteria, VoteStatus, VoteVisibility } from '@/services/mainApi/queries/votes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Alert, Button, Checkbox, Divider, Input, Modal, Select } from 'antd'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Controller, FieldError, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import styles from './EditVoteModal.module.scss'
@@ -22,7 +22,7 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
 
   const [isCreatingNewBallot, setIsCreatingNewBallot] = useState(false)
 
-  const { control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof CreateVoteBodySchema>>({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof CreateVoteBodySchema>>({
     defaultValues: currentDisplayedVote ?? {},
     resolver: zodResolver(CreateVoteBodySchema)
   })
@@ -30,6 +30,10 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
     control,
     name: 'question.options'
   })
+
+  useEffect(() => {
+    reset(currentDisplayedVote ?? {})
+  }, [currentDisplayedVote])
 
   const notEditableStatuses = [VoteStatus.OPEN, VoteStatus.DONE]
 
@@ -72,10 +76,10 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
           <Controller
             name='title'
             control={control}
-            disabled={isNotEditable}
             render={({ field }) => (
               <Input
                 {...field}
+                disabled={isNotEditable}
                 type='text'
                 placeholder='Titre'
               />
@@ -88,9 +92,8 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
           <Controller
             name='description'
             control={control}
-            disabled={isNotEditable}
             render={({ field }) => (
-              <Input.TextArea {...field} placeholder='Description' />
+              <Input.TextArea {...field} placeholder='Description' disabled={isNotEditable} />
             )}
           />
           {(errors.description != null) && <span>{errors.description.message}</span>}
@@ -102,9 +105,8 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
             <Controller
               name='visibility'
               control={control}
-              disabled={isNotEditable}
               render={({ field }) => (
-                <Select {...field} defaultValue='' className={styles.selectInput}>
+                <Select {...field} defaultValue='' disabled={isNotEditable} className={styles.selectInput}>
                   <Select.Option value=''>Choisir une visibilité</Select.Option>
                   <Select.Option value={VoteVisibility.PUBLIC}>Public</Select.Option>
                   <Select.Option value={VoteVisibility.PRIVATE}>Privé</Select.Option>
@@ -120,11 +122,11 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
           <Controller
             name='minPercentAnswers'
             control={control}
-            disabled={isNotEditable}
             render={({ field }) => (
               <Input
                 {...field}
                 type='number'
+                disabled={isNotEditable}
                 placeholder='Pourcentage minimum de réponses'
                 onChange={(event) => field.onChange(+event.target.value)}
               />
@@ -139,9 +141,8 @@ export const EditVoteModal: FC<Props> = ({ vote, open, onClose }) => {
             <Controller
               name='acceptanceCriteria'
               control={control}
-              disabled={isNotEditable}
               render={({ field }) => (
-                <Select {...field} defaultValue='' className={styles.selectInput}>
+                <Select {...field} defaultValue='' className={styles.selectInput} disabled={isNotEditable}>
                   <Select.Option value=''>Choisir un critère</Select.Option>
                   <Select.Option value={VoteAcceptanceCriteria.MAJORITY}>Majorité</Select.Option>
                   <Select.Option value={VoteAcceptanceCriteria.TWO_THIRDS}>Deux tiers</Select.Option>

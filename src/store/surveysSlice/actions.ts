@@ -45,7 +45,6 @@ export const replaceCurrentSurveyAction = async (body: CreateSurveyBody): Promis
     return
   }
   const replacedSurveyResponse = await replaceSurvey(currentSurveyId, body)
-  console.log('hippo', replacedSurveyResponse)
   if (replacedSurveyResponse != null) {
     useGlobalStore.setState((state) => ({
       surveys: state.surveys.map(survey =>

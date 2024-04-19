@@ -28,8 +28,8 @@ export const SurveyCard: FC<Props> = ({ survey, setIsEditModalOpen, setIsViewMod
   }
 
   const actions = [
-    <Button type='text' key='edit' disabled={userRole === UserRole.ADMIN} icon={<EditOutlined />} onClick={() => { void handleEditClick() }} />,
-    <Button type='text' key='delete' disabled={userRole === UserRole.ADMIN} icon={<EyeOutlined />} onClick={() => { void handleViewClick() }} />
+    <Button type='text' key='edit' disabled={userRole !== UserRole.ADMIN} icon={<EditOutlined />} onClick={() => { void handleEditClick() }} />,
+    <Button type='text' key='delete' disabled={userRole !== UserRole.ADMIN} icon={<EyeOutlined />} onClick={() => { void handleViewClick() }} />
   ]
 
   return (
