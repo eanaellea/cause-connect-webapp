@@ -140,7 +140,7 @@ export const EventPage: FC = () => {
                 : <Tag color='red'>quorum non atteint, minimum {Math.ceil(nbUsersInAssociation * 0.5)} participants requis</Tag>
             }
           </h1>
-          <p>{meeting.agendum}</p>
+          <pre>{meeting.agendum}</pre>
           <div className={styles.title}>
             <h2>Votes</h2>
             <Button type='primary' onClick={() => setIsVoteSelectionModalOpen(true)} icon={<EditOutlined />} />
