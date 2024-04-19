@@ -36,8 +36,6 @@ export const inviteUserQuery = async (inviteUserBody: InviteUserBody): Promise<U
     })
     const user = await creationResponse.json<UserResponse>()
 
-    await query.post('users/' + user.id + '/send-password-email')
-
     return user
   } catch (e) {
     return null
